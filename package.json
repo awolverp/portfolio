@@ -15,14 +15,18 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@ark-ui/react": "^5.39.0",
     "@fontsource-variable/cascadia-mono": "^5.3.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
+    "class-variance-authority": "^0.7.1",
+    "motion": "^13.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

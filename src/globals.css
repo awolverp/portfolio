@@ -3,81 +3,144 @@
 @import "tailwindcss";
 
 @utility container {
-    margin-inline: auto;
-    padding-inline: 0.25rem;
+	margin-inline: auto;
+	padding-inline: 0.25rem;
 
-    @media (width >= 40rem) {
-        /* sm */
-        padding-inline: 0.5rem;
-    }
+	@media (width >= 40rem) {
+		/* sm */
+		padding-inline: 0.5rem;
+	}
 }
 
-:root {
-    color-scheme: dark;
+:root,
+[data-theme="full-stack"] {
+	color-scheme: dark;
+
+	--primary-50: var(--color-blue-50);
+	--primary-100: var(--color-blue-100);
+	--primary-200: var(--color-blue-200);
+	--primary-300: var(--color-blue-300);
+	--primary-400: var(--color-blue-400);
+	--primary-500: var(--color-blue-500);
+	--primary-600: var(--color-blue-600);
+	--primary-700: var(--color-blue-700);
+	--primary-800: var(--color-blue-800);
+	--primary-900: var(--color-blue-900);
+	--primary-950: var(--color-blue-950);
+
+	--secondary-50: var(--color-orange-50);
+	--secondary-100: var(--color-orange-100);
+	--secondary-200: var(--color-orange-200);
+	--secondary-300: var(--color-orange-300);
+	--secondary-400: var(--color-orange-400);
+	--secondary-500: var(--color-orange-500);
+	--secondary-600: var(--color-orange-600);
+	--secondary-700: var(--color-orange-700);
+	--secondary-800: var(--color-orange-800);
+	--secondary-900: var(--color-orange-900);
+	--secondary-950: var(--color-orange-950);
+
+	--accent-50: var(--primary-50);
+	--accent-100: var(--primary-100);
+	--accent-200: var(--primary-200);
+	--accent-300: var(--primary-300);
+	--accent-400: var(--primary-400);
+	--accent-500: var(--primary-500);
+	--accent-600: var(--primary-600);
+	--accent-700: var(--primary-700);
+	--accent-800: var(--primary-800);
+	--accent-900: var(--primary-900);
+	--accent-950: var(--primary-950);
+}
+
+[data-theme="rust"] {
+	--accent-50: var(--secondary-50);
+	--accent-100: var(--secondary-100);
+	--accent-200: var(--secondary-200);
+	--accent-300: var(--secondary-300);
+	--accent-400: var(--secondary-400);
+	--accent-500: var(--secondary-500);
+	--accent-600: var(--secondary-600);
+	--accent-700: var(--secondary-700);
+	--accent-800: var(--secondary-800);
+	--accent-900: var(--secondary-900);
+	--accent-950: var(--secondary-950);
 }
 
 @theme inline {
-    --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "Cascadia Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+	--font-mono:
+		"Cascadia Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
+		Consolas, "Liberation Mono", "Courier New", monospace;
 
-    /* background & foreground colors */
-    --color-background: var(--color-neutral-950);
-    --color-foreground: var(--color-white);
+	/* background & foreground colors */
+	--color-background: var(--color-neutral-950);
+	--color-foreground: var(--color-white);
 
-    /* muted background & foreground colors */
-    --color-muted: color-mix(in oklch, var(--color-background), var(--color-foreground) 8%);
-    --color-muted-foreground: color-mix(in oklch, var(--color-foreground), transparent 35%);
+	/* muted background & foreground colors */
+	--color-muted: color-mix(
+		in oklch,
+		var(--color-background),
+		var(--color-foreground) 8%
+	);
+	--color-muted-foreground: color-mix(
+		in oklch,
+		var(--color-foreground),
+		transparent 35%
+	);
 
-    /* surface colors */
-    --color-surface: var(--color-neutral-900);
-    --color-surface-foreground: var(--color-white);
+	/* surface colors */
+	--color-surface: var(--color-neutral-900);
+	--color-surface-foreground: var(--color-white);
 
-    /* border colors */
-    --color-border: var(--color-neutral-800);
+	/* border colors */
+	--color-border: var(--color-neutral-800);
 
-    /*
-    ACCENT COLORS
-    Actually, we have 2 accent colors. first one is `primary` and second one is `secondary`.
+	--color-primary-50: var(--primary-50);
+	--color-primary-100: var(--primary-100);
+	--color-primary-200: var(--primary-200);
+	--color-primary-300: var(--primary-300);
+	--color-primary-400: var(--primary-400);
+	--color-primary-500: var(--primary-500);
+	--color-primary-600: var(--primary-600);
+	--color-primary-700: var(--primary-700);
+	--color-primary-800: var(--primary-800);
+	--color-primary-900: var(--primary-900);
+	--color-primary-950: var(--primary-950);
 
-    Colors are specified in index page. When user selected `Rust Developer` journey, his/her accent colors
-    change to `secondary`, and when selected `Full-stack` journey, accent colors change to `primary`.
-    */
+	--color-secondary-50: var(--secondary-50);
+	--color-secondary-100: var(--secondary-100);
+	--color-secondary-200: var(--secondary-200);
+	--color-secondary-300: var(--secondary-300);
+	--color-secondary-400: var(--secondary-400);
+	--color-secondary-500: var(--secondary-500);
+	--color-secondary-600: var(--secondary-600);
+	--color-secondary-700: var(--secondary-700);
+	--color-secondary-800: var(--secondary-800);
+	--color-secondary-900: var(--secondary-900);
+	--color-secondary-950: var(--secondary-950);
 
-    --color-primary-50: var(--color-blue-50);
-    --color-primary-100: var(--color-blue-100);
-    --color-primary-200: var(--color-blue-200);
-    --color-primary-300: var(--color-blue-300);
-    --color-primary-400: var(--color-blue-400);
-    --color-primary-500: var(--color-blue-500);
-    --color-primary-600: var(--color-blue-600);
-    --color-primary-700: var(--color-blue-700);
-    --color-primary-800: var(--color-blue-800);
-    --color-primary-900: var(--color-blue-900);
-    --color-primary-950: var(--color-blue-950);
-    --color-primary: var(--color-primary-500);
+	--color-accent-50: var(--accent-50);
+	--color-accent-100: var(--accent-100);
+	--color-accent-200: var(--accent-200);
+	--color-accent-300: var(--accent-300);
+	--color-accent-400: var(--accent-400);
+	--color-accent-500: var(--accent-500);
+	--color-accent-600: var(--accent-600);
+	--color-accent-700: var(--accent-700);
+	--color-accent-800: var(--accent-800);
+	--color-accent-900: var(--accent-900);
+	--color-accent-950: var(--accent-950);
 
-    --color-secondary-50: var(--color-orange-50);
-    --color-secondary-100: var(--color-orange-100);
-    --color-secondary-200: var(--color-orange-200);
-    --color-secondary-300: var(--color-orange-300);
-    --color-secondary-400: var(--color-orange-400);
-    --color-secondary-500: var(--color-orange-500);
-    --color-secondary-600: var(--color-orange-600);
-    --color-secondary-700: var(--color-orange-700);
-    --color-secondary-800: var(--color-orange-800);
-    --color-secondary-900: var(--color-orange-900);
-    --color-secondary-950: var(--color-orange-950);
-    --color-secondary: var(--color-secondary-500);
-
-    --opacity-disabled: 60%;
+	--opacity-disabled: 60%;
 }
 
 @layer base {
-    html {
-        color-scheme: dark;
-    }
+	html {
+		color-scheme: dark;
+	}
 
-    body {
-        @apply min-h-dvh bg-background font-sans text-foreground antialiased;
-    }
+	body {
+		@apply min-h-dvh bg-background font-sans text-foreground antialiased;
+	}
 }
