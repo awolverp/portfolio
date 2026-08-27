@@ -17,19 +17,19 @@ function Root({
 	return (
 		<section
 			className={defineClassName(
-				"relative flex flex-col justify-center items-center gap-8 min-h-screen overflow-hidden",
+				"relative flex flex-col justify-center items-center gap-8 h-screen overflow-hidden",
 				className,
 			)}
 			{...props}
 		>
 			{linearOverlay && (
-				<div className="absolute inset-0 bg-linear-to-b from-transparent to-background z-0 opacity-25" />
+				<div className="absolute inset-0 bg-linear-to-b from-transparent to-background z-0 opacity-25 select-none" />
 			)}
 			{radialOverlay && (
-				<div className="absolute inset-0 bg-radial from-transparent to-background z-0 opacity-25" />
+				<div className="absolute inset-0 bg-radial from-background to-transparent z-0 opacity-25 select-none" />
 			)}
 			{bottomEdge && (
-				<div className="absolute inset-0 bg-linear-to-b from-transparent from-85% to-background z-0" />
+				<div className="absolute inset-0 bg-linear-to-b from-transparent from-85% to-background z-0 select-none" />
 			)}
 			{children}
 		</section>
@@ -48,7 +48,10 @@ function FullWidthPart({ className, ...props }: React.ComponentProps<"div">) {
 function Part({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={defineClassName("h-fit text-center space-y-4 z-10", className)}
+			className={defineClassName(
+				"flex flex-col justify-center items-center h-fit text-center gap-4 z-10",
+				className,
+			)}
 			{...props}
 		/>
 	);
@@ -80,10 +83,6 @@ function Description({ className, ...props }: React.ComponentProps<"p">) {
 		<p className={defineClassName("text-lg max-w-xl", className)} {...props} />
 	);
 }
-
-// function RadialOverlay({ className, ...props }: React.ComponentProps<"div">) {
-// 	return <div className={defineClassName("", className)} {...props} />;
-// }
 
 export const Stage = {
 	Root,
