@@ -1,21 +1,45 @@
 import { defineClassName } from "#/lib/styles";
 
-function Root({ className, ...props }: React.ComponentProps<"section">) {
+type RootProps = React.ComponentProps<"section"> & {
+	linearOverlay?: boolean;
+	radialOverlay?: boolean;
+	bottomEdge?: boolean;
+};
+
+function Root({
+	className,
+	children,
+	linearOverlay = false,
+	radialOverlay = false,
+	bottomEdge = false,
+	...props
+}: RootProps) {
 	return (
 		<section
 			className={defineClassName(
-				"relative flex flex-col justify-center items-center gap-0 min-h-screen overflow-hidden",
+				"relative flex flex-col justify-center items-center gap-8 min-h-screen overflow-hidden",
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{linearOverlay && (
+				<div className="absolute inset-0 bg-linear-to-b from-transparent to-background z-0 opacity-25" />
+			)}
+			{radialOverlay && (
+				<div className="absolute inset-0 bg-radial from-transparent to-background z-0 opacity-25" />
+			)}
+			{bottomEdge && (
+				<div className="absolute inset-0 bg-linear-to-b from-transparent from-85% to-background z-0" />
+			)}
+			{children}
+		</section>
 	);
 }
 
 function FullWidthPart({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={defineClassName("flex-1 text-center", className)}
+			className={defineClassName("flex-1 text-center -z-10", className)}
 			{...props}
 		/>
 	);
@@ -24,7 +48,7 @@ function FullWidthPart({ className, ...props }: React.ComponentProps<"div">) {
 function Part({ className, ...props }: React.ComponentProps<"div">) {
 	return (
 		<div
-			className={defineClassName("h-fit text-center space-y-4", className)}
+			className={defineClassName("h-fit text-center space-y-4 z-10", className)}
 			{...props}
 		/>
 	);

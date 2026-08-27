@@ -134,11 +134,60 @@
 
 	--opacity-disabled: 60%;
 
-	--default-transition-duration: 600ms;
+	--default-transition-duration: 500ms;
 }
 
 @layer base {
 	html {
 		color-scheme: dark;
+	}
+}
+
+@keyframes marqueeX {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(var(--marquee-translate));
+	}
+}
+
+@keyframes marqueeY {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(var(--marquee-translate));
+	}
+}
+
+[data-scope="marquee"][data-part="content"] {
+	animation-timing-function: linear;
+	animation-duration: var(--marquee-duration);
+	animation-delay: var(--marquee-delay);
+	animation-iteration-count: var(--marquee-loop-count);
+}
+
+[data-scope="marquee"][data-part="content"][data-side="start"],
+[data-scope="marquee"][data-part="content"][data-side="end"] {
+	animation-name: marqueeX;
+}
+
+[data-scope="marquee"][data-part="content"][data-side="top"],
+[data-scope="marquee"][data-part="content"][data-side="bottom"] {
+	animation-name: marqueeY;
+}
+
+[data-scope="marquee"][data-part="content"][data-reverse] {
+	animation-direction: reverse;
+}
+
+[data-scope="marquee"][data-state="paused"] [data-part="content"] {
+	animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-scope="marquee"][data-part="content"] {
+		animation: none !important;
 	}
 }
