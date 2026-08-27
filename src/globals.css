@@ -133,14 +133,12 @@
 	--color-accent-950: var(--accent-950);
 
 	--opacity-disabled: 60%;
+
+	--default-transition-duration: 600ms;
 }
 
 @layer base {
 	html {
 		color-scheme: dark;
-	}
-
-	body {
-		@apply min-h-dvh bg-background font-sans text-foreground antialiased;
 	}
 }

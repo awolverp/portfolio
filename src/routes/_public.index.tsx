@@ -1,7 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_public/")({ component: HomeComponent });
+import { IntroduceStage } from "#/components/home/full-stack/introduce-stage";
+import { Hero } from "#/components/home/hero";
+
+export const Route = createFileRoute("/_public/")({
+	component: HomeComponent,
+});
 
 function HomeComponent() {
-	return <p className="text-accent-400">Home</p>;
+	return (
+		<>
+			<Hero />
+			<IntroduceStage />
+		</>
+	);
 }
