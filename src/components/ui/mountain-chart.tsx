@@ -147,32 +147,98 @@ function slice(pts: Point[], cum: Float64Array, from: number, to: number) {
 	return out;
 }
 
-function alpha(color: string, value: number) {
-	const n = color.match(/[\d.]+/g);
-	if (!n || n.length < 3) return color;
-	return `rgba(${n[0]}, ${n[1]}, ${n[2]}, ${value})`;
+type CssVar = `--${string}`;
+
+type ChartColors = {
+	stroke: CssVar;
+	fillTop: CssVar;
+	fillMid: CssVar;
+	light: CssVar;
+	glow: CssVar;
+};
+
+type Rgb = readonly [number, number, number];
+
+type Palette = {
+	stroke: Rgb;
+	fillTop: Rgb;
+	fillMid: Rgb;
+	light: Rgb;
+	glow: Rgb;
+};
+
+const defaultColors = {
+	stroke: "--accent-400",
+	fillTop: "--accent-600",
+	fillMid: "--accent-800",
+	light: "--accent-200",
+	glow: "--accent-300",
+} as const satisfies ChartColors;
+
+function parseRgb(value: string): Rgb | null {
+	if (value.startsWith("#")) {
+		const hex =
+			value.length === 4
+				? `#${value[1]}${value[1]}${value[2]}${value[2]}${value[3]}${value[3]}`
+				: value;
+		if (hex.length !== 7) return null;
+		return [
+			Number.parseInt(hex.slice(1, 3), 16),
+			Number.parseInt(hex.slice(3, 5), 16),
+			Number.parseInt(hex.slice(5, 7), 16),
+		];
+	}
+
+	const match = value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+	if (!match) return null;
+	return [Number(match[1]), Number(match[2]), Number(match[3])];
 }
 
-function readPalette() {
-	const probe = document.createElement("span");
-	probe.style.cssText = "position:fixed;pointer-events:none;opacity:0";
-	document.documentElement.append(probe);
+function rgba(rgb: Rgb, value: number) {
+	return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${value})`;
+}
 
-	const color = (name: string, fallback: string) => {
-		probe.style.color = `var(${name})`;
-		return getComputedStyle(probe).color || fallback;
-	};
+function readVar(
+	el: HTMLElement,
+	probe: CanvasRenderingContext2D,
+	name: CssVar,
+) {
+	const value = getComputedStyle(el).getPropertyValue(name).trim();
+	if (!value) return null;
 
-	const palette = {
-		stroke: color("--color-accent-400", "rgb(74, 126, 196)"),
-		fillTop: color("--color-accent-600", "rgb(30, 70, 150)"),
-		fillMid: color("--color-accent-800", "rgb(10, 22, 50)"),
-		light: color("--color-accent-200", "rgb(190, 220, 255)"),
-		glow: color("--color-accent-300", "rgb(140, 200, 255)"),
-	};
+	const prevColor = el.style.color;
+	el.style.color = value;
+	const computed = getComputedStyle(el).color;
+	el.style.color = prevColor;
 
-	probe.remove();
-	return palette;
+	probe.fillStyle = computed;
+	const fromFill = parseRgb(String(probe.fillStyle));
+	if (fromFill) return fromFill;
+
+	const fromComputed = parseRgb(computed);
+	if (fromComputed) return fromComputed;
+
+	probe.clearRect(0, 0, 1, 1);
+	probe.fillRect(0, 0, 1, 1);
+	const [r, g, b, a] = probe.getImageData(0, 0, 1, 1).data;
+	return a === 0 ? null : ([r, g, b] as const);
+}
+
+function readPalette(el: HTMLElement, names: ChartColors): Palette | null {
+	const canvas = document.createElement("canvas");
+	canvas.width = 1;
+	canvas.height = 1;
+	const probe = canvas.getContext("2d");
+	if (!probe) return null;
+
+	const stroke = readVar(el, probe, names.stroke);
+	const fillTop = readVar(el, probe, names.fillTop);
+	const fillMid = readVar(el, probe, names.fillMid);
+	const light = readVar(el, probe, names.light);
+	const glow = readVar(el, probe, names.glow);
+	if (!stroke || !fillTop || !fillMid || !light || !glow) return null;
+
+	return { stroke, fillTop, fillMid, light, glow };
 }
 
 function trace(ctx: CanvasRenderingContext2D, pts: Point[]) {
@@ -183,17 +249,23 @@ function trace(ctx: CanvasRenderingContext2D, pts: Point[]) {
 
 type MountainChartProps = {
 	className?: string;
+	colors?: ChartColors;
 };
 
-export function MountainChart({ className }: MountainChartProps) {
+export function MountainChart({
+	className,
+	colors = defaultColors,
+}: MountainChartProps) {
 	const wrapRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const { stroke, fillTop, fillMid, light, glow } = colors;
 
 	useEffect(() => {
 		const wrap = wrapRef.current;
 		const canvas = canvasRef.current;
 		const ctx = canvas?.getContext("2d");
 		if (!wrap || !canvas || !ctx) return;
+		const colorVars = { stroke, fillTop, fillMid, light, glow };
 
 		const reduced = window.matchMedia(
 			"(prefers-reduced-motion: reduce)",
@@ -203,7 +275,7 @@ export function MountainChart({ className }: MountainChartProps) {
 		let startedAt: number | null = null;
 		let mapped: Point[] = [];
 		let cum = new Float64Array(0);
-		let colors = readPalette();
+		const colors = readPalette(wrap, colorVars);
 		let lastW = 0;
 		let lastH = 0;
 		let lastDpr = 0;
@@ -238,7 +310,7 @@ export function MountainChart({ className }: MountainChartProps) {
 			const w = lastW;
 			const h = lastH;
 			ctx.clearRect(0, 0, w, h);
-			if (mapped.length < 2 || startedAt == null) return;
+			if (mapped.length < 2 || startedAt == null || !colors) return;
 
 			const pathLen = Math.max(1, cum[cum.length - 1]);
 			const elapsed = now - startedAt;
@@ -253,18 +325,18 @@ export function MountainChart({ className }: MountainChartProps) {
 			ctx.closePath();
 
 			const fill = ctx.createLinearGradient(0, 0, 0, h);
-			fill.addColorStop(0.35, alpha(colors.fillTop, 0.42 * drawT));
-			fill.addColorStop(0.72, alpha(colors.fillMid, 0.26 * drawT));
+			fill.addColorStop(0.35, rgba(colors.fillTop, 0.42 * drawT));
+			fill.addColorStop(0.72, rgba(colors.fillMid, 0.26 * drawT));
 			fill.addColorStop(1, "rgba(0,0,0,0)");
 			ctx.fillStyle = fill;
 			ctx.fill();
 
 			trace(ctx, ridge);
-			ctx.strokeStyle = colors.stroke;
+			ctx.strokeStyle = rgba(colors.stroke, 1);
 			ctx.lineWidth = Math.max(2.5, w / 420);
 			ctx.lineJoin = "round";
 			ctx.lineCap = "round";
-			ctx.shadowColor = alpha(colors.glow, 0.35);
+			ctx.shadowColor = rgba(colors.glow, 0.35);
 			ctx.shadowBlur = 10;
 			ctx.stroke();
 			ctx.shadowBlur = 0;
@@ -283,9 +355,9 @@ export function MountainChart({ className }: MountainChartProps) {
 
 			if (trail.length >= 2) {
 				trace(ctx, trail);
-				ctx.strokeStyle = alpha(colors.light, 0.95);
+				ctx.strokeStyle = rgba(colors.light, 0.95);
 				ctx.lineWidth = Math.max(3.2, w / 340);
-				ctx.shadowColor = alpha(colors.glow, 0.9);
+				ctx.shadowColor = rgba(colors.glow, 0.9);
 				ctx.shadowBlur = 18;
 				ctx.stroke();
 				ctx.shadowBlur = 0;
@@ -301,8 +373,8 @@ export function MountainChart({ className }: MountainChartProps) {
 				r,
 			);
 			glow.addColorStop(0, "rgba(255,255,255,0.95)");
-			glow.addColorStop(0.25, alpha(colors.light, 0.7));
-			glow.addColorStop(1, alpha(colors.glow, 0));
+			glow.addColorStop(0.25, rgba(colors.light, 0.7));
+			glow.addColorStop(1, rgba(colors.glow, 0));
 			ctx.fillStyle = glow;
 			ctx.beginPath();
 			ctx.arc(lightPos[0], lightPos[1], r, 0, Math.PI * 2);
@@ -338,21 +410,12 @@ export function MountainChart({ className }: MountainChartProps) {
 		);
 		io.observe(wrap);
 
-		const mo = new MutationObserver(() => {
-			colors = readPalette();
-		});
-		mo.observe(document.documentElement, {
-			attributes: true,
-			attributeFilter: ["data-theme"],
-		});
-
 		return () => {
 			cancelAnimationFrame(raf);
 			ro.disconnect();
 			io.disconnect();
-			mo.disconnect();
 		};
-	}, []);
+	}, [fillMid, fillTop, glow, light, stroke]);
 
 	return (
 		<div

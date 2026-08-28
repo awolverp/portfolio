@@ -9,6 +9,10 @@ import { IntegrateAndShipStage } from "#/components/full-stack/stage-5";
 import { Hero } from "#/components/hero";
 import { IntroduceStage as RustIntroduceStage } from "#/components/rust/introduce-stage";
 import { SpikeTheCoreStage } from "#/components/rust/stage-1";
+import { ModelWithTypesStage } from "#/components/rust/stage-2";
+import { GrowIterativelyStage } from "#/components/rust/stage-3";
+import { EnforceInvariantsStage } from "#/components/rust/stage-4";
+import { BenchmarkAndShipStage } from "#/components/rust/stage-5";
 import { HomeScrollContext } from "#/lib/home-scroll";
 import { usePageMeta } from "#/lib/page-meta";
 import { useTheme } from "#/lib/theme";
@@ -53,6 +57,10 @@ function RustJourney() {
 		<>
 			<RustIntroduceStage />
 			<SpikeTheCoreStage />
+			<ModelWithTypesStage />
+			<GrowIterativelyStage />
+			<EnforceInvariantsStage />
+			<BenchmarkAndShipStage />
 		</>
 	);
 }

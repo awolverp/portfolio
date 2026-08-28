@@ -6,14 +6,14 @@ import { Stage } from "#/components/ui/stage";
 import { useHomeScroll } from "#/lib/home-scroll";
 
 const chartColors = {
-	stroke: "--color-blue-400",
-	fillTop: "--color-blue-600",
-	fillMid: "--color-blue-800",
-	light: "--color-blue-200",
-	glow: "--color-blue-300",
+	stroke: "--color-red-400",
+	fillTop: "--color-red-600",
+	fillMid: "--color-red-800",
+	light: "--color-red-200",
+	glow: "--color-red-300",
 } as const;
 
-export function IntegrateAndShipStage() {
+export function BenchmarkAndShipStage() {
 	const reduce = useReducedMotion();
 	const sectionRef = useRef<HTMLElement>(null);
 	const container = useHomeScroll();
@@ -29,10 +29,10 @@ export function IntegrateAndShipStage() {
 			<Stage.Part className="relative z-10">
 				<CopyReveal>
 					<Stage.SmallText>STAGE 5/5</Stage.SmallText>
-					<Stage.Title>Integrate, Test & Ship</Stage.Title>
+					<Stage.Title>Benchmark, Refine & Ship</Stage.Title>
 					<Stage.Description>
-						Connect everything, run end-to-end tests, fix issues, and deploy
-						with monitoring. Deliver a relaible, production-ready product.
+						Profile, optimize bottlenecks, run rigorous tests including fuzzing,
+						and deliver a reliable, production-ready system.
 					</Stage.Description>
 				</CopyReveal>
 			</Stage.Part>
