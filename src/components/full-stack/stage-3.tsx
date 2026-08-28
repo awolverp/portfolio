@@ -67,7 +67,7 @@ export function DesignApiContractStage() {
 function VersionBadge() {
 	return (
 		<Chip variant="mono">
-			<span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+			<span className="size-2 rounded-full bg-emerald-500 animate-ping" />
 			/api/v1
 		</Chip>
 	);

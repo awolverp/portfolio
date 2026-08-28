@@ -1,4 +1,5 @@
 import { m, useReducedMotion } from "motion/react";
+import { BrandIcon } from "#/components/ui/brand-icon";
 import { Chip } from "#/components/ui/chip";
 import { CopyReveal } from "#/components/ui/copy-reveal";
 import { Marquee } from "#/components/ui/marquee";
@@ -94,13 +95,5 @@ function StackMarquee() {
 			</Marquee.Viewport>
 			<Marquee.Edge side="end" />
 		</Marquee.Root>
-	);
-}
-
-function BrandIcon({ color, path }: { color: string; path: string }) {
-	return (
-		<svg viewBox="0 0 24 24" className="size-5" fill={color} aria-hidden="true">
-			<path d={path} />
-		</svg>
 	);
 }

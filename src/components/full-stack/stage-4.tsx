@@ -80,7 +80,7 @@ export function BuildBackendFrontendStage() {
 function ParallelBadge() {
 	return (
 		<Chip variant="mono">
-			<ZapIcon className="size-4 text-yellow-400" />
+			<ZapIcon className="size-4 text-yellow-400 animate-pulse" />
 			Building in parallel
 		</Chip>
 	);
