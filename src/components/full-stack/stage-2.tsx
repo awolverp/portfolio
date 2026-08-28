@@ -55,6 +55,7 @@ export function DesignDatabaseStage() {
 						key={table.name}
 						table={table}
 						gridColumn={2 * index + 1}
+						className={index > 0 ? undefined : "hidden lg:block"}
 					/>
 				))}
 			</Stage.FullWidthPart>
@@ -75,6 +76,7 @@ export function DesignDatabaseStage() {
 						key={table.name}
 						table={table}
 						gridColumn={2 * index + 2}
+						className={index === 0 ? undefined : "hidden lg:block"}
 					/>
 				))}
 			</Stage.FullWidthPart>
@@ -98,16 +100,25 @@ interface SchemaCardProps {
 	gridColumn: number;
 }
 
-function SchemaCard(props: SchemaCardProps) {
+function SchemaCard({
+	table,
+	gridColumn,
+	className,
+	...props
+}: SchemaCardProps & React.ComponentProps<"article">) {
 	return (
-		<article className={cardStyle} style={{ gridColumn: props.gridColumn }}>
+		<article
+			className={defineClassName(cardStyle, className)}
+			style={{ gridColumn: gridColumn }}
+			{...props}
+		>
 			<header className="mb-2 flex items-center gap-2 border-b border-border pb-2 text-sm font-medium col-start-1">
 				<Table2Icon className="size-4 shrink-0" />
-				{props.table.name}
+				{table.name}
 			</header>
 
 			<ul className="space-y-1.5">
-				{props.table.columns.map((column) => (
+				{table.columns.map((column) => (
 					<ColumnRow key={column.name} column={column} />
 				))}
 			</ul>

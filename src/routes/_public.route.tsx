@@ -1,12 +1,12 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { Navbar } from "#/components/navbar";
-import { ThemeProvider } from "#/hooks/theme";
+import { Navbar } from "#/components/layout/navbar";
+import { ThemeProvider } from "#/lib/theme";
 
 export const Route = createFileRoute("/_public")({
-	component: PublicComponent,
+	component: PublicLayout,
 });
 
-function PublicComponent() {
+function PublicLayout() {
 	return (
 		<ThemeProvider>
 			<Navbar />

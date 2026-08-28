@@ -2,6 +2,8 @@
 	"title": "Ali Pooralijan — A.Wolver.P",
 	"shortName": "A.Wolver.P",
 	"description": "Portfolio of Ali Pooralijan (A.Wolver.P), a software engineer focused on performance, scalable systems, and modern web applications.",
+	"url": "https://awolverp.dev",
+	"ogImage": "/android-chrome-512x512.png",
 	"lang": "en",
 	"locale": "en_US",
 	"dir": "ltr",
@@ -13,6 +15,20 @@
 		"name": "Ali Pooralijan",
 		"alternateName": ["A.Wolver.P", "awolverp"],
 		"jobTitle": "Software Engineer"
+	},
+	"pages": {
+		"/": {
+			"title": "Ali Pooralijan — A.Wolver.P",
+			"description": "Portfolio of Ali Pooralijan (A.Wolver.P), a software engineer focused on performance, scalable systems, and modern web applications."
+		},
+		"/projects": {
+			"title": "Projects — A.Wolver.P",
+			"description": "Selected software projects by Ali Pooralijan (A.Wolver.P): high-performance backends, full-stack systems, and production APIs."
+		},
+		"/resume": {
+			"title": "Resume — A.Wolver.P",
+			"description": "Resume of Ali Pooralijan (A.Wolver.P), software engineer focused on performance, scalable systems, and modern web applications."
+		}
 	},
 	"icons": {
 		"ico": "/favicon.ico",

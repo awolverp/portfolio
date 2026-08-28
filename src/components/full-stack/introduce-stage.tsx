@@ -1,7 +1,7 @@
-import { ChevronsDown as ChevronsDownIcon } from "lucide-react";
+import { Chip } from "#/components/ui/chip";
 import { Marquee } from "#/components/ui/marquee";
+import { ScrollHint } from "#/components/ui/scroll-hint";
 import { Stage } from "#/components/ui/stage";
-import { defineClassName } from "#/lib/styles";
 
 const stack = [
 	{
@@ -36,19 +36,6 @@ const stack = [
 	},
 ] as const;
 
-const chipStyle = defineClassName(
-	// layout
-	"inline-flex items-center gap-2",
-	// border
-	"rounded-full border border-border",
-	// background
-	"bg-surface",
-	// spacing
-	"px-4 py-2",
-	// text
-	"text-sm font-medium whitespace-nowrap",
-);
-
 export function IntroduceStage() {
 	return (
 		<Stage.Root>
@@ -63,11 +50,7 @@ export function IntroduceStage() {
 			</Stage.Part>
 			<Stage.FullWidthPart className="flex flex-col justify-start items-center gap-5">
 				<StackMarquee />
-
-				<div className="flex flex-col items-center gap-3">
-					<Stage.SmallText>Scroll down to explore</Stage.SmallText>
-					<ChevronsDownIcon className="animate-bounce" />
-				</div>
+				<ScrollHint>Scroll down to explore</ScrollHint>
 			</Stage.FullWidthPart>
 		</Stage.Root>
 	);
@@ -86,10 +69,10 @@ function StackMarquee() {
 				<Marquee.Content>
 					{stack.map((item) => (
 						<Marquee.Item key={item.name}>
-							<span className={chipStyle}>
+							<Chip>
 								<BrandIcon color={item.color} path={item.path} />
 								{item.name}
-							</span>
+							</Chip>
 						</Marquee.Item>
 					))}
 				</Marquee.Content>

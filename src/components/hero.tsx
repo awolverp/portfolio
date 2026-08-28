@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import {
 	BookUser as BookUserIcon,
-	ChevronsDown as ChevronsDownIcon,
 	GalleryVertical as GalleryVerticalIcon,
 } from "lucide-react";
 
 import { Button } from "#/components/ui/button";
-import { useTheme } from "#/hooks/theme";
+import { ScrollHint } from "#/components/ui/scroll-hint";
 import { defineClassName } from "#/lib/styles";
+import { useTheme } from "#/lib/theme";
 
 const heroStyle = defineClassName(
 	"flex flex-col items-center justify-between min-h-screen",
@@ -18,7 +18,7 @@ export function Hero() {
 	return (
 		<section className={heroStyle}>
 			<div>
-				<h1 className="text-6xl font-bold tracking-tight">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
 					<span className="transition-colors bg-linear-to-r from-accent-400 to-accent-800 bg-clip-text text-transparent">
 						Performance First.
 					</span>
@@ -26,20 +26,19 @@ export function Hero() {
 					<span>Everything Else Second.</span>
 				</h1>
 
-				<p className="max-w-xl text-lg">
+				<p className="max-w-xl lg:text-lg">
 					I build high-performance backends and full-stack systems that scale.
-					<br />
 					From PyO3 to production AI APIs.
 				</p>
 
 				<div className="flex items-center gap-2">
-					<Button variant="ghost" size="lg" asChild>
+					<Button variant="ghost" asChild>
 						<Link to="/projects">
 							<GalleryVerticalIcon />
 							Selected Projects
 						</Link>
 					</Button>
-					<Button variant="primary" size="lg" asChild>
+					<Button variant="primary" asChild>
 						<Link to="/resume">
 							<BookUserIcon />
 							CV / Resume
@@ -51,10 +50,7 @@ export function Hero() {
 			<div>
 				<JourneyPath />
 
-				<div className="flex flex-col gap-3 justify-center items-center">
-					<p className="text-sm">Scroll to start the selected journey</p>
-					<ChevronsDownIcon className="animate-bounce" />
-				</div>
+				<ScrollHint>Scroll to start the selected journey</ScrollHint>
 			</div>
 		</section>
 	);

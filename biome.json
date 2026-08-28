@@ -12,8 +12,9 @@
 			"**/.vscode/**/*",
 			"**/index.html",
 			"**/vite.config.ts",
+			"**/vite/**/*",
 			"!**/src/routeTree.gen.ts",
-			"!**/src/globals.css"
+			"!**/src/styles/globals.css"
 		]
 	},
 	"formatter": {

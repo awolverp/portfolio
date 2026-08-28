@@ -1,17 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-import { BuildBackendFrontendStage } from "#/components/home/full-stack/build-backend-frontend-stage";
-import { DesignApiContractStage } from "#/components/home/full-stack/design-api-contract-stage";
-import { DesignDatabaseStage } from "#/components/home/full-stack/design-database-stage";
-import { InspectRequirementsStage } from "#/components/home/full-stack/inspect-requirements-stage";
-import { IntroduceStage } from "#/components/home/full-stack/introduce-stage";
-import { Hero } from "#/components/home/hero";
+import { IntroduceStage } from "#/components/full-stack/introduce-stage";
+import { InspectRequirementsStage } from "#/components/full-stack/stage-1";
+import { DesignDatabaseStage } from "#/components/full-stack/stage-2";
+import { DesignApiContractStage } from "#/components/full-stack/stage-3";
+import { BuildBackendFrontendStage } from "#/components/full-stack/stage-4";
+import { IntegrateAndShipStage } from "#/components/full-stack/stage-5";
+import { Hero } from "#/components/hero";
+import { usePageMeta } from "#/lib/page-meta";
 
 export const Route = createFileRoute("/_public/")({
-	component: HomeComponent,
+	component: Home,
 });
 
-function HomeComponent() {
+function Home() {
+	usePageMeta("/");
+
 	return (
 		<>
 			<Hero />
@@ -20,6 +23,7 @@ function HomeComponent() {
 			<DesignDatabaseStage />
 			<DesignApiContractStage />
 			<BuildBackendFrontendStage />
+			<IntegrateAndShipStage />
 		</>
 	);
 }

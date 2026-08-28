@@ -1,3 +1,4 @@
+import { cva } from "class-variance-authority";
 import {
 	ChevronRight as ChevronRightIcon,
 	Code as CodeIcon,
@@ -8,8 +9,9 @@ import {
 	Zap as ZapIcon,
 } from "lucide-react";
 import { Fragment } from "react";
+import { Chip } from "#/components/ui/chip";
 import { Stage } from "#/components/ui/stage";
-import { classVarianceAuthority, defineClassName } from "#/lib/styles";
+import { defineClassName } from "#/lib/styles";
 
 const steps = [
 	{ name: "database", icon: DatabaseIcon, tone: "400" },
@@ -54,44 +56,25 @@ export function BuildBackendFrontendStage() {
 				</Stage.Description>
 			</Stage.Part>
 
-			<Stage.FullWidthPart className="flex w-full items-start justify-center px-4">
+			<Stage.FullWidthPart className="flex w-full items-start justify-center px-4 mt-10">
 				<BuildFlow />
 			</Stage.FullWidthPart>
 		</Stage.Root>
 	);
 }
 
-const badgeStyle = defineClassName(
-	// layout
-	"inline-flex items-center gap-2",
-	// border
-	"rounded-full border border-border",
-	// background
-	"bg-surface",
-	// spacing
-	"px-3 py-1.5",
-	// text
-	"text-sm",
-);
-
 function ParallelBadge() {
 	return (
-		<span className={badgeStyle}>
-			<ZapIcon className="size-4 fill-yellow-400 text-yellow-400" />
+		<Chip variant="mono">
+			<ZapIcon className="size-4 text-yellow-400" />
 			Building in parallel
-		</span>
+		</Chip>
 	);
 }
 
-const flowStyle = defineClassName(
-	// layout
-	"flex flex-col items-center",
-	"sm:flex-row",
-);
-
 function BuildFlow() {
 	return (
-		<div className={flowStyle}>
+		<div className="flex items-center">
 			{steps.map((step, index) => (
 				<Fragment key={step.name}>
 					{index > 0 && (
@@ -107,23 +90,25 @@ function BuildFlow() {
 	);
 }
 
-const boxVariants = classVarianceAuthority(
+const boxVariants = cva(
 	defineClassName(
 		// layout
-		"flex size-20 shrink-0 items-center justify-center sm:size-24",
+		"flex size-14 sm:size-16 md:size-20 lg:size-24 shrink-0 items-center justify-center",
 		// border
 		"rounded-xl border-2",
 		// background
-		"bg-background",
+		"bg-surface",
 		// svg children
-		"[&_svg]:size-10 sm:[&_svg]:size-12",
+		"[&_svg]:size-8 sm:[&_svg]:size-10 md:[&_svg]:size-12",
 	),
 	{
-		tone: {
-			"400": "border-accent-400 text-accent-400",
-			"500": "border-accent-500 text-accent-500",
-			"600": "border-accent-600 text-accent-600",
-			"800": "border-accent-800 text-accent-800",
+		variants: {
+			tone: {
+				"400": "border-accent-400 text-accent-400",
+				"500": "border-accent-500 text-accent-500",
+				"600": "border-accent-600 text-accent-600",
+				"800": "border-accent-800 text-accent-800",
+			},
 		},
 	},
 );
@@ -144,18 +129,10 @@ function StepBox({
 
 function FlowArrow({ line, head }: { line: string; head: string }) {
 	return (
-		<span className="flex h-16 w-6 flex-col items-center sm:h-6 sm:w-24 sm:flex-row">
-			<span
-				className={defineClassName(
-					"w-0.5 flex-1 sm:h-0.5 sm:w-auto sm:flex-1",
-					line,
-				)}
-			/>
+		<span className="flex items-center h-6 w-10 sm:w-16 md:w-24">
+			<span className={defineClassName("h-0.5 w-auto flex-1", line)} />
 			<ChevronRightIcon
-				className={defineClassName(
-					"size-5 shrink-0 rotate-90 sm:rotate-0",
-					head,
-				)}
+				className={defineClassName("size-5 shrink-0", head)}
 				strokeWidth={2}
 			/>
 		</span>

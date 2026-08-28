@@ -10,17 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteRouteImport } from './routes/_public.route'
-import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicProjectsRouteImport } from './routes/_public.projects'
+import { Route as PublicResumeRouteImport } from './routes/_public.resume'
 
 const PublicRouteRoute = PublicRouteRouteImport.update({
   id: '/_public',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResumeRoute = ResumeRouteImport.update({
-  id: '/resume',
-  path: '/resume',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicIndexRoute = PublicIndexRouteImport.update({
@@ -33,35 +28,44 @@ const PublicProjectsRoute = PublicProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => PublicRouteRoute,
 } as any)
+const PublicResumeRoute = PublicResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => PublicRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
-  '/resume': typeof ResumeRoute
   '/projects': typeof PublicProjectsRoute
+  '/resume': typeof PublicResumeRoute
 }
 export interface FileRoutesByTo {
-  '/resume': typeof ResumeRoute
   '/projects': typeof PublicProjectsRoute
+  '/resume': typeof PublicResumeRoute
   '/': typeof PublicIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_public': typeof PublicRouteRouteWithChildren
-  '/resume': typeof ResumeRoute
   '/_public/projects': typeof PublicProjectsRoute
+  '/_public/resume': typeof PublicResumeRoute
   '/_public/': typeof PublicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resume' | '/projects'
+  fullPaths: '/' | '/projects' | '/resume'
   fileRoutesByTo: FileRoutesByTo
-  to: '/resume' | '/projects' | '/'
-  id: '__root__' | '/_public' | '/resume' | '/_public/projects' | '/_public/'
+  to: '/projects' | '/resume' | '/'
+  id:
+    | '__root__'
+    | '/_public'
+    | '/_public/projects'
+    | '/_public/resume'
+    | '/_public/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   PublicRouteRoute: typeof PublicRouteRouteWithChildren
-  ResumeRoute: typeof ResumeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -71,13 +75,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PublicRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resume': {
-      id: '/resume'
-      path: '/resume'
-      fullPath: '/resume'
-      preLoaderRoute: typeof ResumeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/': {
@@ -94,16 +91,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicProjectsRouteImport
       parentRoute: typeof PublicRouteRoute
     }
+    '/_public/resume': {
+      id: '/_public/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof PublicResumeRouteImport
+      parentRoute: typeof PublicRouteRoute
+    }
   }
 }
 
 interface PublicRouteRouteChildren {
   PublicProjectsRoute: typeof PublicProjectsRoute
+  PublicResumeRoute: typeof PublicResumeRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
   PublicProjectsRoute: PublicProjectsRoute,
+  PublicResumeRoute: PublicResumeRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
@@ -113,7 +119,6 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRouteRoute: PublicRouteRouteWithChildren,
-  ResumeRoute: ResumeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

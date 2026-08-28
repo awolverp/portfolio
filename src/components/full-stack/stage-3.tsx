@@ -1,10 +1,12 @@
+import { cva } from "class-variance-authority";
 import {
 	ChevronRight as ChevronRightIcon,
 	Copy as CopyIcon,
 	Lock as LockIcon,
 } from "lucide-react";
+import { Chip } from "#/components/ui/chip";
 import { Stage } from "#/components/ui/stage";
-import { classVarianceAuthority, defineClassName } from "#/lib/styles";
+import { defineClassName } from "#/lib/styles";
 
 const endpoints = [
 	{ method: "POST", path: "/users/", name: "Create User" },
@@ -48,25 +50,12 @@ export function DesignApiContractStage() {
 	);
 }
 
-const versionStyle = defineClassName(
-	// layout
-	"inline-flex items-center gap-2",
-	// border
-	"rounded-full border border-border",
-	// background
-	"bg-surface",
-	// spacing
-	"px-3 py-1.5",
-	// text
-	"font-mono text-sm",
-);
-
 function VersionBadge() {
 	return (
-		<span className={versionStyle}>
+		<Chip variant="mono">
 			<span className="size-2 rounded-full bg-accent-500" />
 			/api/v1
-		</span>
+		</Chip>
 	);
 }
 
@@ -132,7 +121,7 @@ function EndpointRow({
 	);
 }
 
-const methodVariants = classVarianceAuthority(
+const methodVariants = cva(
 	defineClassName(
 		// layout
 		"inline-flex min-w-12 shrink-0 items-center justify-center",
@@ -144,11 +133,13 @@ const methodVariants = classVarianceAuthority(
 		"text-xs font-semibold sm:text-sm",
 	),
 	{
-		method: {
-			POST: "bg-emerald-700 text-foreground",
-			GET: "bg-accent-700 text-foreground",
-			PATCH: "bg-amber-700 text-foreground",
-			DEL: "bg-red-900/80 text-foreground",
+		variants: {
+			method: {
+				POST: "bg-emerald-700 text-foreground",
+				GET: "bg-accent-700 text-foreground",
+				PATCH: "bg-amber-700 text-foreground",
+				DEL: "bg-red-900/80 text-foreground",
+			},
 		},
 	},
 );

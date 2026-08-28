@@ -4,6 +4,16 @@ export const site = config;
 
 export type SiteConfig = typeof site;
 
+export function absoluteUrl(path = "/"): string {
+	const origin = site.url.replace(/\/$/, "");
+
+	if (/^https?:\/\//.test(path)) {
+		return path;
+	}
+
+	return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 export function siteManifest(config: SiteConfig = site) {
 	return {
 		id: "/",

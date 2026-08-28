@@ -61,7 +61,7 @@ function SmallText({ className, ...props }: React.ComponentProps<"p">) {
 	return (
 		<p
 			className={defineClassName(
-				"text-center text-sm tracking-wide font-light",
+				"text-center text-xs md:text-sm tracking-wide font-light",
 				className,
 			)}
 			{...props}
@@ -72,7 +72,10 @@ function SmallText({ className, ...props }: React.ComponentProps<"p">) {
 function Title({ className, ...props }: React.ComponentProps<"h3">) {
 	return (
 		<h3
-			className={defineClassName("text-4xl font-bold", className)}
+			className={defineClassName(
+				"text-2xl md:text-3xl lg:text-4xl font-bold",
+				className,
+			)}
 			{...props}
 		/>
 	);
@@ -80,7 +83,10 @@ function Title({ className, ...props }: React.ComponentProps<"h3">) {
 
 function Description({ className, ...props }: React.ComponentProps<"p">) {
 	return (
-		<p className={defineClassName("text-lg max-w-xl", className)} {...props} />
+		<p
+			className={defineClassName("md:text-lg max-w-xl", className)}
+			{...props}
+		/>
 	);
 }
 

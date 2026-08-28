@@ -1,5 +1,4 @@
-@import "@fontsource-variable/geist/wght.css";
-@import "@fontsource-variable/cascadia-mono/wght.css";
+@import "./fonts.css";
 @import "tailwindcss";
 
 @utility container {
