@@ -4,8 +4,11 @@ import {
 	Copy as CopyIcon,
 	Lock as LockIcon,
 } from "lucide-react";
+import { m, useReducedMotion } from "motion/react";
 import { Chip } from "#/components/ui/chip";
+import { CopyReveal } from "#/components/ui/copy-reveal";
 import { Stage } from "#/components/ui/stage";
+import { easeOutExpo, viewportOnce } from "#/lib/motion";
 import { defineClassName } from "#/lib/styles";
 
 const endpoints = [
@@ -27,20 +30,31 @@ const endpoints = [
 ] as const;
 
 export function DesignApiContractStage() {
+	const reduce = useReducedMotion();
+
 	return (
 		<Stage.Root bottomEdge>
 			<Stage.FullWidthPart className="flex items-end justify-center">
-				<VersionBadge />
+				<m.div
+					initial={reduce ? false : { opacity: 0, y: 10 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={viewportOnce}
+					transition={{ duration: 0.45, ease: easeOutExpo }}
+				>
+					<VersionBadge />
+				</m.div>
 			</Stage.FullWidthPart>
 
 			<Stage.Part>
-				<Stage.SmallText>STAGE 3/5</Stage.SmallText>
-				<Stage.Title>Design API Contract</Stage.Title>
-				<Stage.Description>
-					Define endpoints, request/response schemas, auth, and error handling.
-					Create a clear contract so frontend and backend can move forward
-					independently.
-				</Stage.Description>
+				<CopyReveal>
+					<Stage.SmallText>STAGE 3/5</Stage.SmallText>
+					<Stage.Title>Design API Contract</Stage.Title>
+					<Stage.Description>
+						Define endpoints, request/response schemas, auth, and error
+						handling. Create a clear contract so frontend and backend can move
+						forward independently.
+					</Stage.Description>
+				</CopyReveal>
 			</Stage.Part>
 
 			<Stage.FullWidthPart className="flex min-h-0 w-full justify-center px-4">
@@ -53,7 +67,7 @@ export function DesignApiContractStage() {
 function VersionBadge() {
 	return (
 		<Chip variant="mono">
-			<span className="size-2 rounded-full bg-accent-500" />
+			<span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
 			/api/v1
 		</Chip>
 	);
@@ -61,7 +75,7 @@ function VersionBadge() {
 
 const panelStyle = defineClassName(
 	// layout
-	"flex h-full w-full max-w-3xl min-w-0 flex-col gap-2.5",
+	"relative flex h-full w-full max-w-3xl min-w-0 flex-col gap-2.5",
 	// overflow
 	"overflow-hidden",
 	// border
@@ -73,15 +87,23 @@ const panelStyle = defineClassName(
 );
 
 function EndpointList() {
+	const reduce = useReducedMotion();
+
 	return (
-		<div className={panelStyle}>
+		<m.div
+			className={panelStyle}
+			initial={reduce ? false : { opacity: 0, y: 16 }}
+			whileInView={{ opacity: 1, y: 0 }}
+			viewport={viewportOnce}
+			transition={{ duration: 0.5, ease: easeOutExpo }}
+		>
 			{endpoints.map((endpoint) => (
 				<EndpointRow
 					key={`${endpoint.method}-${endpoint.path}`}
 					endpoint={endpoint}
 				/>
 			))}
-		</div>
+		</m.div>
 	);
 }
 
@@ -96,11 +118,7 @@ const rowStyle = defineClassName(
 	"text-sm sm:text-base",
 );
 
-function EndpointRow({
-	endpoint,
-}: {
-	endpoint: (typeof endpoints)[number];
-}) {
+function EndpointRow({ endpoint }: { endpoint: (typeof endpoints)[number] }) {
 	return (
 		<div className={rowStyle}>
 			<span className={methodVariants({ method: endpoint.method })}>

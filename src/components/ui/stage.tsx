@@ -1,16 +1,12 @@
 import { defineClassName } from "#/lib/styles";
 
 type RootProps = React.ComponentProps<"section"> & {
-	linearOverlay?: boolean;
-	radialOverlay?: boolean;
 	bottomEdge?: boolean;
 };
 
 function Root({
 	className,
 	children,
-	linearOverlay = false,
-	radialOverlay = false,
 	bottomEdge = false,
 	...props
 }: RootProps) {
@@ -18,16 +14,11 @@ function Root({
 		<section
 			className={defineClassName(
 				"relative flex flex-col justify-center items-center gap-8 h-screen overflow-hidden",
+				"snap-start snap-always",
 				className,
 			)}
 			{...props}
 		>
-			{linearOverlay && (
-				<div className="absolute inset-0 bg-linear-to-b from-transparent to-background z-0 opacity-25 select-none" />
-			)}
-			{radialOverlay && (
-				<div className="absolute inset-0 bg-radial from-background to-transparent z-0 opacity-25 select-none" />
-			)}
 			{bottomEdge && (
 				<div className="absolute inset-0 bg-linear-to-b from-transparent from-85% to-background z-0 select-none" />
 			)}

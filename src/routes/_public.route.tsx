@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { domAnimation, LazyMotion } from "motion/react";
 import { Navbar } from "#/components/layout/navbar";
 import { ThemeProvider } from "#/lib/theme";
 
@@ -9,8 +10,10 @@ export const Route = createFileRoute("/_public")({
 function PublicLayout() {
 	return (
 		<ThemeProvider>
-			<Navbar />
-			<Outlet />
+			<LazyMotion features={domAnimation} strict>
+				<Navbar />
+				<Outlet />
+			</LazyMotion>
 		</ThemeProvider>
 	);
 }

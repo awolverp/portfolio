@@ -8,9 +8,12 @@ import {
 	Shield as ShieldIcon,
 	Zap as ZapIcon,
 } from "lucide-react";
+import { m, useReducedMotion } from "motion/react";
 import { Fragment } from "react";
 import { Chip } from "#/components/ui/chip";
+import { CopyReveal } from "#/components/ui/copy-reveal";
 import { Stage } from "#/components/ui/stage";
+import { easeOutExpo, viewportOnce } from "#/lib/motion";
 import { defineClassName } from "#/lib/styles";
 
 const steps = [
@@ -40,20 +43,31 @@ const connectors = [
 ] as const;
 
 export function BuildBackendFrontendStage() {
+	const reduce = useReducedMotion();
+
 	return (
 		<Stage.Root>
 			<Stage.FullWidthPart className="flex items-end justify-center">
-				<ParallelBadge />
+				<m.div
+					initial={reduce ? false : { opacity: 0, y: 10 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={viewportOnce}
+					transition={{ duration: 0.45, ease: easeOutExpo }}
+				>
+					<ParallelBadge />
+				</m.div>
 			</Stage.FullWidthPart>
 
 			<Stage.Part>
-				<Stage.SmallText>STAGE 4/5</Stage.SmallText>
-				<Stage.Title>Build Backend & Frontend</Stage.Title>
-				<Stage.Description>
-					Develop backend APIs/logic and frontend UI/state management at the
-					same time, guided by the agreed contract. This keeps velocity high
-					while staying aligned.
-				</Stage.Description>
+				<CopyReveal>
+					<Stage.SmallText>STAGE 4/5</Stage.SmallText>
+					<Stage.Title>Build Backend & Frontend</Stage.Title>
+					<Stage.Description>
+						Develop backend APIs/logic and frontend UI/state management at the
+						same time, guided by the agreed contract. This keeps velocity high
+						while staying aligned.
+					</Stage.Description>
+				</CopyReveal>
 			</Stage.Part>
 
 			<Stage.FullWidthPart className="flex w-full items-start justify-center px-4 mt-10">
@@ -73,6 +87,8 @@ function ParallelBadge() {
 }
 
 function BuildFlow() {
+	const reduce = useReducedMotion();
+
 	return (
 		<div className="flex items-center">
 			{steps.map((step, index) => (
@@ -81,9 +97,16 @@ function BuildFlow() {
 						<FlowArrow
 							line={connectors[index - 1].line}
 							head={connectors[index - 1].head}
+							delay={0.12 * index}
+							reduce={!!reduce}
 						/>
 					)}
-					<StepBox icon={step.icon} tone={step.tone} />
+					<StepBox
+						icon={step.icon}
+						tone={step.tone}
+						delay={0.12 * index}
+						reduce={!!reduce}
+					/>
 				</Fragment>
 			))}
 		</div>
@@ -116,25 +139,63 @@ const boxVariants = cva(
 function StepBox({
 	icon: Icon,
 	tone,
+	delay,
+	reduce,
 }: {
 	icon: LucideIcon;
 	tone: (typeof steps)[number]["tone"];
+	delay: number;
+	reduce: boolean;
 }) {
 	return (
-		<span className={boxVariants({ tone })}>
+		<m.span
+			className={boxVariants({ tone })}
+			initial={reduce ? false : { opacity: 0, scale: 0.6 }}
+			whileInView={{ opacity: 1, scale: 1 }}
+			viewport={viewportOnce}
+			transition={{
+				delay,
+				type: "spring",
+				stiffness: 220,
+				damping: 18,
+			}}
+		>
 			<Icon strokeWidth={1.5} />
-		</span>
+		</m.span>
 	);
 }
 
-function FlowArrow({ line, head }: { line: string; head: string }) {
+function FlowArrow({
+	line,
+	head,
+	delay,
+	reduce,
+}: {
+	line: string;
+	head: string;
+	delay: number;
+	reduce: boolean;
+}) {
 	return (
 		<span className="flex items-center h-6 w-10 sm:w-16 md:w-24">
-			<span className={defineClassName("h-0.5 w-auto flex-1", line)} />
-			<ChevronRightIcon
-				className={defineClassName("size-5 shrink-0", head)}
-				strokeWidth={2}
+			<m.span
+				className={defineClassName("h-0.5 w-auto flex-1 origin-left", line)}
+				initial={reduce ? false : { scaleX: 0 }}
+				whileInView={{ scaleX: 1 }}
+				viewport={viewportOnce}
+				transition={{ delay, duration: 0.35, ease: easeOutExpo }}
 			/>
+			<m.span
+				initial={reduce ? false : { opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={viewportOnce}
+				transition={{ delay: delay + 0.2, duration: 0.25 }}
+			>
+				<ChevronRightIcon
+					className={defineClassName("size-5 shrink-0", head)}
+					strokeWidth={2}
+				/>
+			</m.span>
 		</span>
 	);
 }
