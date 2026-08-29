@@ -1,14 +1,10 @@
-import {
-	CircleSmall as CircleSmallIcon,
-	Key as KeyIcon,
-	Link as LinkIcon,
-	Table2 as Table2Icon,
-} from "lucide-react";
-import { m, useReducedMotion } from "motion/react";
-import { CopyReveal } from "#/components/ui/copy-reveal";
-import { Stage } from "#/components/ui/stage";
-import { easeOutExpo, viewportOnce } from "#/lib/motion";
-import { defineClassName } from "#/lib/styles";
+import { CircleSmallIcon, KeyIcon, LinkIcon, Table2Icon } from "lucide-react";
+
+import { m } from "motion/react";
+
+import { Stage } from "#/components/stage";
+import { easeOutExpo, viewportOnceMotion } from "#/lib/motion";
+import { cn } from "#/lib/styles";
 
 const tables = [
 	{
@@ -52,7 +48,10 @@ const tables = [
 export function DesignDatabaseStage() {
 	return (
 		<Stage.Root>
-			<Stage.FullWidthPart className="grid grid-cols-4 place-items-end z-20">
+			<Stage.Layer
+				position="top"
+				className="grid grid-cols-4 place-items-end z-20"
+			>
 				{tables.slice(0, 2).map((table, index) => (
 					<SchemaCard
 						key={table.name}
@@ -63,21 +62,18 @@ export function DesignDatabaseStage() {
 						className={index > 0 ? undefined : "hidden lg:block"}
 					/>
 				))}
-			</Stage.FullWidthPart>
+			</Stage.Layer>
 
-			<Stage.Part>
-				<CopyReveal>
-					<Stage.SmallText>STAGE 2/5</Stage.SmallText>
-					<Stage.Title>Design Database & Project Architecture</Stage.Title>
-					<Stage.Description>
-						Design scalable data models and system architecture. Choose the
-						right tech stack with security, performance, and long-term
-						maintainability in mind.
-					</Stage.Description>
-				</CopyReveal>
-			</Stage.Part>
+			<Stage.Content
+				label="STAGE 2/5"
+				title="Design Database & Project Architecture"
+				description="Design scalable data models and system architecture. Choose the right tech stack with security, performance, and long-term maintainability in mind."
+			/>
 
-			<Stage.FullWidthPart className="grid grid-cols-4 place-items-start z-20">
+			<Stage.Layer
+				position="bottom"
+				className="grid grid-cols-4 place-items-start z-20"
+			>
 				{tables.slice(2).map((table, index) => (
 					<SchemaCard
 						key={table.name}
@@ -88,12 +84,12 @@ export function DesignDatabaseStage() {
 						className={index === 0 ? undefined : "hidden lg:block"}
 					/>
 				))}
-			</Stage.FullWidthPart>
+			</Stage.Layer>
 		</Stage.Root>
 	);
 }
 
-const cardStyle = defineClassName(
+const cardStyle = cn(
 	// layout
 	"w-60 text-left",
 	// border
@@ -120,16 +116,15 @@ function SchemaCard({
 	delay,
 	className,
 }: SchemaCardProps & { className?: string }) {
-	const reduce = useReducedMotion();
 	const offset = from === "top" ? -24 : 24;
 
 	return (
 		<m.article
-			className={defineClassName(cardStyle, className)}
+			className={cn(cardStyle, className)}
 			style={{ gridColumn: gridColumn }}
-			initial={reduce ? false : { opacity: 0, y: offset }}
+			initial={{ opacity: 0, y: offset }}
 			whileInView={{ opacity: 0.7, y: 0 }}
-			viewport={viewportOnce}
+			viewport={viewportOnceMotion}
 			transition={{ delay, duration: 0.55, ease: easeOutExpo }}
 		>
 			<header className="mb-2 flex items-center gap-2 border-b border-border pb-2 text-sm font-medium col-start-1">
@@ -146,10 +141,7 @@ function SchemaCard({
 	);
 }
 
-const columnStyle = defineClassName(
-	"flex items-center justify-between gap-3",
-	"text-sm",
-);
+const columnStyle = cn("flex items-center justify-between gap-3", "text-sm");
 
 function ColumnRow({
 	column,

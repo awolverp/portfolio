@@ -1,12 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { usePageMeta } from "#/lib/page-meta";
 
 export const Route = createFileRoute("/_public/resume")({
+	head: () => ({
+		meta: [
+			{
+				title: "Resume | A.Wolver.P",
+			},
+			{
+				name: "description",
+				content:
+					"Resume of Ali Pooralijan (A.Wolver.P), software engineer focused on performance, scalable systems, and modern web applications.",
+			},
+		],
+	}),
 	component: Resume,
 });
 
 function Resume() {
-	usePageMeta("/resume");
-
 	return <p>Resume</p>;
 }

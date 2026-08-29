@@ -1,7 +1,6 @@
-import { m, useInView, useReducedMotion } from "motion/react";
+import { m, useInView } from "motion/react";
 import { useRef, useState } from "react";
-import { CopyReveal } from "#/components/ui/copy-reveal";
-import { Stage } from "#/components/ui/stage";
+import { Stage } from "#/components/stage";
 import { easeOutExpo } from "#/lib/motion";
 
 const phrases = [
@@ -17,52 +16,27 @@ const phrases = [
 
 const SLOT_COUNT = 6;
 
-const reducedPlacements = [
-	{ phrase: "Caching", left: "50%", top: "16%" },
-	{ phrase: "Authentication", left: "14%", top: "28%" },
-	{ phrase: "Use Mutex", left: "20%", top: "42%" },
-	{ phrase: "New Message", left: "84%", top: "38%" },
-	{ phrase: "Split Crates", left: "16%", top: "64%" },
-	{ phrase: "Abstraction", left: "50%", top: "80%" },
-] as const;
-
-type Phrase = (typeof phrases)[number];
-
 export function GrowIterativelyStage() {
 	const ref = useRef<HTMLElement>(null);
 	const inView = useInView(ref, { amount: 0.4 });
-	const reduce = useReducedMotion();
 
 	return (
 		<Stage.Root ref={ref}>
-			<FloatingPhrases
-				active={Boolean(inView && !reduce)}
-				reduce={Boolean(reduce)}
+			<FloatingPhrases active={inView} />
+
+			<Stage.Content
+				label="STAGE 3/5"
+				title="Grow Iteratively"
+				description="Add capabilities step by step. Allow the architecture and module boundaries to emerge naturally from the implementation."
 			/>
-			<Stage.Part>
-				<CopyReveal>
-					<Stage.SmallText>STAGE 3/5</Stage.SmallText>
-					<Stage.Title>Grow Iteratively</Stage.Title>
-					<Stage.Description>
-						Add capabilities step by step. Allow the architecture and module
-						boundaries to emerge naturally from the implementation.
-					</Stage.Description>
-				</CopyReveal>
-			</Stage.Part>
 		</Stage.Root>
 	);
 }
 
-function FloatingPhrases({
-	active,
-	reduce,
-}: {
-	active: boolean;
-	reduce: boolean;
-}) {
-	const used = useRef(new Set<Phrase>(phrases.slice(0, SLOT_COUNT)));
+function FloatingPhrases({ active }: { active: boolean }) {
+	const used = useRef(new Set<string>(phrases.slice(0, SLOT_COUNT)));
 
-	const take = (release: Phrase) => {
+	const take = (release: string) => {
 		used.current.delete(release);
 		const available = phrases.filter((phrase) => !used.current.has(phrase));
 		const next =
@@ -73,27 +47,15 @@ function FloatingPhrases({
 
 	return (
 		<div className="pointer-events-none absolute inset-0 z-0">
-			{reduce
-				? reducedPlacements.map((item) => (
-						<span
-							key={item.phrase}
-							className="absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-muted-foreground"
-							style={{ left: item.left, top: item.top }}
-						>
-							+ {item.phrase}
-						</span>
-					))
-				: phrases
-						.slice(0, SLOT_COUNT)
-						.map((phrase, index) => (
-							<PhraseSlot
-								key={phrase}
-								index={index}
-								initialPhrase={phrase}
-								active={active}
-								take={take}
-							/>
-						))}
+			{phrases.slice(0, SLOT_COUNT).map((phrase, index) => (
+				<PhraseSlot
+					key={phrase}
+					index={index}
+					initialPhrase={phrase}
+					active={active}
+					take={take}
+				/>
+			))}
 		</div>
 	);
 }
@@ -128,9 +90,9 @@ function PhraseSlot({
 	take,
 }: {
 	index: number;
-	initialPhrase: Phrase;
+	initialPhrase: string;
 	active: boolean;
-	take: (release: Phrase) => Phrase;
+	take: (release: string) => string;
 }) {
 	const [item, setItem] = useState(() => ({
 		id: 0,

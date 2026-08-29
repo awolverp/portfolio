@@ -1,11 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { m, useReducedMotion } from "motion/react";
-import { Button } from "#/components/ui/button";
-import { site } from "#/config/site";
-import { easeOutExpo } from "#/lib/motion";
-import { defineClassName } from "#/lib/styles";
 
-const navbarStyle = defineClassName(
+import { buttonVariants } from "#/components/ui/button";
+import { cn } from "#/lib/styles";
+
+const navbarStyle = cn(
 	"flex items-center justify-between",
 	// position
 	"isolate fixed z-50",
@@ -18,28 +16,24 @@ const navbarStyle = defineClassName(
 );
 
 export function Navbar() {
-	const reduce = useReducedMotion();
-
 	return (
-		<m.nav
-			className={navbarStyle}
-			initial={reduce ? false : { opacity: 0, y: -12 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.5, ease: easeOutExpo }}
-		>
+		<nav className={navbarStyle}>
 			<Link to="/" className="flex items-center gap-2 text-foreground">
-				<img src={site.icons.svg} alt="" className="size-6" />
-				<span className="text-xl font-bold">{site.shortName}</span>
+				<img src="/favicon.svg" alt="" className="size-6" />
+				<span className="text-xl font-bold">A.Wolver.P</span>
 			</Link>
 
 			<div className="flex items-center gap-1">
-				<Button variant="ghost" size="sm" asChild>
-					<Link to="/projects">Projects</Link>
-				</Button>
-				<Button variant="primary" size="sm" asChild>
-					<Link to="/resume">Resume</Link>
-				</Button>
+				<Link
+					to="/projects"
+					className={buttonVariants({ variant: "ghost", size: "sm" })}
+				>
+					Projects
+				</Link>
+				<Link to="/resume" className={buttonVariants({ size: "sm" })}>
+					Resume
+				</Link>
 			</div>
-		</m.nav>
+		</nav>
 	);
 }

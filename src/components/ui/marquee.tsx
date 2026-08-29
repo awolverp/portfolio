@@ -1,86 +1,120 @@
 import {
-	Marquee as ArkMarquee,
-	type MarqueeContentProps,
-	type MarqueeEdgeProps,
-	type MarqueeItemProps,
-	type MarqueeRootProps,
-	type MarqueeRootProviderProps,
-	type MarqueeViewportProps,
-	useMarquee,
-} from "@ark-ui/react/marquee";
-import { defineClassName } from "#/lib/styles";
+	type ComponentPropsWithoutRef,
+	type CSSProperties,
+	createContext,
+	type ReactNode,
+	useContext,
+	useId,
+} from "react";
 
-const rootStyle = defineClassName(
-	// layout
-	"w-fit",
-);
+import { cn } from "#/lib/styles";
 
-function Root({ className, ...props }: MarqueeRootProps) {
-	return (
-		<ArkMarquee.Root
-			className={defineClassName(rootStyle, className)}
-			{...props}
-		/>
-	);
-}
+const MarqueeContext = createContext<{ gap: string } | null>(null);
 
-function RootProvider({ className, ...props }: MarqueeRootProviderProps) {
-	return (
-		<ArkMarquee.RootProvider
-			className={defineClassName(rootStyle, className)}
-			{...props}
-		/>
-	);
-}
-
-function Item({ className, ...props }: MarqueeItemProps) {
-	return (
-		<ArkMarquee.Item
-			className={defineClassName("shrink-0", className)}
-			{...props}
-		/>
-	);
-}
-
-const edgeStyle = defineClassName(
-	// position
-	"absolute z-10",
-	"data-[side=start]:start-0 data-[side=end]:end-0 data-[side=end]:left-auto",
-	"data-[side=top]:top-0 data-[side=bottom]:bottom-0 data-[side=bottom]:top-auto",
-	// size
-	"data-[orientation=horizontal]:inset-y-0 data-[orientation=horizontal]:w-24",
-	"data-[orientation=vertical]:inset-x-0 data-[orientation=vertical]:h-24",
-	// fade
-	"from-background to-transparent",
-	"data-[side=start]:bg-linear-to-r data-[side=end]:bg-linear-to-l",
-	"data-[side=top]:bg-linear-to-b data-[side=bottom]:bg-linear-to-t",
-);
-
-function Edge({ className, ...props }: MarqueeEdgeProps) {
-	return (
-		<ArkMarquee.Edge
-			className={defineClassName(edgeStyle, className)}
-			{...props}
-		/>
-	);
-}
-
-export const Marquee = {
-	Root,
-	RootProvider,
-	Viewport: ArkMarquee.Viewport,
-	Content: ArkMarquee.Content,
-	Item,
-	Edge,
-	Context: ArkMarquee.Context,
+export type MarqueeProps = Omit<ComponentPropsWithoutRef<"div">, "children"> & {
+	children: ReactNode;
+	/** Animation duration. Lower is faster. */
+	duration?: `${number}s` | `${number}ms`;
+	/** Space between items. Any CSS length. */
+	gap?: string;
+	/** Width of the fade on each side. Any CSS length. */
+	fade?: string;
+	/** Scroll toward the left (default) or the right. */
+	direction?: "left" | "right";
+	pauseOnHover?: boolean;
 };
 
-export { useMarquee };
-export type {
-	MarqueeContentProps,
-	MarqueeEdgeProps,
-	MarqueeItemProps,
-	MarqueeRootProps,
-	MarqueeRootProviderProps,
-	MarqueeViewportProps,
-};
+function Root({
+	children,
+	className,
+	duration = "30s",
+	gap = "2rem",
+	fade = "5rem",
+	direction = "left",
+	pauseOnHover = true,
+	style,
+	...props
+}: MarqueeProps) {
+	const animationName = `marquee-x-${useId().replace(/:/g, "")}`;
+
+	return (
+		<MarqueeContext.Provider value={{ gap }}>
+			<div
+				className={cn("relative w-full overflow-hidden", className)}
+				data-marquee=""
+				data-pause-on-hover={pauseOnHover ? "" : undefined}
+				style={
+					{
+						"--marquee-duration": duration,
+						"--marquee-gap": gap,
+						"--marquee-fade": fade,
+						WebkitMaskImage:
+							"linear-gradient(to right, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent)",
+						maskImage:
+							"linear-gradient(to right, transparent, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent)",
+						...style,
+					} as CSSProperties
+				}
+				{...props}
+			>
+				<style>{`
+          @keyframes ${animationName} {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+          }
+
+          [data-marquee][data-pause-on-hover]:hover [data-marquee-track] {
+            animation-play-state: paused;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            [data-marquee-track] {
+              animation: none !important;
+            }
+          }
+        `}</style>
+
+				<div
+					data-marquee-track=""
+					className="flex w-max will-change-transform"
+					style={{
+						// Longhands only. The `animation` shorthand would lock
+						// animation-play-state to "running" as an inline style,
+						// which beats any hover class or stylesheet rule.
+						animationName,
+						animationDuration: "var(--marquee-duration)",
+						animationTimingFunction: "linear",
+						animationIterationCount: "infinite",
+						animationDirection: direction === "right" ? "reverse" : "normal",
+					}}
+				>
+					<div className="flex shrink-0">{children}</div>
+					<div className="flex shrink-0" aria-hidden>
+						{children}
+					</div>
+				</div>
+			</div>
+		</MarqueeContext.Provider>
+	);
+}
+
+export type MarqueeItemProps = ComponentPropsWithoutRef<"div">;
+
+function Item({ className, style, ...props }: MarqueeItemProps) {
+	const ctx = useContext(MarqueeContext);
+
+	return (
+		<div
+			className={cn("shrink-0", className)}
+			style={
+				{
+					paddingRight: ctx?.gap,
+					...style,
+				} as CSSProperties
+			}
+			{...props}
+		/>
+	);
+}
+
+export const Marquee = { Root, Item };

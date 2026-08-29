@@ -1,15 +1,10 @@
-import { cva } from "class-variance-authority";
-import {
-	ChevronRight as ChevronRightIcon,
-	Copy as CopyIcon,
-	Lock as LockIcon,
-} from "lucide-react";
-import { m, useReducedMotion } from "motion/react";
+import { ChevronRightIcon, CopyIcon, LockIcon } from "lucide-react";
+import { m } from "motion/react";
+
+import { Stage } from "#/components/stage";
 import { Chip } from "#/components/ui/chip";
-import { CopyReveal } from "#/components/ui/copy-reveal";
-import { Stage } from "#/components/ui/stage";
-import { easeOutExpo, viewportOnce } from "#/lib/motion";
-import { defineClassName } from "#/lib/styles";
+import { easeOutExpo, viewportOnceMotion } from "#/lib/motion";
+import { cn, cva } from "#/lib/styles";
 
 const endpoints = [
 	{ method: "POST", path: "/users/", name: "Create User" },
@@ -30,50 +25,41 @@ const endpoints = [
 ] as const;
 
 export function DesignApiContractStage() {
-	const reduce = useReducedMotion();
-
 	return (
-		<Stage.Root bottomEdge>
-			<Stage.FullWidthPart className="flex items-end justify-center">
+		<Stage.Root>
+			<Stage.Layer position="top" className="flex items-end justify-center">
 				<m.div
-					initial={reduce ? false : { opacity: 0, y: 10 }}
+					initial={{ opacity: 0, y: 10 }}
 					whileInView={{ opacity: 1, y: 0 }}
-					viewport={viewportOnce}
+					viewport={viewportOnceMotion}
 					transition={{ duration: 0.45, ease: easeOutExpo }}
 				>
-					<VersionBadge />
+					<Chip font="mono">
+						<span className="size-2 rounded-full bg-emerald-500 animate-ping" />
+						/api/v1
+					</Chip>
 				</m.div>
-			</Stage.FullWidthPart>
+			</Stage.Layer>
 
-			<Stage.Part>
-				<CopyReveal>
-					<Stage.SmallText>STAGE 3/5</Stage.SmallText>
-					<Stage.Title>Design API Contract</Stage.Title>
-					<Stage.Description>
-						Define endpoints, request/response schemas, auth, and error
-						handling. Create a clear contract so frontend and backend can move
-						forward independently.
-					</Stage.Description>
-				</CopyReveal>
-			</Stage.Part>
+			<Stage.Content
+				label="STAGE 3/5"
+				title="Design API Contract"
+				description="Define endpoints, request/response schemas, auth, and error handling. Create a clear contract so frontend and backend can move forward independently."
+			/>
 
-			<Stage.FullWidthPart className="flex min-h-0 w-full justify-center px-4">
+			<Stage.Edge side="bottom" />
+
+			<Stage.Layer
+				position="bottom"
+				className="flex min-h-0 w-full justify-center px-4"
+			>
 				<EndpointList />
-			</Stage.FullWidthPart>
+			</Stage.Layer>
 		</Stage.Root>
 	);
 }
 
-function VersionBadge() {
-	return (
-		<Chip variant="mono">
-			<span className="size-2 rounded-full bg-emerald-500 animate-ping" />
-			/api/v1
-		</Chip>
-	);
-}
-
-const panelStyle = defineClassName(
+const panelStyle = cn(
 	// layout
 	"relative flex h-full w-full max-w-3xl min-w-0 flex-col gap-2.5",
 	// overflow
@@ -87,14 +73,12 @@ const panelStyle = defineClassName(
 );
 
 function EndpointList() {
-	const reduce = useReducedMotion();
-
 	return (
 		<m.div
 			className={panelStyle}
-			initial={reduce ? false : { opacity: 0, y: 16 }}
+			initial={{ opacity: 0, y: 16 }}
 			whileInView={{ opacity: 1, y: 0 }}
-			viewport={viewportOnce}
+			viewport={viewportOnceMotion}
 			transition={{ duration: 0.5, ease: easeOutExpo }}
 		>
 			{endpoints.map((endpoint) => (
@@ -107,7 +91,7 @@ function EndpointList() {
 	);
 }
 
-const rowStyle = defineClassName(
+const rowStyle = cn(
 	// layout
 	"flex min-w-0 items-center gap-2 sm:gap-4",
 	// border
@@ -116,6 +100,29 @@ const rowStyle = defineClassName(
 	"px-3 py-3 sm:px-5 sm:py-4",
 	// text
 	"text-sm sm:text-base",
+);
+
+const methodVariants = cva(
+	cn(
+		// layout
+		"inline-flex min-w-12 shrink-0 items-center justify-center",
+		// border
+		"rounded-md",
+		// spacing
+		"px-2 py-1 sm:px-2.5",
+		// text
+		"text-xs font-semibold sm:text-sm",
+	),
+	{
+		variants: {
+			method: {
+				POST: "bg-emerald-700 text-foreground",
+				GET: "bg-accent-700 text-foreground",
+				PATCH: "bg-amber-700 text-foreground",
+				DEL: "bg-red-900/80 text-foreground",
+			},
+		},
+	},
 );
 
 function EndpointRow({ endpoint }: { endpoint: (typeof endpoints)[number] }) {
@@ -138,26 +145,3 @@ function EndpointRow({ endpoint }: { endpoint: (typeof endpoints)[number] }) {
 		</div>
 	);
 }
-
-const methodVariants = cva(
-	defineClassName(
-		// layout
-		"inline-flex min-w-12 shrink-0 items-center justify-center",
-		// border
-		"rounded-md",
-		// spacing
-		"px-2 py-1 sm:px-2.5",
-		// text
-		"text-xs font-semibold sm:text-sm",
-	),
-	{
-		variants: {
-			method: {
-				POST: "bg-emerald-700 text-foreground",
-				GET: "bg-accent-700 text-foreground",
-				PATCH: "bg-amber-700 text-foreground",
-				DEL: "bg-red-900/80 text-foreground",
-			},
-		},
-	},
-);

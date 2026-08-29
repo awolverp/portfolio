@@ -1,4 +1,7 @@
-@import "./fonts.css";
+/* Self-host fonts */
+@import "@fontsource-variable/geist/wght.css";
+@import "@fontsource-variable/cascadia-mono/wght.css";
+
 @import "tailwindcss";
 
 @utility container {
@@ -15,6 +18,7 @@
 [data-theme="full-stack"] {
 	color-scheme: dark;
 
+	/* Primary color used for full-stack theme */
 	--primary-50: var(--color-blue-50);
 	--primary-100: var(--color-blue-100);
 	--primary-200: var(--color-blue-200);
@@ -27,6 +31,7 @@
 	--primary-900: var(--color-blue-900);
 	--primary-950: var(--color-blue-950);
 
+	/* Secondary color used for rust theme */
 	--secondary-50: var(--color-red-50);
 	--secondary-100: var(--color-red-100);
 	--secondary-200: var(--color-red-200);
@@ -39,6 +44,7 @@
 	--secondary-900: var(--color-red-900);
 	--secondary-950: var(--color-red-950);
 
+	/* Theme color */
 	--accent-50: var(--primary-50);
 	--accent-100: var(--primary-100);
 	--accent-200: var(--primary-200);
@@ -67,10 +73,8 @@
 }
 
 @theme inline {
-	--font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
-	--font-mono:
-		"Cascadia Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco,
-		Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-sans: "Geist Variable", sans-serif;
+	--font-mono: "Cascadia Mono Variable", monospace, sans-serif;
 
 	/* background & foreground colors */
 	--color-background: var(--color-neutral-950);
@@ -95,6 +99,7 @@
 	/* border colors */
 	--color-border: var(--color-neutral-800);
 
+	/* primary colors */
 	--color-primary-50: var(--primary-50);
 	--color-primary-100: var(--primary-100);
 	--color-primary-200: var(--primary-200);
@@ -107,6 +112,7 @@
 	--color-primary-900: var(--primary-900);
 	--color-primary-950: var(--primary-950);
 
+	/* secondary colors */
 	--color-secondary-50: var(--secondary-50);
 	--color-secondary-100: var(--secondary-100);
 	--color-secondary-200: var(--secondary-200);
@@ -119,6 +125,7 @@
 	--color-secondary-900: var(--secondary-900);
 	--color-secondary-950: var(--secondary-950);
 
+	/* accent colors */
 	--color-accent-50: var(--accent-50);
 	--color-accent-100: var(--accent-100);
 	--color-accent-200: var(--accent-200);
@@ -131,8 +138,6 @@
 	--color-accent-900: var(--accent-900);
 	--color-accent-950: var(--accent-950);
 
-	--opacity-disabled: 60%;
-
 	--default-transition-duration: 500ms;
 }
 
@@ -144,57 +149,8 @@
 	html,
 	body,
 	#root {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-	}
-}
-
-@keyframes marqueeX {
-	from {
-		transform: translateX(0);
-	}
-	to {
-		transform: translateX(var(--marquee-translate));
-	}
-}
-
-@keyframes marqueeY {
-	from {
-		transform: translateY(0);
-	}
-	to {
-		transform: translateY(var(--marquee-translate));
-	}
-}
-
-[data-scope="marquee"][data-part="content"] {
-	animation-timing-function: linear;
-	animation-duration: var(--marquee-duration);
-	animation-delay: var(--marquee-delay);
-	animation-iteration-count: var(--marquee-loop-count);
-}
-
-[data-scope="marquee"][data-part="content"][data-side="start"],
-[data-scope="marquee"][data-part="content"][data-side="end"] {
-	animation-name: marqueeX;
-}
-
-[data-scope="marquee"][data-part="content"][data-side="top"],
-[data-scope="marquee"][data-part="content"][data-side="bottom"] {
-	animation-name: marqueeY;
-}
-
-[data-scope="marquee"][data-part="content"][data-reverse] {
-	animation-direction: reverse;
-}
-
-[data-scope="marquee"][data-state="paused"] [data-part="content"] {
-	animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	[data-scope="marquee"][data-part="content"] {
-		animation: none !important;
+		height: 100%;
+		margin: 0;
+		overflow: hidden;
 	}
 }

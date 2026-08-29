@@ -1,121 +1,109 @@
 import { useEffect, useRef } from "react";
-import { defineClassName } from "#/lib/styles";
+import { cn } from "#/lib/styles";
 
+// A 2D canvas point: [x, y] in CSS pixels.
 type Point = readonly [number, number];
 
-const POINTS: Point[] = [
-	[0, 602],
-	[15, 588],
-	[30, 579],
-	[45, 575],
-	[60, 576],
-	[75, 579],
-	[90, 584],
-	[105, 588],
-	[120, 586],
-	[135, 569],
-	[150, 550],
-	[165, 536],
-	[180, 531],
-	[195, 535],
-	[210, 545],
-	[225, 552],
-	[240, 552],
-	[255, 553],
-	[270, 544],
-	[285, 535],
-	[300, 527],
-	[315, 518],
-	[330, 509],
-	[345, 501],
-	[360, 493],
-	[375, 487],
-	[390, 500],
-	[405, 533],
-	[420, 544],
-	[435, 545],
-	[450, 541],
-	[465, 532],
-	[480, 520],
-	[495, 505],
-	[510, 495],
-	[525, 493],
-	[540, 490],
-	[555, 497],
-	[570, 489],
-	[585, 472],
-	[600, 457],
-	[615, 454],
-	[630, 468],
-	[645, 487],
-	[660, 499],
-	[675, 502],
-	[690, 499],
-	[705, 494],
-	[720, 487],
-	[735, 479],
-	[750, 471],
-	[765, 461],
-	[780, 451],
-	[795, 444],
-	[810, 446],
-	[825, 456],
-	[840, 476],
-	[855, 484],
-	[870, 479],
-	[885, 473],
-	[900, 467],
-	[915, 463],
-	[930, 436],
-	[950, 435],
-	[970, 438],
-	[990, 456],
-	[1010, 463],
-	[1030, 457],
-	[1050, 450],
-	[1070, 442],
-	[1090, 432],
-	[1110, 420],
-	[1130, 415],
-	[1150, 416],
-	[1170, 413],
-	[1190, 392],
-	[1210, 368],
-	[1230, 341],
-	[1250, 309],
-	[1270, 285],
-	[1280, 285],
-];
+// How many samples the generated ridge uses. More points = smoother, more work.
+const POINT_COUNT = 56;
 
-const SRC_W = 1280;
-const SRC_H = 728;
+// Duration of the initial "draw the line" animation.
 const DRAW_MS = 1700;
+
+// How long one pass of the traveling light takes.
 const LIGHT_MS = 2800;
+
+// Wait this long after mount before the light starts moving.
 const LIGHT_DELAY_MS = 400;
+
+// Trailing highlight length as a fraction of the full path.
 const TRAIL = 0.07;
 
+// Ease-out so the stroke races at first and settles near the end.
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
+// Tiny seeded PRNG so the same seed always yields the same mountain.
+function mulberry32(seed: number) {
+	let a = seed >>> 0;
+	return () => {
+		a |= 0;
+		a = (a + 0x6d2b79f5) | 0;
+		let t = Math.imul(a ^ (a >>> 15), 1 | a);
+		t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	};
+}
+
+// Build a mountain-like polyline in screen space.
+// Canvas Y grows downward, so a "positive" (up-and-to-the-right) chart
+// means startY is larger than endY. Values stay clamped inside the view.
+function generateMountain(
+	width: number,
+	height: number,
+	seed: number,
+): Point[] {
+	const rand = mulberry32(seed);
+
+	// Normalized Y: 0 = top of the canvas, 1 = bottom.
+	const start = 0.76 + rand() * 0.08; // left side, near the bottom
+	const end = 0.24 + rand() * 0.1; // right side, higher on screen
+
+	// A few sine layers give hills without looking like raw noise.
+	const waves = [
+		{
+			amp: 0.07 + rand() * 0.05,
+			freq: 1 + rand() * 1.1,
+			phase: rand() * Math.PI * 2,
+		},
+		{
+			amp: 0.035 + rand() * 0.03,
+			freq: 2.4 + rand() * 1.8,
+			phase: rand() * Math.PI * 2,
+		},
+		{
+			amp: 0.012 + rand() * 0.018,
+			freq: 6 + rand() * 3.5,
+			phase: rand() * Math.PI * 2,
+		},
+	];
+
+	const pts: Point[] = [];
+	for (let i = 0; i < POINT_COUNT; i++) {
+		const t = i / (POINT_COUNT - 1); // 0 on the left, 1 on the right
+		let y = start + (end - start) * t; // rising baseline (positive trend)
+
+		for (const wave of waves) {
+			y += wave.amp * Math.sin((t * wave.freq + wave.phase) * Math.PI * 2);
+		}
+
+		// Keep the ridge on-canvas so the filled area never inverts.
+		y = Math.min(0.9, Math.max(0.12, y));
+		pts.push([t * width, y * height]);
+	}
+
+	return pts;
+}
+
+// Prefix-sum of segment lengths. cum[i] = distance along the path to point i.
 function lengths(pts: Point[]) {
 	const cum = new Float64Array(pts.length);
-
 	for (let i = 1; i < pts.length; i++) {
 		cum[i] =
 			cum[i - 1] +
 			Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
 	}
-
 	return cum;
 }
 
+// Point at a given arc-length along the polyline (linear interpolation).
 function at(pts: Point[], cum: Float64Array, len: number): Point {
 	const last = pts.length - 1;
 	if (len <= 0) return pts[0];
 	if (len >= cum[last]) return pts[last];
 
+	// Binary search for the segment that contains `len`.
 	let lo = 1;
 	let hi = last;
-
 	while (lo < hi) {
 		const mid = (lo + hi) >> 1;
 		if (cum[mid] < len) lo = mid + 1;
@@ -126,10 +114,10 @@ function at(pts: Point[], cum: Float64Array, len: number): Point {
 	const t = span === 0 ? 0 : (len - cum[lo - 1]) / span;
 	const a = pts[lo - 1];
 	const b = pts[lo];
-
 	return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
 }
 
+// Sub-polyline between two arc-lengths. Used for the reveal and the light trail.
 function slice(pts: Point[], cum: Float64Array, from: number, to: number) {
 	const total = cum[cum.length - 1];
 	const end = Math.min(total, Math.max(0, to));
@@ -143,12 +131,12 @@ function slice(pts: Point[], cum: Float64Array, from: number, to: number) {
 	const tail = at(pts, cum, end);
 	const prev = out[out.length - 1];
 	if (prev[0] !== tail[0] || prev[1] !== tail[1]) out.push(tail);
-
 	return out;
 }
 
 type CssVar = `--${string}`;
 
+// Theme tokens the chart reads from computed styles.
 type ChartColors = {
 	stroke: CssVar;
 	fillTop: CssVar;
@@ -175,6 +163,7 @@ const defaultColors = {
 	glow: "--accent-300",
 } as const satisfies ChartColors;
 
+// Parse #rgb / #rrggbb / rgb() / rgba() into an [r, g, b] tuple.
 function parseRgb(value: string): Rgb | null {
 	if (value.startsWith("#")) {
 		const hex =
@@ -198,6 +187,8 @@ function rgba(rgb: Rgb, value: number) {
 	return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${value})`;
 }
 
+// Resolve a CSS custom property to RGB.
+// Setting it as `color` lets the browser expand tokens / color-mix / etc.
 function readVar(
 	el: HTMLElement,
 	probe: CanvasRenderingContext2D,
@@ -218,6 +209,7 @@ function readVar(
 	const fromComputed = parseRgb(computed);
 	if (fromComputed) return fromComputed;
 
+	// Last resort: paint one pixel and read it back.
 	probe.clearRect(0, 0, 1, 1);
 	probe.fillRect(0, 0, 1, 1);
 	const [r, g, b, a] = probe.getImageData(0, 0, 1, 1).data;
@@ -241,6 +233,7 @@ function readPalette(el: HTMLElement, names: ChartColors): Palette | null {
 	return { stroke, fillTop, fillMid, light, glow };
 }
 
+// Stroke/fill a polyline. Caller sets styles before fill() / stroke().
 function trace(ctx: CanvasRenderingContext2D, pts: Point[]) {
 	ctx.beginPath();
 	ctx.moveTo(pts[0][0], pts[0][1]);
@@ -258,6 +251,8 @@ export function MountainChart({
 }: MountainChartProps) {
 	const wrapRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	// One seed per mount so resize keeps the same silhouette.
+	const seedRef = useRef((Math.random() * 0xffffffff) >>> 0);
 	const { stroke, fillTop, fillMid, light, glow } = colors;
 
 	useEffect(() => {
@@ -267,6 +262,7 @@ export function MountainChart({
 		if (!wrap || !canvas || !ctx) return;
 		const colorVars = { stroke, fillTop, fillMid, light, glow };
 
+		// Honor OS "reduce motion": skip the draw + light loop.
 		const reduced = window.matchMedia(
 			"(prefers-reduced-motion: reduce)",
 		).matches;
@@ -275,7 +271,7 @@ export function MountainChart({
 		let startedAt: number | null = null;
 		let mapped: Point[] = [];
 		let cum = new Float64Array(0);
-		const colors = readPalette(wrap, colorVars);
+		const palette = readPalette(wrap, colorVars);
 		let lastW = 0;
 		let lastH = 0;
 		let lastDpr = 0;
@@ -289,18 +285,17 @@ export function MountainChart({
 			lastH = height;
 			lastDpr = dpr;
 
+			// Backing store is in device pixels; drawing uses CSS pixels via setTransform.
 			canvas.width = Math.max(1, Math.floor(width * dpr));
 			canvas.height = Math.max(1, Math.floor(height * dpr));
 			canvas.style.width = `${width}px`;
 			canvas.style.height = `${height}px`;
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-			mapped = POINTS.map(([x, y]) => [
-				(x / SRC_W) * width,
-				(y / SRC_H) * height,
-			]);
+			mapped = generateMountain(width, height, seedRef.current);
 			cum = lengths(mapped);
 
+			// If the animation already started, redraw immediately at the current time.
 			if (startedAt != null) {
 				draw(reduced ? startedAt + DRAW_MS : performance.now());
 			}
@@ -310,7 +305,7 @@ export function MountainChart({
 			const w = lastW;
 			const h = lastH;
 			ctx.clearRect(0, 0, w, h);
-			if (mapped.length < 2 || startedAt == null || !colors) return;
+			if (mapped.length < 2 || startedAt == null || !palette) return;
 
 			const pathLen = Math.max(1, cum[cum.length - 1]);
 			const elapsed = now - startedAt;
@@ -319,28 +314,31 @@ export function MountainChart({
 			const ridge = slice(mapped, cum, 0, visibleLen);
 			const head = ridge[ridge.length - 1];
 
+			// Closed mountain: ridge + drop to the bottom-right + bottom-left.
 			trace(ctx, ridge);
 			ctx.lineTo(head[0], h);
 			ctx.lineTo(0, h);
 			ctx.closePath();
 
 			const fill = ctx.createLinearGradient(0, 0, 0, h);
-			fill.addColorStop(0.35, rgba(colors.fillTop, 0.42 * drawT));
-			fill.addColorStop(0.72, rgba(colors.fillMid, 0.26 * drawT));
+			fill.addColorStop(0.35, rgba(palette.fillTop, 0.42 * drawT));
+			fill.addColorStop(0.72, rgba(palette.fillMid, 0.26 * drawT));
 			fill.addColorStop(1, "rgba(0,0,0,0)");
 			ctx.fillStyle = fill;
 			ctx.fill();
 
+			// Ridge stroke on top of the fill.
 			trace(ctx, ridge);
-			ctx.strokeStyle = rgba(colors.stroke, 1);
+			ctx.strokeStyle = rgba(palette.stroke, 1);
 			ctx.lineWidth = Math.max(2.5, w / 420);
 			ctx.lineJoin = "round";
 			ctx.lineCap = "round";
-			ctx.shadowColor = rgba(colors.glow, 0.35);
+			ctx.shadowColor = rgba(palette.glow, 0.35);
 			ctx.shadowBlur = 10;
 			ctx.stroke();
 			ctx.shadowBlur = 0;
 
+			// Light only after the line has started to appear.
 			if (reduced || elapsed <= LIGHT_DELAY_MS || drawT <= 0.08) return;
 
 			const loopT = ((elapsed - LIGHT_DELAY_MS) % LIGHT_MS) / LIGHT_MS;
@@ -355,16 +353,16 @@ export function MountainChart({
 
 			if (trail.length >= 2) {
 				trace(ctx, trail);
-				ctx.strokeStyle = rgba(colors.light, 0.95);
+				ctx.strokeStyle = rgba(palette.light, 0.95);
 				ctx.lineWidth = Math.max(3.2, w / 340);
-				ctx.shadowColor = rgba(colors.glow, 0.9);
+				ctx.shadowColor = rgba(palette.glow, 0.9);
 				ctx.shadowBlur = 18;
 				ctx.stroke();
 				ctx.shadowBlur = 0;
 			}
 
 			const r = Math.max(16, w / 55);
-			const glow = ctx.createRadialGradient(
+			const glowGrad = ctx.createRadialGradient(
 				lightPos[0],
 				lightPos[1],
 				0,
@@ -372,10 +370,10 @@ export function MountainChart({
 				lightPos[1],
 				r,
 			);
-			glow.addColorStop(0, "rgba(255,255,255,0.95)");
-			glow.addColorStop(0.25, rgba(colors.light, 0.7));
-			glow.addColorStop(1, rgba(colors.glow, 0));
-			ctx.fillStyle = glow;
+			glowGrad.addColorStop(0, "rgba(255,255,255,0.95)");
+			glowGrad.addColorStop(0.25, rgba(palette.light, 0.7));
+			glowGrad.addColorStop(1, rgba(palette.glow, 0));
+			ctx.fillStyle = glowGrad;
 			ctx.beginPath();
 			ctx.arc(lightPos[0], lightPos[1], r, 0, Math.PI * 2);
 			ctx.fill();
@@ -387,10 +385,10 @@ export function MountainChart({
 		};
 
 		const start = () => {
-			if (startedAt != null) return;
+			if (startedAt != null) return; // run the intro only once
 			startedAt = performance.now();
 			if (reduced) {
-				draw(startedAt + DRAW_MS);
+				draw(startedAt + DRAW_MS); // final frame, no rAF loop
 				return;
 			}
 			cancelAnimationFrame(raf);
@@ -402,6 +400,7 @@ export function MountainChart({
 		const ro = new ResizeObserver(resize);
 		ro.observe(wrap);
 
+		// Start when enough of the chart is on screen.
 		const io = new IntersectionObserver(
 			([entry]) => {
 				if (entry.isIntersecting) start();
@@ -418,10 +417,7 @@ export function MountainChart({
 	}, [fillMid, fillTop, glow, light, stroke]);
 
 	return (
-		<div
-			ref={wrapRef}
-			className={defineClassName("relative size-full", className)}
-		>
+		<div ref={wrapRef} className={cn("relative size-full", className)}>
 			<canvas ref={canvasRef} className="block size-full" />
 		</div>
 	);

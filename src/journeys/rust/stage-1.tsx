@@ -6,12 +6,12 @@ import {
 	TriangleAlertIcon,
 	ZapIcon,
 } from "lucide-react";
-import { m, useInView, useReducedMotion } from "motion/react";
+
+import { m, useInView } from "motion/react";
 import { useRef } from "react";
+import { Stage } from "#/components/stage";
 import { Chip } from "#/components/ui/chip";
-import { CopyReveal } from "#/components/ui/copy-reveal";
-import { Stage } from "#/components/ui/stage";
-import { viewportOnce } from "#/lib/motion";
+import { viewportOnceMotion } from "#/lib/motion";
 
 const topics = [
 	{ name: "Performance Goals", Icon: GaugeIcon },
@@ -35,17 +35,33 @@ export function SpikeTheCoreStage() {
 				/>
 			))}
 
-			<Stage.Part>
-				<CopyReveal>
-					<Stage.SmallText>STAGE 1/5</Stage.SmallText>
-					<Stage.Title>Spike the Core</Stage.Title>
-					<Stage.Description>
-						Start from the most critical part of the problem. Build a small,
-						focused prototype to reveal the real constraints and possible
-						directions.
-					</Stage.Description>
-				</CopyReveal>
-			</Stage.Part>
+			<Stage.Content
+				label="STAGE 1/5"
+				title="Spike the Core"
+				description="Start from the most critical part of the problem. Build a small, focused prototype to reveal the real constraints and possible directions."
+			/>
+		</Stage.Root>
+	);
+}
+
+export function InspectRequirementsStage() {
+	return (
+		<Stage.Root>
+			{topics.map((topic, index) => (
+				<TopicChip
+					key={topic.name}
+					index={index}
+					count={topics.length}
+					name={topic.name}
+					Icon={topic.Icon}
+				/>
+			))}
+
+			<Stage.Content
+				label="STAGE 1/5"
+				title="Inspect Requirements"
+				description="Analyze project goals, user stories, and constraints. Clarify details with stakeholders and turn business needs into clear technical requirements that keep scope focused."
+			/>
 		</Stage.Root>
 	);
 }
@@ -72,19 +88,16 @@ function TopicChip({
 	Icon: (typeof topics)[number]["Icon"];
 }) {
 	const ref = useRef<HTMLSpanElement>(null);
-	const inView = useInView(ref, viewportOnce);
-	const reduce = useReducedMotion();
+	const inView = useInView(ref, viewportOnceMotion);
 	const pos = chipPosition(index, count);
 
 	return (
 		<m.span
 			ref={ref}
 			className="group/topic-chip absolute -translate-x-1/2 -translate-y-1/2 z-20"
-			initial={
-				reduce ? false : { left: "50%", top: "50%", scale: 0.6, opacity: 0 }
-			}
+			initial={{ left: "50%", top: "50%", scale: 0.6, opacity: 0 }}
 			animate={
-				inView || reduce
+				inView
 					? { left: pos.left, top: pos.top, scale: 1, opacity: 0.8 }
 					: { left: "50%", top: "50%", scale: 0.6, opacity: 0 }
 			}
@@ -92,11 +105,11 @@ function TopicChip({
 				type: "spring",
 				stiffness: 80,
 				damping: 16,
-				delay: reduce ? 0 : 0.08 * index,
+				delay: 0.08 * index,
 			}}
 		>
 			<m.span
-				animate={reduce || !inView ? undefined : { y: [0, -8, 0] }}
+				animate={!inView ? undefined : { y: [0, -8, 0] }}
 				transition={{
 					delay: 0.7 + index * 0.12,
 					duration: 4 + index * 0.25,
@@ -105,8 +118,9 @@ function TopicChip({
 				}}
 			>
 				<Chip
-					variant="topic"
-					className="transition-transform duration-150 group-hover/topic-chip:scale-110"
+					variant="accent"
+					size="lg"
+					className="h-12 md:h-14 lg:h-16 px-3 md:px-4 lg:px-5 transition-transform duration-150 group-hover/topic-chip:scale-110"
 				>
 					<Icon />
 					{name}

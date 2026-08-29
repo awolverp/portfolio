@@ -1,5 +1,5 @@
 import { ChevronsDown as ChevronsDownIcon } from "lucide-react";
-import { defineClassName } from "#/lib/styles";
+import { cn } from "#/lib/styles";
 
 type ScrollHintProps = {
 	children: React.ReactNode;
@@ -9,7 +9,7 @@ type ScrollHintProps = {
 export function ScrollHint({ children, className }: ScrollHintProps) {
 	return (
 		<div
-			className={defineClassName(
+			className={cn(
 				"flex flex-col items-center justify-center gap-3",
 				className,
 			)}

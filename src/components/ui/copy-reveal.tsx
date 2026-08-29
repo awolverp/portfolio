@@ -1,7 +1,12 @@
 import { m, useReducedMotion } from "motion/react";
 import { Children, type ReactNode } from "react";
-import { fadeUp, staggerParent, viewportOnce } from "#/lib/motion";
-import { defineClassName } from "#/lib/styles";
+
+import {
+	fadeUpMotion,
+	staggerParentMotion,
+	viewportOnceMotion,
+} from "#/lib/motion";
+import { cn } from "#/lib/styles";
 
 type CopyRevealProps = {
 	children: ReactNode;
@@ -13,15 +18,15 @@ export function CopyReveal({ children, className }: CopyRevealProps) {
 
 	return (
 		<m.div
-			className={defineClassName("flex flex-col items-center gap-4", className)}
+			className={cn("flex flex-col items-center gap-4", className)}
 			initial={reduce ? false : "hidden"}
 			whileInView="visible"
-			viewport={viewportOnce}
-			variants={staggerParent}
+			viewport={viewportOnceMotion}
+			variants={staggerParentMotion}
 		>
 			{Children.map(children, (child) =>
 				child ? (
-					<m.div variants={reduce ? undefined : fadeUp}>{child}</m.div>
+					<m.div variants={reduce ? undefined : fadeUpMotion}>{child}</m.div>
 				) : null,
 			)}
 		</m.div>

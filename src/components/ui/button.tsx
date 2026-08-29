@@ -1,9 +1,8 @@
-import { ark } from "@ark-ui/react/factory";
 import { cva, type VariantProps } from "class-variance-authority";
-import { defineClassName } from "#/lib/styles";
+import { cn } from "#/lib/styles";
 
 const buttonVariants = cva(
-	defineClassName(
+	cn(
 		// group
 		"group/button",
 		// layout
@@ -34,10 +33,14 @@ const buttonVariants = cva(
 				lg: "h-11 gap-2 px-5 text-base",
 			},
 		},
+		defaultVariants: {
+			variant: "primary",
+			size: "default",
+		},
 	},
 );
 
-type ButtonProps = React.ComponentProps<typeof ark.button> &
+type ButtonProps = React.ComponentProps<"button"> &
 	VariantProps<typeof buttonVariants>;
 
 function Button({
@@ -47,7 +50,7 @@ function Button({
 	...props
 }: ButtonProps) {
 	return (
-		<ark.button
+		<button
 			className={buttonVariants({ variant, size, className })}
 			{...props}
 		/>
