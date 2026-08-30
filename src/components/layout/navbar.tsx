@@ -12,7 +12,7 @@ const navbarStyle = cn(
 	// width & padding
 	"w-full px-4 py-3",
 	// background
-	"backdrop-blur-sm",
+	"bg-background",
 );
 
 export function Navbar() {

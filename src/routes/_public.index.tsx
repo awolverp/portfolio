@@ -24,9 +24,9 @@ function Home() {
 	const { theme } = useTheme();
 
 	return (
-		<div className="relative h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
+		<>
 			<Hero />
 			{theme === "rust" ? <RustJourney /> : <FullStackJourney />}
-		</div>
+		</>
 	);
 }

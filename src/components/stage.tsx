@@ -4,8 +4,6 @@ import { CopyReveal } from "./ui/copy-reveal";
 const rootStyle = cn(
 	// layout
 	"relative grid h-screen grid-rows-[1fr_auto_1fr] overflow-hidden",
-	// snap scroll
-	"snap-start snap-always",
 );
 
 function Root({ className, ...props }: React.ComponentProps<"section">) {

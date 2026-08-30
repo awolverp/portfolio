@@ -17,7 +17,6 @@ import { cn } from "#/lib/styles";
 const heroStyle = cn(
 	"relative isolate overflow-hidden",
 	"flex flex-col items-center justify-between min-h-screen",
-	"snap-start snap-always",
 );
 
 const heroPaneStyle = cn(
