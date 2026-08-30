@@ -139,6 +139,58 @@
 	--color-accent-950: var(--accent-950);
 
 	--default-transition-duration: 500ms;
+
+	--animate-hero-float-a: hero-float-a 22s ease-in-out infinite;
+	--animate-hero-float-b: hero-float-b 28s ease-in-out infinite;
+	--animate-hero-float-c: hero-float-c 34s ease-in-out infinite;
+}
+
+@keyframes hero-float-a {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	25% {
+		transform: translate3d(12%, -8%, 0) scale(1.08) rotate(8deg);
+	}
+	50% {
+		transform: translate3d(-6%, 10%, 0) scale(0.94) rotate(-4deg);
+	}
+	75% {
+		transform: translate3d(8%, 4%, 0) scale(1.04) rotate(3deg);
+	}
+}
+
+@keyframes hero-float-b {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	30% {
+		transform: translate3d(-14%, 10%, 0) scale(1.1) rotate(-7deg);
+	}
+	55% {
+		transform: translate3d(-4%, -12%, 0) scale(0.92) rotate(5deg);
+	}
+	80% {
+		transform: translate3d(10%, 6%, 0) scale(1.05) rotate(-2deg);
+	}
+}
+
+@keyframes hero-float-c {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+	}
+	20% {
+		transform: translate3d(10%, -14%, 0) scale(1.06) rotate(-6deg);
+	}
+	45% {
+		transform: translate3d(-12%, -4%, 0) scale(0.9) rotate(7deg);
+	}
+	70% {
+		transform: translate3d(6%, 8%, 0) scale(1.08) rotate(-3deg);
+	}
 }
 
 @layer base {

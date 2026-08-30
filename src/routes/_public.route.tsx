@@ -10,10 +10,13 @@ export const Route = createFileRoute("/_public")({
 function PublicLayout() {
 	return (
 		<ThemeProvider>
+			<Navbar />
 			<LazyMotion features={domAnimation} strict>
-				<Navbar />
 				<Outlet />
 			</LazyMotion>
+			<footer>
+				<h1>Copyright</h1>
+			</footer>
 		</ThemeProvider>
 	);
 }

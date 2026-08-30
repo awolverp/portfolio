@@ -15,15 +15,63 @@ import {
 import { cn } from "#/lib/styles";
 
 const heroStyle = cn(
+	"relative isolate overflow-hidden",
 	"flex flex-col items-center justify-between min-h-screen",
-	"[&>div]:flex-1 [&>div]:flex [&>div]:flex-col [&>div]:items-center [&>div]:justify-end [&>div]:gap-4 [&>div]:text-center",
 	"snap-start snap-always",
 );
+
+const heroPaneStyle = cn(
+	"relative z-10 flex flex-1 flex-col items-center justify-end gap-4 text-center",
+);
+
+const orbStyle = cn(
+	"absolute rounded-full blur-3xl",
+	"transition-colors duration-700",
+	"motion-reduce:animate-none",
+);
+
+function FloatingGradients() {
+	return (
+		<div
+			aria-hidden
+			className={cn(
+				"pointer-events-none absolute inset-0 z-0 overflow-hidden",
+				"mask-[linear-gradient(to_bottom,black_58%,transparent)]",
+			)}
+		>
+			<div
+				className={cn(
+					orbStyle,
+					"top-[-18%] left-[-12%] size-[55vmax] bg-accent-500/25 animate-hero-float-a",
+				)}
+			/>
+			<div
+				className={cn(
+					orbStyle,
+					"top-[-8%] right-[-18%] size-[45vmax] bg-accent-700/20 animate-hero-float-b",
+				)}
+			/>
+			<div
+				className={cn(
+					orbStyle,
+					"bottom-[8%] left-[18%] size-[40vmax] bg-accent-400/15 animate-hero-float-c",
+				)}
+			/>
+		</div>
+	);
+}
 
 export function Hero() {
 	return (
 		<section className={heroStyle}>
-			<m.div initial="hidden" animate="visible" variants={staggerParentMotion}>
+			<FloatingGradients />
+
+			<m.div
+				className={heroPaneStyle}
+				initial="hidden"
+				animate="visible"
+				variants={staggerParentMotion}
+			>
 				<h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
 					<span className="block overflow-hidden">
 						<m.span
@@ -58,6 +106,7 @@ export function Hero() {
 			</m.div>
 
 			<m.div
+				className={heroPaneStyle}
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ delay: 0.45, duration: 0.6, ease: easeOutExpo }}
