@@ -1,5 +1,8 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-
+import { domAnimation, LazyMotion } from "motion/react";
+import { Footer } from "#/components/layout/footer";
+import { Navbar } from "#/components/layout/navbar";
+import { ThemeProvider } from "#/hooks/theme";
 import globalsStyles from "../globals.css?url";
 
 export const Route = createRootRoute({
@@ -52,7 +55,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-				{children}
+				<ThemeProvider>
+					<Navbar />
+					<LazyMotion features={domAnimation} strict>
+						{children}
+					</LazyMotion>
+					<Footer />
+				</ThemeProvider>
 
 				<Scripts />
 			</body>

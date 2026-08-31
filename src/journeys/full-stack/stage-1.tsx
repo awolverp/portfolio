@@ -71,7 +71,7 @@ function TopicChip({
 	return (
 		<m.span
 			ref={ref}
-			className="group/topic-chip absolute -translate-x-1/2 -translate-y-1/2 z-20"
+			className="group/topic-chip absolute -translate-x-1/2 -translate-y-1/2"
 			initial={{ left: "50%", top: "50%", scale: 0.6, opacity: 0 }}
 			animate={
 				inView

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_public/projects")({
+export const Route = createFileRoute("/projects")({
 	head: () => ({
 		meta: [
 			{

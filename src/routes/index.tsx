@@ -4,7 +4,7 @@ import { useTheme } from "#/hooks/theme";
 import { FullStackJourney } from "#/journeys/full-stack";
 import { RustJourney } from "#/journeys/rust";
 
-export const Route = createFileRoute("/_public/")({
+export const Route = createFileRoute("/")({
 	head: () => ({
 		meta: [
 			{

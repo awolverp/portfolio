@@ -9,116 +9,86 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PublicRouteRouteImport } from './routes/_public.route'
-import { Route as PublicIndexRouteImport } from './routes/_public.index'
-import { Route as PublicProjectsRouteImport } from './routes/_public.projects'
-import { Route as PublicResumeRouteImport } from './routes/_public.resume'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ResumeRouteImport } from './routes/resume'
 
-const PublicRouteRoute = PublicRouteRouteImport.update({
-  id: '/_public',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PublicIndexRoute = PublicIndexRouteImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => PublicRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const PublicProjectsRoute = PublicProjectsRouteImport.update({
+const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
-  getParentRoute: () => PublicRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const PublicResumeRoute = PublicResumeRouteImport.update({
+const ResumeRoute = ResumeRouteImport.update({
   id: '/resume',
   path: '/resume',
-  getParentRoute: () => PublicRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof PublicIndexRoute
-  '/projects': typeof PublicProjectsRoute
-  '/resume': typeof PublicResumeRoute
+  '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
 }
 export interface FileRoutesByTo {
-  '/projects': typeof PublicProjectsRoute
-  '/resume': typeof PublicResumeRoute
-  '/': typeof PublicIndexRoute
+  '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_public': typeof PublicRouteRouteWithChildren
-  '/_public/projects': typeof PublicProjectsRoute
-  '/_public/resume': typeof PublicResumeRoute
-  '/_public/': typeof PublicIndexRoute
+  '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/' | '/projects' | '/resume'
   fileRoutesByTo: FileRoutesByTo
-  to: '/projects' | '/resume' | '/'
-  id:
-    | '__root__'
-    | '/_public'
-    | '/_public/projects'
-    | '/_public/resume'
-    | '/_public/'
+  to: '/' | '/projects' | '/resume'
+  id: '__root__' | '/' | '/projects' | '/resume'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PublicRouteRoute: typeof PublicRouteRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  ProjectsRoute: typeof ProjectsRoute
+  ResumeRoute: typeof ResumeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_public': {
-      id: '/_public'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof PublicRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_public/': {
-      id: '/_public/'
+    '/': {
+      id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof PublicIndexRouteImport
-      parentRoute: typeof PublicRouteRoute
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_public/projects': {
-      id: '/_public/projects'
+    '/projects': {
+      id: '/projects'
       path: '/projects'
       fullPath: '/projects'
-      preLoaderRoute: typeof PublicProjectsRouteImport
-      parentRoute: typeof PublicRouteRoute
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_public/resume': {
-      id: '/_public/resume'
+    '/resume': {
+      id: '/resume'
       path: '/resume'
       fullPath: '/resume'
-      preLoaderRoute: typeof PublicResumeRouteImport
-      parentRoute: typeof PublicRouteRoute
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface PublicRouteRouteChildren {
-  PublicProjectsRoute: typeof PublicProjectsRoute
-  PublicResumeRoute: typeof PublicResumeRoute
-  PublicIndexRoute: typeof PublicIndexRoute
-}
-
-const PublicRouteRouteChildren: PublicRouteRouteChildren = {
-  PublicProjectsRoute: PublicProjectsRoute,
-  PublicResumeRoute: PublicResumeRoute,
-  PublicIndexRoute: PublicIndexRoute,
-}
-
-const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
-  PublicRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
-  PublicRouteRoute: PublicRouteRouteWithChildren,
+  IndexRoute: IndexRoute,
+  ProjectsRoute: ProjectsRoute,
+  ResumeRoute: ResumeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
