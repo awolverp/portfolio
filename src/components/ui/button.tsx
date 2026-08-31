@@ -25,6 +25,7 @@ const buttonVariants = cva(
 			variant: {
 				primary: "bg-accent-600 text-foreground hover:bg-accent-600/80",
 				ghost: "text-accent-600 hover:bg-accent-600/10",
+				link: "text-foreground underline-offset-4 hover:underline",
 			},
 			size: {
 				xs: "h-8 gap-1.5 px-2.5",

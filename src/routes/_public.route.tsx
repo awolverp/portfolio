@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { domAnimation, LazyMotion } from "motion/react";
+import { Footer } from "#/components/layout/footer";
 import { Navbar } from "#/components/layout/navbar";
 import { ThemeProvider } from "#/hooks/theme";
 
@@ -14,9 +15,7 @@ function PublicLayout() {
 			<LazyMotion features={domAnimation} strict>
 				<Outlet />
 			</LazyMotion>
-			<footer>
-				<h1>Copyright</h1>
-			</footer>
+			<Footer />
 		</ThemeProvider>
 	);
 }
