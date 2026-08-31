@@ -23,10 +23,16 @@ export function CopyReveal({ children, className }: CopyRevealProps) {
 			whileInView="visible"
 			viewport={viewportOnceMotion}
 			variants={staggerParentMotion}
+			data-slot="copy-reveal"
 		>
 			{Children.map(children, (child) =>
 				child ? (
-					<m.div variants={reduce ? undefined : fadeUpMotion}>{child}</m.div>
+					<m.div
+						data-slot="copy-reveal-child"
+						variants={reduce ? undefined : fadeUpMotion}
+					>
+						{child}
+					</m.div>
 				) : null,
 			)}
 		</m.div>

@@ -177,22 +177,6 @@
 	}
 }
 
-@keyframes hero-float-c {
-	0%,
-	100% {
-		transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-	}
-	20% {
-		transform: translate3d(10%, -14%, 0) scale(1.06) rotate(-6deg);
-	}
-	45% {
-		transform: translate3d(-12%, -4%, 0) scale(0.9) rotate(7deg);
-	}
-	70% {
-		transform: translate3d(6%, 8%, 0) scale(1.08) rotate(-3deg);
-	}
-}
-
 @layer base {
 	html {
 		color-scheme: dark;

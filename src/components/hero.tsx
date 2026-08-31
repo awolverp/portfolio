@@ -50,12 +50,6 @@ function FloatingGradients() {
 					"top-[-8%] right-[-18%] size-[45vmax] bg-accent-700/20 animate-hero-float-b",
 				)}
 			/>
-			<div
-				className={cn(
-					orbStyle,
-					"bottom-[8%] left-[18%] size-[40vmax] bg-accent-400/15 animate-hero-float-c",
-				)}
-			/>
 		</div>
 	);
 }

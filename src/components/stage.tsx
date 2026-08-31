@@ -7,7 +7,13 @@ const rootStyle = cn(
 );
 
 function Root({ className, ...props }: React.ComponentProps<"section">) {
-	return <section className={cn(rootStyle, className)} {...props} />;
+	return (
+		<section
+			className={cn(rootStyle, className)}
+			data-slot="stage-root"
+			{...props}
+		/>
+	);
 }
 
 interface EdgeProps {
@@ -21,12 +27,14 @@ function Edge({ side = "bottom" }: EdgeProps) {
 				<div
 					aria-hidden
 					className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-linear-to-b from-transparent to-background"
+					data-slot="stage-edge"
 				/>
 			)}
 			{(side === "top" || side === "both") && (
 				<div
 					aria-hidden
 					className="pointer-events-none absolute inset-x-0 top-0 z-20 h-24 bg-linear-to-t from-transparent to-background"
+					data-slot="stage-edge"
 				/>
 			)}
 		</>
@@ -46,6 +54,7 @@ function Layer({ className, position = "top", ...props }: LayerProps) {
 				position === "bottom" && "row-start-3",
 				className,
 			)}
+			data-slot="stage-layer"
 			{...props}
 		/>
 	);
@@ -84,7 +93,7 @@ function Content({
 			<p className="max-w-xl md:text-lg">{description}</p>
 		</CopyReveal>
 	) : (
-		<div className={cn(contentStyle, className)}>
+		<div className={cn(contentStyle, className)} data-slot="stage-content">
 			<p className="text-center text-xs font-light tracking-wide md:text-sm">
 				{label}
 			</p>

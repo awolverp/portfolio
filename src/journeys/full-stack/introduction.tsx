@@ -66,7 +66,10 @@ export function IntroduceStage() {
 
 function StackMarquee() {
 	return (
-		<Marquee.Root pauseOnHover className="max-w-xl">
+		<Marquee.Root
+			pauseOnHover
+			className="max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"
+		>
 			{stackItems.map((item) => (
 				<Marquee.Item key={item.name}>
 					<Chip>
