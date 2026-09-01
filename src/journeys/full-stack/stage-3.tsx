@@ -42,7 +42,7 @@ export function DesignApiContractStage() {
 			</Stage.Layer>
 
 			<Stage.Content
-				label="STAGE 3/5"
+				label={3}
 				title="Design API Contract"
 				description="Define endpoints, request/response schemas, auth, and error handling. Create a clear contract so frontend and backend can move forward independently."
 			/>

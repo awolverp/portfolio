@@ -11,7 +11,7 @@ export function BenchmarkAndShipStage() {
 		<Stage.Root ref={stageRef}>
 			<Stage.Content
 				className="relative"
-				label="STAGE 5/5"
+				label={5}
 				title="Benchmark, Refine & Ship"
 				description="Profile, optimize bottlenecks, run rigorous tests including fuzzing, and deliver a reliable, production-ready system."
 			/>

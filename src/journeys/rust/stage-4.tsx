@@ -56,7 +56,7 @@ export function EnforceInvariantsStage() {
 			</Stage.Layer>
 
 			<Stage.Content
-				label="STAGE 4/5"
+				label={4}
 				title="Inforce Invariants"
 				description="Harden the system by strictly enforcing invariants, error handling, concurrency patterns, and safety guarantees."
 			/>

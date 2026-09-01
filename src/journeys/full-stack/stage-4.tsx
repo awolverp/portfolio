@@ -59,7 +59,7 @@ export function BuildBackendFrontendStage() {
 			</Stage.Layer>
 
 			<Stage.Content
-				label="STAGE 4/5"
+				label={4}
 				title="Build Backend & Frontend"
 				description="Develop backend APIs/logic and frontend UI/state management at the same time, guided by the agreed contract. This keeps velocity high while staying aligned."
 			/>

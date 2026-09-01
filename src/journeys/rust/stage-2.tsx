@@ -21,7 +21,7 @@ export function ModelWithTypesStage() {
 		<Stage.Root>
 			<Stage.Content
 				reveal={false}
-				label="STAGE 2/5"
+				label={2}
 				title="Model with Types"
 				description="Capture the domain using Rust's type system, ownership, and lifetimes. Data structures and safety rules gradually take shape through precise modeling."
 			/>

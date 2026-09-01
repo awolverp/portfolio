@@ -71,7 +71,7 @@ const contentStyle = cn(
 
 type ContentProps = {
 	className?: string | null | false;
-	label?: React.ReactNode;
+	label?: string | number;
 	title: React.ReactNode;
 	description: React.ReactNode;
 	reveal?: boolean;
@@ -84,23 +84,28 @@ function Content({
 	reveal = true,
 	className,
 }: ContentProps) {
-	return reveal ? (
-		<CopyReveal className={cn(contentStyle, className)}>
-			{label && (
+	const labelNode =
+		typeof label === "number" ? (
+			<span className="text-center text-sm font-black bg-foreground text-background px-4 py-1 rounded-sm">
+				{`0${label}`.slice(-2)}
+			</span>
+		) : (
+			label && (
 				<p className="text-center text-xs font-light tracking-wide md:text-sm">
 					{label}
 				</p>
-			)}
+			)
+		);
+
+	return reveal ? (
+		<CopyReveal className={cn(contentStyle, className)}>
+			{labelNode}
 			<h3 className="text-2xl font-bold md:text-3xl lg:text-4xl">{title}</h3>
 			<p className="max-w-xl md:text-lg">{description}</p>
 		</CopyReveal>
 	) : (
 		<div className={cn(contentStyle, className)} data-slot="stage-content">
-			{label && (
-				<p className="text-center text-xs font-light tracking-wide md:text-sm">
-					{label}
-				</p>
-			)}
+			{labelNode}
 			<h3 className="text-2xl font-bold md:text-3xl lg:text-4xl">{title}</h3>
 			<p className="max-w-xl md:text-lg">{description}</p>
 		</div>

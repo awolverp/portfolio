@@ -25,7 +25,7 @@ export function GrowIterativelyStage() {
 			<FloatingPhrases active={inView} />
 
 			<Stage.Content
-				label="STAGE 3/5"
+				label={3}
 				title="Grow Iteratively"
 				description="Add capabilities step by step. Allow the architecture and module boundaries to emerge naturally from the implementation."
 			/>

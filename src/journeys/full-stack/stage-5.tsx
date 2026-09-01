@@ -11,7 +11,7 @@ export function IntegrateAndShipStage() {
 		<Stage.Root ref={stageRef}>
 			<Stage.Content
 				className="relative"
-				label="STAGE 5/5"
+				label={5}
 				title="Integrate, Test & Ship"
 				description="Connect everything, run end-to-end tests, fix issues, and deploy with monitoring. Deliver a relaible, production-ready product."
 			/>

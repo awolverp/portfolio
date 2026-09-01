@@ -36,7 +36,7 @@ export function SpikeTheCoreStage() {
 			))}
 
 			<Stage.Content
-				label="STAGE 1/5"
+				label={1}
 				title="Spike the Core"
 				description="Start from the most critical part of the problem. Build a small, focused prototype to reveal the real constraints and possible directions."
 			/>
@@ -58,7 +58,7 @@ export function InspectRequirementsStage() {
 			))}
 
 			<Stage.Content
-				label="STAGE 1/5"
+				label={1}
 				title="Inspect Requirements"
 				description="Analyze project goals, user stories, and constraints. Clarify details with stakeholders and turn business needs into clear technical requirements that keep scope focused."
 			/>

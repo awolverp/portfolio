@@ -35,7 +35,7 @@ export function InspectRequirementsStage() {
 			))}
 
 			<Stage.Content
-				label="STAGE 1/5"
+				label={1}
 				title="Inspect Requirements"
 				description="Analyze project goals, user stories, and constraints. Clarify details with stakeholders and turn business needs into clear technical requirements that keep scope focused."
 			/>

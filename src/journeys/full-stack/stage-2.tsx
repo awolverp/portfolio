@@ -65,7 +65,7 @@ export function DesignDatabaseStage() {
 			</Stage.Layer>
 
 			<Stage.Content
-				label="STAGE 2/5"
+				label={2}
 				title="Design Database & Project Architecture"
 				description="Design scalable data models and system architecture. Choose the right tech stack with security, performance, and long-term maintainability in mind."
 			/>

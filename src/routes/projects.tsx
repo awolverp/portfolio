@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { m } from "motion/react";
 
 import { ProjectsHero } from "#/components/projects-hero";
-import { ArrowLink } from "#/components/ui/arrow-link";
 import {
 	ProjectItem,
 	type ProjectItemProps,
@@ -98,9 +98,16 @@ function Projects() {
 		<>
 			<ProjectsHero />
 
-			<section className="container space-y-20 py-10">
+			<section className="container space-y-40 mb-40">
 				{projects.map((project) => (
-					<ProjectItem key={project.id} {...project} />
+					<m.div
+						key={project.id}
+						initial={{ opacity: 0.2, y: "3rem", scale: 0.95 }}
+						whileInView={{ opacity: 1, y: 0, scale: 1 }}
+						viewport={{ amount: 0.8 }}
+					>
+						<ProjectItem {...project} />
+					</m.div>
 				))}
 			</section>
 		</>
