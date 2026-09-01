@@ -1,13 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
 
 import { ProjectsHero } from "#/components/projects-hero";
-import { chipVariants } from "#/components/ui/chip";
+import { ArrowLink } from "#/components/ui/arrow-link";
 import {
 	ProjectItem,
 	type ProjectItemProps,
-	type ProjectType,
-	projectTypeLabel,
 } from "#/components/ui/project-item";
 
 const PAGE_TITLE = "Projects | A.Wolver.P";
@@ -58,9 +55,9 @@ const heroAi: ProjectItemProps = {
 	],
 	type: "contract",
 	role: "Backend Developer",
-	startDate: "2023-07",
+	startDate: new Date(2023, 7),
 	endDate: null,
-	stats: [
+	metrics: [
 		{ value: "+1k", label: "Request/Min" },
 		{ value: "+100k", label: "Users" },
 		{ value: "+158", label: "AI Models" },
@@ -70,33 +67,13 @@ const heroAi: ProjectItemProps = {
 		src: "/images/heroai_image.png",
 		alt: "HeroAI dashboard",
 	},
-	liveUrl: "https://api.heroai.ir/docs",
+	link: { label: "Live", href: "https://api.heroai.ir/docs" },
 };
 
 const projects: Array<ProjectItemProps & { id: string }> = [
 	{ id: "heroai", ...heroAi },
 	{ id: "heroai-alt", ...heroAi },
 ];
-
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "CollectionPage",
-	name: "Selected Projects",
-	description: PAGE_DESCRIPTION,
-	author: {
-		"@type": "Person",
-		name: "Ali Pooralijan",
-		alternateName: "A.Wolver.P",
-	},
-	mainEntity: {
-		"@type": "ItemList",
-		itemListElement: projects.map((project, index) => ({
-			"@type": "ListItem",
-			position: index + 1,
-			name: `${project.name} | ${project.headline}`,
-		})),
-	},
-};
 
 export const Route = createFileRoute("/projects")({
 	head: () => ({
@@ -112,12 +89,6 @@ export const Route = createFileRoute("/projects")({
 			{ property: "og:description", content: PAGE_DESCRIPTION },
 			{ property: "og:type", content: "website" },
 		],
-		scripts: [
-			{
-				type: "application/ld+json",
-				children: JSON.stringify(jsonLd),
-			},
-		],
 	}),
 	component: Projects,
 });
@@ -126,76 +97,12 @@ function Projects() {
 	return (
 		<>
 			<ProjectsHero />
-			<ProjectList projects={projects} />
-		</>
-	);
-}
 
-function ProjectList({
-	projects,
-}: {
-	projects: Array<ProjectItemProps & { id: string }>;
-}) {
-	const types = useMemo(
-		() => [...new Set(projects.map((project) => project.type))],
-		[projects],
-	);
-	const [filter, setFilter] = useState<ProjectType | "all">("all");
-	const visible =
-		filter === "all"
-			? projects
-			: projects.filter((project) => project.type === filter);
-
-	return (
-		<div className="mx-auto container px-4 py-16 md:px-6 space-y-10">
-			{types.length > 1 && (
-				<div className="flex flex-wrap items-center justify-center gap-2">
-					<FilterChip
-						active={filter === "all"}
-						onClick={() => setFilter("all")}
-					>
-						All
-					</FilterChip>
-					{types.map((type) => (
-						<FilterChip
-							key={type}
-							active={filter === type}
-							onClick={() => setFilter(type)}
-						>
-							{projectTypeLabel(type)}
-						</FilterChip>
-					))}
-				</div>
-			)}
-
-			<section className="space-y-40">
-				{visible.map((project) => {
-					const { id, ...item } = project;
-					return <ProjectItem key={id} {...item} />;
-				})}
+			<section className="container space-y-20 py-10">
+				{projects.map((project) => (
+					<ProjectItem key={project.id} {...project} />
+				))}
 			</section>
-		</div>
-	);
-}
-
-function FilterChip({
-	active,
-	onClick,
-	children,
-}: {
-	active: boolean;
-	onClick: () => void;
-	children: React.ReactNode;
-}) {
-	return (
-		<button
-			type="button"
-			onClick={onClick}
-			className={chipVariants({
-				variant: active ? "accent" : "outline",
-			})}
-		>
-			{children}
-		</button>
+		</>
 	);
 }
