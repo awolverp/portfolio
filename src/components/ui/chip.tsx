@@ -19,9 +19,9 @@ const chipVariants = cva(
 				ghost: "border border-transparent bg-transparent",
 			},
 			size: {
-				sm: "gap-1 px-2.5 py-1 text-xs [&_svg]:size-3.5",
-				md: "gap-1.5 px-3 py-1.5 text-sm [&_svg]:size-4",
-				lg: "gap-2 px-4 py-2 text-sm [&_svg]:size-5",
+				sm: "gap-1 px-2.5 h-8 text-xs [&_svg]:size-3.5",
+				md: "gap-1.5 px-3 h-9 text-sm [&_svg]:size-4",
+				lg: "gap-2 px-4 h-10 text-sm [&_svg]:size-5",
 			},
 			font: {
 				sans: "font-medium",

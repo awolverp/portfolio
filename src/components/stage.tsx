@@ -71,7 +71,7 @@ const contentStyle = cn(
 
 type ContentProps = {
 	className?: string | null | false;
-	label: React.ReactNode;
+	label?: React.ReactNode;
 	title: React.ReactNode;
 	description: React.ReactNode;
 	reveal?: boolean;
@@ -86,17 +86,21 @@ function Content({
 }: ContentProps) {
 	return reveal ? (
 		<CopyReveal className={cn(contentStyle, className)}>
-			<p className="text-center text-xs font-light tracking-wide md:text-sm">
-				{label}
-			</p>
+			{label && (
+				<p className="text-center text-xs font-light tracking-wide md:text-sm">
+					{label}
+				</p>
+			)}
 			<h3 className="text-2xl font-bold md:text-3xl lg:text-4xl">{title}</h3>
 			<p className="max-w-xl md:text-lg">{description}</p>
 		</CopyReveal>
 	) : (
 		<div className={cn(contentStyle, className)} data-slot="stage-content">
-			<p className="text-center text-xs font-light tracking-wide md:text-sm">
-				{label}
-			</p>
+			{label && (
+				<p className="text-center text-xs font-light tracking-wide md:text-sm">
+					{label}
+				</p>
+			)}
 			<h3 className="text-2xl font-bold md:text-3xl lg:text-4xl">{title}</h3>
 			<p className="max-w-xl md:text-lg">{description}</p>
 		</div>
