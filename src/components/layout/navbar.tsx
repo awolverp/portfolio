@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 
-import { Button, buttonVariants } from "#/components/ui/button";
+import { buttonVariants } from "#/components/ui/button";
 import { cn } from "#/lib/styles";
 
 const navbarStyle = cn(
@@ -17,7 +17,6 @@ const navbarStyle = cn(
 
 export function Navbar() {
 	const pathname = useLocation({ select: (loc) => loc.pathname });
-	const isResume = pathname === "/resume";
 
 	return (
 		<nav className={navbarStyle}>
@@ -30,17 +29,18 @@ export function Navbar() {
 				<Link
 					to="/projects"
 					className={buttonVariants({ variant: "ghost", size: "sm" })}
+					disabled={pathname === "/projects"}
 				>
 					Projects
 				</Link>
 
-				{isResume ? (
-					<Button size="sm">Download as PDF</Button>
-				) : (
-					<Link to="/resume" className={buttonVariants({ size: "sm" })}>
-						Resume
-					</Link>
-				)}
+				<Link
+					to="/resume"
+					className={buttonVariants({ size: "sm" })}
+					disabled={pathname === "/resume"}
+				>
+					Resume
+				</Link>
 			</div>
 		</nav>
 	);
