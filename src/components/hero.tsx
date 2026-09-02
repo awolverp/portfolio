@@ -4,6 +4,7 @@ import { m } from "motion/react";
 
 import { buttonVariants } from "#/components/ui/button";
 import { ScrollHint } from "#/components/ui/scroll-hint";
+import { useConfig } from "#/hooks/config";
 import { useTheme } from "#/hooks/theme";
 import {
 	easeOutExpo,
@@ -24,7 +25,7 @@ const heroPaneStyle = cn(
 );
 
 const orbStyle = cn(
-	"absolute rounded-full blur-3xl",
+	"absolute rounded-full",
 	"transition-colors duration-700",
 	"motion-reduce:animate-none",
 );
@@ -55,6 +56,12 @@ function FloatingGradients() {
 }
 
 export function Hero() {
+	const { name, headline, tagline } = useConfig((config) => ({
+		name: config.profile.name,
+		headline: config.hero.headline,
+		tagline: config.hero.tagline,
+	}));
+
 	return (
 		<section className={heroStyle}>
 			<FloatingGradients />
@@ -71,19 +78,18 @@ export function Hero() {
 							className="inline-block transition-colors bg-linear-to-r from-accent-400 to-accent-800 bg-clip-text text-transparent"
 							variants={lineRevealMotion}
 						>
-							Ali Pooralijan
+							{name}
 						</m.span>
 					</span>
 					<span className="block overflow-hidden">
 						<m.span className="inline-block" variants={lineRevealDelayedMotion}>
-							Your Next Developer
+							{headline}
 						</m.span>
 					</span>
 				</h1>
 
 				<m.p className="max-w-xl lg:text-lg" variants={fadeUpMotion}>
-					I build high-performance backends and full-stack systems that scale.
-					From PyO3 to production AI APIs.
+					{tagline}
 				</m.p>
 
 				<m.div className="flex items-center gap-2" variants={fadeUpMotion}>

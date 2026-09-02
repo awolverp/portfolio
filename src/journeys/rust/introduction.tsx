@@ -3,22 +3,9 @@ import { Stage } from "#/components/stage";
 import { Chip } from "#/components/ui/chip";
 import { Marquee } from "#/components/ui/marquee";
 import { ScrollHint } from "#/components/ui/scroll-hint";
+import { useConfig } from "#/hooks/config";
+import { skillIconSrc, skillsForJourney } from "#/lib/config";
 import { easeOutExpo, viewportOnceMotion } from "#/lib/motion";
-
-const stackItems = [
-	{
-		name: "Rust",
-		url: "https://cdn.simpleicons.org/rust/fff",
-	},
-	{
-		name: "Tokio",
-		url: "https://cdn.simpleicons.org/tokio/fff",
-	},
-	{
-		name: "Actix Web",
-		url: "https://cdn.simpleicons.org/actix/fff",
-	},
-] as const;
 
 export function IntroduceStage() {
 	return (
@@ -49,19 +36,32 @@ export function IntroduceStage() {
 }
 
 function StackMarquee() {
+	const skills = useConfig((config) => skillsForJourney(config, "rust"));
+
+	if (skills.length < 1) return null;
+
 	return (
 		<Marquee.Root
 			pauseOnHover
 			className="max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"
 		>
-			{stackItems.map((item) => (
-				<Marquee.Item key={item.name}>
-					<Chip>
-						<img src={item.url} alt={`${item.name} icon`} className="size-4" />
-						{item.name}
-					</Chip>
-				</Marquee.Item>
-			))}
+			{skills.map((item) => {
+				const iconSrc = skillIconSrc(item);
+				return (
+					<Marquee.Item key={item.name}>
+						<Chip>
+							{iconSrc && (
+								<img
+									src={iconSrc}
+									alt={`${item.name} icon`}
+									className="size-4"
+								/>
+							)}
+							{item.name}
+						</Chip>
+					</Marquee.Item>
+				);
+			})}
 		</Marquee.Root>
 	);
 }

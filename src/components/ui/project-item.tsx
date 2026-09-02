@@ -86,8 +86,8 @@ export interface ProjectItemProps {
 	highlights?: string[];
 	type: ProjectType;
 	role: string;
-	startDate: Date;
-	endDate: Date | null;
+	startDate: string | Date;
+	endDate: string | Date | null;
 	metrics?: ProjectItemMetric[];
 	stack?: ProjectItemStack[];
 	image?: Omit<ProjectImageProps, "link">;

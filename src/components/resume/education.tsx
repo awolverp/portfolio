@@ -1,9 +1,12 @@
-import { education } from "#/components/resume/data";
 import { ResumeSection } from "#/components/resume/section";
+import { Chip } from "#/components/ui/chip";
+import { useConfig } from "#/hooks/config";
+import type { Config } from "#/lib/config";
 import { formatPeriod } from "#/lib/date";
-import { Chip } from "../ui/chip";
 
 export function ResumeEducation() {
+	const education = useConfig((config) => config.resume.education);
+
 	return (
 		<ResumeSection title="Education">
 			<ul className="flex flex-col gap-8">
@@ -15,7 +18,7 @@ export function ResumeEducation() {
 	);
 }
 
-function EducationItem(props: (typeof education)[number]) {
+function EducationItem(props: Config["resume"]["education"][number]) {
 	return (
 		<div className="relative pl-4">
 			<span

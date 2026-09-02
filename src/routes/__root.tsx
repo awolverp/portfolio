@@ -1,47 +1,84 @@
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Outlet,
+	Scripts,
+} from "@tanstack/react-router";
 import { domAnimation, LazyMotion } from "motion/react";
 import { Footer } from "#/components/layout/footer";
 import { Navbar } from "#/components/layout/navbar";
+import { ConfigProvider } from "#/hooks/config";
 import { ThemeProvider } from "#/hooks/theme";
+import { absoluteUrl } from "#/lib/config";
+import { seo } from "#/lib/seo";
+import { getConfig } from "#/server/config";
 import globalsStyles from "../globals.css?url";
 
 export const Route = createRootRoute({
-	head: () => ({
-		meta: [
-			{
-				charSet: "utf-8",
-			},
-			{
-				name: "viewport",
-				content: "width=device-width, initial-scale=1",
-			},
-			{ title: "Ali Pooralijan - A.Wolver.P" },
-		],
-		links: [
-			{ rel: "preconnect", href: "https://cdn.simpleicons.org" },
-			{ rel: "stylesheet", href: globalsStyles },
-			{
-				rel: "apple-touch-icon",
-				sizes: "180x180",
-				href: "/apple-touch-icon.png",
-			},
-			{
-				rel: "icon",
-				type: "image/png",
-				sizes: "32x32",
-				href: "/favicon-32x32.png",
-			},
-			{
-				rel: "icon",
-				type: "image/png",
-				sizes: "16x16",
-				href: "/favicon-16x16.png",
-			},
-			{ rel: "icon", href: "/favicon.ico" },
-		],
-	}),
+	loader: () => getConfig(),
+	head: ({ loaderData }) => {
+		const tags = loaderData
+			? seo({
+					title: `${loaderData.profile.name} - ${loaderData.site.displayName}`,
+					description: loaderData.pages.home.description,
+					keywords: loaderData.site.keywords,
+					image: loaderData.site.ogImage
+						? absoluteUrl(loaderData.site.url, loaderData.site.ogImage)
+						: undefined,
+					twitter: loaderData.site.twitter,
+				})
+			: { meta: [], links: [], scripts: [] };
+
+		return {
+			meta: [
+				{ charSet: "utf-8" },
+				{
+					name: "viewport",
+					content: "width=device-width, initial-scale=1",
+				},
+				...tags.meta,
+			],
+			links: [
+				{ rel: "preconnect", href: "https://cdn.simpleicons.org" },
+				{ rel: "stylesheet", href: globalsStyles },
+				{
+					rel: "apple-touch-icon",
+					sizes: "180x180",
+					href: "/apple-touch-icon.png",
+				},
+				{
+					rel: "icon",
+					type: "image/png",
+					sizes: "32x32",
+					href: "/favicon-32x32.png",
+				},
+				{
+					rel: "icon",
+					type: "image/png",
+					sizes: "16x16",
+					href: "/favicon-16x16.png",
+				},
+				{ rel: "icon", href: "/favicon.ico" },
+				...tags.links,
+			],
+			scripts: tags.scripts,
+		};
+	},
 	shellComponent: RootDocument,
+	component: RootLayout,
 });
+
+function RootLayout() {
+	const config = Route.useLoaderData();
+
+	return (
+		<ConfigProvider config={config}>
+			<Navbar />
+			<Outlet />
+			<Footer />
+		</ConfigProvider>
+	);
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
@@ -56,11 +93,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<ThemeProvider>
-					<Navbar />
 					<LazyMotion features={domAnimation} strict>
 						{children}
 					</LazyMotion>
-					<Footer />
 				</ThemeProvider>
 
 				<Scripts />

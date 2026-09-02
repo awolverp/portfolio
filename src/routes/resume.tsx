@@ -1,44 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { m } from "motion/react";
 
-import { profile, socials } from "#/components/resume/data";
 import { ResumeEducation } from "#/components/resume/education";
 import { ResumeExperience } from "#/components/resume/experience";
 import { ResumeSidebar } from "#/components/resume/sidebar";
 import { ResumeSkills } from "#/components/resume/skills";
 import { ResumeTools } from "#/components/resume/tools";
-
-const PAGE_TITLE = "Resume | A.Wolver.P";
-const PAGE_DESCRIPTION =
-	"Resume of Ali Pooralijan (A.Wolver.P), software engineer focused on performance, scalable systems, and modern web applications.";
-
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "Person",
-	name: profile.name,
-	alternateName: "A.Wolver.P",
-	jobTitle: profile.jobTitle,
-	email: profile.email,
-	url: "https://awolverp.dev/resume",
-	sameAs: socials.map((social) => social.href),
-};
+import { absoluteUrl } from "#/lib/config";
+import { personJsonLd, seo } from "#/lib/seo";
+import { getConfig } from "#/server/config";
 
 export const Route = createFileRoute("/resume")({
-	head: () => ({
-		meta: [
-			{ title: PAGE_TITLE },
-			{ name: "description", content: PAGE_DESCRIPTION },
-			{ property: "og:title", content: PAGE_TITLE },
-			{ property: "og:description", content: PAGE_DESCRIPTION },
-			{ property: "og:type", content: "profile" },
-		],
-		scripts: [
-			{
-				type: "application/ld+json",
-				children: JSON.stringify(jsonLd),
-			},
-		],
-	}),
+	loader: () => getConfig(),
+	head: ({ loaderData }) => {
+		if (!loaderData) return {};
+		const { site, pages } = loaderData;
+		return seo({
+			title: pages.resume.title,
+			description: pages.resume.description,
+			keywords: site.keywords,
+			image: site.ogImage ? absoluteUrl(site.url, site.ogImage) : undefined,
+			url: absoluteUrl(site.url, "/resume"),
+			type: "profile",
+			twitter: site.twitter,
+			jsonLd: personJsonLd(loaderData),
+		});
+	},
 	component: Resume,
 });
 

@@ -23,6 +23,9 @@ importers:
       '@tanstack/react-start':
         specifier: ^1.168.49
         version: 1.168.49(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@22.20.1)(jiti@2.7.0))
+      '@tanstack/start-static-server-functions':
+        specifier: ^1.167.32
+        version: 1.167.32(@tanstack/react-start@1.168.49(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@22.20.1)(jiti@2.7.0)))
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -44,6 +47,9 @@ importers:
       tailwindcss:
         specifier: ^4.1.18
         version: 4.3.3
+      zod:
+        specifier: ^4.5.4
+        version: 4.5.4
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.5
@@ -560,6 +566,18 @@ packages:
   '@tanstack/start-server-core@1.169.31':
     resolution: {integrity: sha512-56w8l+Fao01YCrmv0hzNxL3b3FRmqLRGdE11izZNQsW+1CcSYuehAM5khWKABuI1DI/UIBLGV7BwL4Dlg0eHCw==}
     engines: {node: '>=22.12.0'}
+
+  '@tanstack/start-static-server-functions@1.167.32':
+    resolution: {integrity: sha512-muLNmHyR4F9XYGrnYeXWCnyZSNHBsx4tMCxIIOExhrXUHEH8sScatAMyvTsrm7VFLIoUc61jQdvl2vm4lTxEsg==}
+    engines: {node: '>=22.12.0'}
+    peerDependencies:
+      '@tanstack/react-start': ^1.168.49
+      '@tanstack/solid-start': ^1.168.47
+    peerDependenciesMeta:
+      '@tanstack/react-start':
+        optional: true
+      '@tanstack/solid-start':
+        optional: true
 
   '@tanstack/start-storage-context@1.167.29':
     resolution: {integrity: sha512-8qfprC5774XMRDQlMogkfiGpFLiBf0xDG4bMFUbfkSzpCAQwpLbgGY4Zwft22O9rKYq2vUXusKAdVjvJTUEquQ==}
@@ -1195,6 +1213,9 @@ packages:
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
+
 snapshots:
 
   '@babel/code-frame@7.27.1':
@@ -1710,6 +1731,13 @@ snapshots:
     transitivePeerDependencies:
       - crossws
 
+  '@tanstack/start-static-server-functions@1.167.32(@tanstack/react-start@1.168.49(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@22.20.1)(jiti@2.7.0)))':
+    dependencies:
+      '@tanstack/start-client-core': 1.170.27
+      seroval: 1.6.4
+    optionalDependencies:
+      '@tanstack/react-start': 1.168.49(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.5)(vite@8.2.2(@types/node@22.20.1)(jiti@2.7.0))
+
   '@tanstack/start-storage-context@1.167.29':
     dependencies:
       '@tanstack/router-core': 1.171.27
@@ -2150,3 +2178,5 @@ snapshots:
       yargs-parser: 21.1.1
 
   zod@4.4.3: {}
+
+  zod@4.5.4: {}

@@ -1,8 +1,11 @@
-import { experience } from "#/components/resume/data";
 import { ResumeSection } from "#/components/resume/section";
+import { useConfig } from "#/hooks/config";
+import type { Config } from "#/lib/config";
 import { formatPeriod } from "#/lib/date";
 
 export function ResumeExperience() {
+	const experience = useConfig((config) => config.resume.experience);
+
 	return (
 		<ResumeSection title="Experience">
 			<ul className="flex flex-col gap-8">
@@ -21,7 +24,7 @@ function ExperienceItem({
 	type,
 	company,
 	description,
-}: (typeof experience)[number]) {
+}: Config["resume"]["experience"][number]) {
 	return (
 		<li className="grid gap-3 md:grid-cols-[16rem_1fr] md:gap-8">
 			<div className="relative pl-4">

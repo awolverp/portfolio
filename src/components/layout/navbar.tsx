@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 
 import { buttonVariants } from "#/components/ui/button";
+import { useConfig } from "#/hooks/config";
 import { cn } from "#/lib/styles";
 
 const navbarStyle = cn(
@@ -17,12 +18,15 @@ const navbarStyle = cn(
 
 export function Navbar() {
 	const pathname = useLocation({ select: (loc) => loc.pathname });
+	const displayName = useConfig((config) => config.site.displayName);
 
 	return (
 		<nav className={navbarStyle}>
 			<Link to="/" className="flex items-center gap-2 text-foreground">
 				<img src="/favicon.svg" alt="" className="size-6" />
-				<span className="hidden md:inline text-xl font-bold">A.Wolver.P</span>
+				<span className="hidden md:inline text-xl font-bold">
+					{displayName}
+				</span>
 			</Link>
 
 			<div className="flex items-center gap-1">

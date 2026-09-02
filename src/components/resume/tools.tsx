@@ -1,8 +1,11 @@
-import { tools } from "#/components/resume/data";
 import { ResumeSection } from "#/components/resume/section";
+import { useConfig } from "#/hooks/config";
+import type { Config } from "#/lib/config";
 import { cn } from "#/lib/styles";
 
 export function ResumeTools() {
+	const tools = useConfig((config) => config.resume.tools);
+
 	return (
 		<ResumeSection title="Tools">
 			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
@@ -19,7 +22,7 @@ export function ResumeTools() {
 	);
 }
 
-function ToolCard({ name, caption, src }: (typeof tools)[number]) {
+function ToolCard({ name, caption, src }: Config["resume"]["tools"][number]) {
 	return (
 		<div className="group/tool-card flex h-full flex-col items-center rounded-xl border border-border bg-surface px-4 py-8 text-center transition-all duration-150 hover:shadow-xl hover:scale-105">
 			<StackedLogo src={src} alt="" />

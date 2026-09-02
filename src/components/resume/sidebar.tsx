@@ -1,14 +1,21 @@
 import { MailIcon } from "lucide-react";
 
-import { profile, socials } from "#/components/resume/data";
-import { Button } from "../ui/button";
+import { buttonVariants } from "#/components/ui/button";
+import { useConfig } from "#/hooks/config";
+import { cn } from "#/lib/styles";
 
 export function ResumeSidebar() {
+	const { profile, socials, pdfUrl } = useConfig((config) => ({
+		profile: config.profile,
+		socials: config.socials,
+		pdfUrl: config.resume.pdfUrl,
+	}));
+
 	return (
 		<aside className="lg:sticky lg:top-24 lg:self-start">
 			<h1 className="text-2xl font-bold md:text-3xl">{profile.name}</h1>
 			<p className="mt-1 text-lg font-medium bg-linear-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-				Full-Stack Web & Rust Developer
+				{profile.jobTitle}
 			</p>
 
 			<ul className="flex flex-col gap-3 mt-6">
@@ -47,7 +54,16 @@ export function ResumeSidebar() {
 				))}
 			</ul>
 
-			<Button className="w-full mt-6">Download as PDF</Button>
+			{pdfUrl && (
+				<a
+					href={pdfUrl}
+					className={cn(buttonVariants(), "w-full mt-6")}
+					target="_blank"
+					rel="noreferrer"
+				>
+					Download as PDF
+				</a>
+			)}
 		</aside>
 	);
 }

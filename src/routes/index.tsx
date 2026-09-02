@@ -3,20 +3,24 @@ import { Hero } from "#/components/hero";
 import { useTheme } from "#/hooks/theme";
 import { FullStackJourney } from "#/journeys/full-stack";
 import { RustJourney } from "#/journeys/rust";
+import { absoluteUrl } from "#/lib/config";
+import { seo } from "#/lib/seo";
+import { getConfig } from "#/server/config";
 
 export const Route = createFileRoute("/")({
-	head: () => ({
-		meta: [
-			{
-				title: "Ali Pooralijan | A.Wolver.P",
-			},
-			{
-				name: "description",
-				content:
-					"Portfolio of Ali Pooralijan (A.Wolver.P), a software engineer focused on performance, scalable systems, and modern web applications.",
-			},
-		],
-	}),
+	loader: () => getConfig(),
+	head: ({ loaderData }) => {
+		if (!loaderData) return {};
+		const { site, pages } = loaderData;
+		return seo({
+			title: pages.home.title,
+			description: pages.home.description,
+			keywords: site.keywords,
+			image: site.ogImage ? absoluteUrl(site.url, site.ogImage) : undefined,
+			url: site.url,
+			twitter: site.twitter,
+		});
+	},
 	component: Home,
 });
 
