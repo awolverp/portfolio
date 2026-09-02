@@ -12,15 +12,22 @@ export function ResumeSection({
 	className,
 }: ResumeSectionProps) {
 	return (
-		<section className={cn("relative", className)}>
-			<div className="mb-6 flex items-center gap-3">
+		<section
+			className={cn("group/resume-section relative flex gap-4", className)}
+		>
+			<div>
 				<span
 					aria-hidden
-					className="absolute top-1.5 -left-10 size-3 rounded-full bg-accent-600 ring-4 ring-background"
+					className="block size-4 rounded-full bg-accent-800 ring-4 ring-background translate-x-[-50%] translate-y-[50%]"
 				/>
-				<h2 className="text-xl font-bold md:text-2xl">{title}</h2>
+				<div className="h-full w-px bg-border transition-colors group-hover/resume-section:bg-accent-800" />
 			</div>
-			{children}
+
+			<div className="w-full pb-20">
+				<h2 className="mb-6 text-xl font-bold md:text-2xl">{title}</h2>
+
+				{children}
+			</div>
 		</section>
 	);
 }

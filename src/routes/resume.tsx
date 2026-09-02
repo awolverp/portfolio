@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { m } from "motion/react";
 
 import { profile, socials } from "#/components/resume/data";
+import { ResumeEducation } from "#/components/resume/education";
 import { ResumeExperience } from "#/components/resume/experience";
 import { ResumeSidebar } from "#/components/resume/sidebar";
 import { ResumeSkills } from "#/components/resume/skills";
@@ -44,10 +46,11 @@ function Resume() {
 	return (
 		<main className="container grid gap-12 px-4 pt-24 pb-20 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-16">
 			<ResumeSidebar />
-			<div className="relative space-y-16 border-l border-border pl-8">
+			<div className="relative pl-8">
 				<ResumeExperience />
 				<ResumeSkills />
 				<ResumeTools />
+				<ResumeEducation />
 			</div>
 		</main>
 	);

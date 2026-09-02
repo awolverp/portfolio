@@ -1,21 +1,6 @@
 import { experience } from "#/components/resume/data";
 import { ResumeSection } from "#/components/resume/section";
-
-const monthYearFormatter = new Intl.DateTimeFormat("en-US", {
-	month: "short",
-	year: "numeric",
-});
-
-function formatYearMonth(value: string): string {
-	const [year, month] = value.split("-").map(Number);
-	return monthYearFormatter.format(new Date(year, month - 1));
-}
-
-function formatPeriod(startDate: string, endDate: string | null): string {
-	const start = formatYearMonth(startDate);
-	const end = endDate ? formatYearMonth(endDate) : "Present";
-	return `${start} - ${end}`;
-}
+import { formatPeriod } from "#/lib/date";
 
 export function ResumeExperience() {
 	return (
@@ -50,7 +35,7 @@ function ExperienceItem({
 				<p className="text-sm text-muted-foreground">
 					{role} - {type}
 				</p>
-				{company && <p className="font-semibold">{company}</p>}
+				{company && <p className="font-semibold text-lg">{company}</p>}
 			</div>
 			<p>{description}</p>
 		</li>

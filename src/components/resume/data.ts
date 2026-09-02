@@ -13,31 +13,31 @@ export const socials = [
 		name: "X",
 		handle: "@awolverp",
 		href: "https://x.com/awolverp",
-		iconSrc: icon("x", "fff"),
+		iconSrc: "/icons/x.svg",
 	},
 	{
 		name: "Telegram",
 		handle: "@awolverp",
 		href: "https://t.me/awolverp",
-		iconSrc: icon("telegram", "26A5E4"),
+		iconSrc: "/icons/telegram.svg",
 	},
 	{
 		name: "Github",
 		handle: "github.com/awolverp",
 		href: "https://github.com/awolverp",
-		iconSrc: icon("github", "fff"),
+		iconSrc: "/icons/github.svg",
 	},
 	{
 		name: "LinkedIn",
 		handle: "linkedin.com/in/ali-pooralijan-awolverp",
 		href: "https://www.linkedin.com/in/ali-pooralijan-awolverp",
-		iconSrc: icon("linkedin", "0A66C2"),
+		iconSrc: "/icons/linkedin.svg",
 	},
 ] as const;
 
 export const experience = [
 	{
-		startDate: "2023-07",
+		startDate: new Date(2023, 7),
 		endDate: null,
 		role: "Backend Developer",
 		type: "Contract",
@@ -46,7 +46,7 @@ export const experience = [
 			"Contract backend engineer for a private company group (parent + subsidiaries; names under NDA). Not a full-time employee. I design and ship production APIs and data services",
 	},
 	{
-		startDate: "2025-07",
+		startDate: new Date(2025, 7),
 		endDate: null,
 		role: "Full-Stack Engineer",
 		type: "Freelance",
@@ -54,7 +54,7 @@ export const experience = [
 		description: "Independent full-stack work on freelance builds.",
 	},
 	{
-		startDate: "2023-07",
+		startDate: new Date(2023, 7),
 		endDate: null,
 		role: "Open Source Maintainer",
 		type: "Self-Employed",
@@ -127,40 +127,50 @@ export const tools = [
 	{
 		name: "Zed",
 		caption: "Code Editor",
-		src: "/tools/zed.png",
+		src: "/images/zed.png",
 	},
 	{
 		name: "Github",
 		caption: "Code Hosting Platform",
-		src: "/tools/github.png",
+		src: "/images/github.png",
 	},
 	{
 		name: "Figma",
 		caption: "Collaborative Design Platform",
-		src: "/tools/figma.png",
+		src: "/images/figma.png",
 	},
 	{
 		name: "VS Code",
 		caption: "Code Editor",
-		src: "/tools/vscode.png",
+		src: "/images/vscode.png",
 	},
 	{
 		name: "Yaak",
 		caption: "API Testing Tool",
-		src: "/tools/yaak.png",
+		src: "/images/yaak.png",
 	},
 	{
 		name: "APIDog",
 		caption: "API Design Tool",
-		src: "/tools/apidog.png",
+		src: "/images/apidog.png",
 	},
 	{
 		name: "Grok Build",
 		caption: "Coding Agent",
-		src: "/tools/grok-build.png",
+		src: "/images/grok.png",
 	},
 ] as const;
 
 export function skillIconSrc(item: SkillItem) {
 	return icon(item.slug, item.hex);
 }
+
+export const education = [
+	{
+		startDate: new Date(2023, 10),
+		endDate: new Date(2028),
+		school: "Payame Noor University",
+		degree: "Engineer",
+		field: "Computer Engineering",
+	},
+] as const;

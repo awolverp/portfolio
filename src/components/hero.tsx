@@ -71,12 +71,12 @@ export function Hero() {
 							className="inline-block transition-colors bg-linear-to-r from-accent-400 to-accent-800 bg-clip-text text-transparent"
 							variants={lineRevealMotion}
 						>
-							Performance First.
+							Ali Pooralijan
 						</m.span>
 					</span>
 					<span className="block overflow-hidden">
 						<m.span className="inline-block" variants={lineRevealDelayedMotion}>
-							Everything Else Second.
+							Your Next Developer
 						</m.span>
 					</span>
 				</h1>
