@@ -102,9 +102,9 @@ function Projects() {
 				{projects.map((project) => (
 					<m.div
 						key={project.id}
-						initial={{ opacity: 0.2, y: "3rem", scale: 0.95 }}
+						initial={{ opacity: 0.3, y: "1rem", scale: 0.95 }}
 						whileInView={{ opacity: 1, y: 0, scale: 1 }}
-						viewport={{ amount: 0.8 }}
+						viewport={{ amount: 0.4 }}
 					>
 						<ProjectItem {...project} />
 					</m.div>
