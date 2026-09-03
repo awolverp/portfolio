@@ -6,14 +6,14 @@ import { BuildBackendFrontendStage } from "./stage-4";
 import { IntegrateAndShipStage } from "./stage-5";
 
 export function FullStackJourney() {
-	return (
-		<>
-			<IntroduceStage />
-			<InspectRequirementsStage />
-			<DesignDatabaseStage />
-			<DesignApiContractStage />
-			<BuildBackendFrontendStage />
-			<IntegrateAndShipStage />
-		</>
-	);
+  return (
+    <>
+      <IntroduceStage />
+      <InspectRequirementsStage />
+      <DesignDatabaseStage />
+      <DesignApiContractStage />
+      <BuildBackendFrontendStage />
+      <IntegrateAndShipStage />
+    </>
+  );
 }

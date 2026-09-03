@@ -6,14 +6,14 @@ import { EnforceInvariantsStage } from "./stage-4";
 import { BenchmarkAndShipStage } from "./stage-5";
 
 export function RustJourney() {
-	return (
-		<>
-			<IntroduceStage />
-			<SpikeTheCoreStage />
-			<ModelWithTypesStage />
-			<GrowIterativelyStage />
-			<EnforceInvariantsStage />
-			<BenchmarkAndShipStage />
-		</>
-	);
+  return (
+    <>
+      <IntroduceStage />
+      <SpikeTheCoreStage />
+      <ModelWithTypesStage />
+      <GrowIterativelyStage />
+      <EnforceInvariantsStage />
+      <BenchmarkAndShipStage />
+    </>
+  );
 }

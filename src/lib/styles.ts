@@ -6,5 +6,5 @@ export { cva } from "class-variance-authority";
 
 /** A thin wrapper around `cx` and `twMerge` */
 export function cn(...inputs: Parameters<typeof cx>) {
-	return twMerge(cx(...inputs));
+  return twMerge(cx(...inputs));
 }

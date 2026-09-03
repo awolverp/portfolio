@@ -5,20 +5,23 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 const config = defineConfig({
-	base: "/portfolio/",
-	resolve: { tsconfigPaths: true },
-	plugins: [
-		tailwindcss(),
-		tanstackStart({
-			spa: {
-				enabled: true,
-				prerender: {
-					crawlLinks: true,
-				},
-			},
-		}),
-		viteReact(),
-	],
+  base: "/portfolio/",
+  resolve: { tsconfigPaths: true },
+  plugins: [
+    tailwindcss(),
+    tanstackStart({
+      spa: {
+        enabled: true,
+        prerender: {
+          crawlLinks: true,
+        },
+      },
+      prerender: {
+        filter: ({ path }) => !path.endsWith("resume.pdf"),
+      },
+    }),
+    viteReact(),
+  ],
 });
 
 export default config;

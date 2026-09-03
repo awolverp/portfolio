@@ -8,8 +8,8 @@ export const easeOutExpo = [0.22, 1, 0.36, 1] as const;
  * Fires once when ~50% of the element is visible; does not re-run on scroll-back.
  */
 export const viewportOnceMotion = {
-	once: true,
-	amount: 0.5,
+  once: true,
+  amount: 0.5,
 } as const;
 
 /**
@@ -18,12 +18,12 @@ export const viewportOnceMotion = {
  * (or `whileInView="visible"` + `viewport={viewportOnce}`).
  */
 export const fadeUpMotion: Variants = {
-	hidden: { opacity: 0, y: 16 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: { duration: 0.55, ease: easeOutExpo },
-	},
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: easeOutExpo },
+  },
 };
 
 /**
@@ -31,10 +31,10 @@ export const fadeUpMotion: Variants = {
  * Put this on the parent; children should use variants like `fadeUp`.
  */
 export const staggerParentMotion: Variants = {
-	hidden: {},
-	visible: {
-		transition: { staggerChildren: 0.1, delayChildren: 0.08 },
-	},
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+  },
 };
 
 /**
@@ -44,12 +44,12 @@ export const staggerParentMotion: Variants = {
  * never peeks before the animation starts.
  */
 export const lineRevealMotion = {
-	hidden: { y: "110%", opacity: 0 },
-	visible: {
-		y: 0,
-		opacity: 1,
-		transition: { duration: 0.7, ease: easeOutExpo },
-	},
+  hidden: { y: "110%", opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.7, ease: easeOutExpo },
+  },
 };
 
 /**
@@ -58,9 +58,9 @@ export const lineRevealMotion = {
  * instead of sharing a stagger parent.
  */
 export const lineRevealDelayedMotion = {
-	hidden: lineRevealMotion.hidden,
-	visible: {
-		...lineRevealMotion.visible,
-		transition: { duration: 0.7, ease: easeOutExpo, delay: 0.12 },
-	},
+  hidden: lineRevealMotion.hidden,
+  visible: {
+    ...lineRevealMotion.visible,
+    transition: { duration: 0.7, ease: easeOutExpo, delay: 0.12 },
+  },
 };
