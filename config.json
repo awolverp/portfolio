@@ -85,8 +85,8 @@
         { "name": "S3" }
       ],
       "image": {
-        "src": "/images/heroai_image.png",
-        "alt": "HeroAI dashboard"
+        "src": "/images/heroai-showcase.jpg",
+        "alt": "HeroAI API Reference"
       },
       "link": {
         "label": "Live",
@@ -117,6 +117,10 @@
         { "name": "Rust", "iconSrc": "https://cdn.simpleicons.org/rust/fff" },
         { "name": "GitHub Actions", "iconSrc": "https://cdn.simpleicons.org/githubactions/2088FF" }
       ],
+      "image": {
+        "src": "/images/cachebox-showcase.png",
+        "alt": "cachebox Example"
+      },
       "link": {
         "label": "GitHub",
         "href": "https://github.com/awolverp/cachebox"
