@@ -5,15 +5,13 @@ import { ResumeExperience } from "#/components/resume/experience";
 import { ResumeSidebar } from "#/components/resume/sidebar";
 import { ResumeSkills } from "#/components/resume/skills";
 import { ResumeTools } from "#/components/resume/tools";
-import { absoluteUrl } from "#/lib/config";
+import config, { absoluteUrl } from "#/lib/config";
 import { personJsonLd, seo } from "#/lib/seo";
-import { getConfig } from "#/server/config";
 
 export const Route = createFileRoute("/resume")({
-	loader: () => getConfig(),
-	head: ({ loaderData }) => {
-		if (!loaderData) return {};
-		const { site, pages } = loaderData;
+	head: () => {
+		const { site, pages } = config;
+
 		return seo({
 			title: pages.resume.title,
 			description: pages.resume.description,
@@ -22,7 +20,7 @@ export const Route = createFileRoute("/resume")({
 			url: absoluteUrl(site.url, "/resume"),
 			type: "profile",
 			twitter: site.twitter,
-			jsonLd: personJsonLd(loaderData),
+			jsonLd: personJsonLd(config),
 		});
 	},
 	component: Resume,

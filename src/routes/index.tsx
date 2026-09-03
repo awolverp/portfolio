@@ -3,15 +3,13 @@ import { Hero } from "#/components/hero";
 import { useTheme } from "#/hooks/theme";
 import { FullStackJourney } from "#/journeys/full-stack";
 import { RustJourney } from "#/journeys/rust";
-import { absoluteUrl } from "#/lib/config";
+import config, { absoluteUrl } from "#/lib/config";
 import { seo } from "#/lib/seo";
-import { getConfig } from "#/server/config";
 
 export const Route = createFileRoute("/")({
-	loader: () => getConfig(),
-	head: ({ loaderData }) => {
-		if (!loaderData) return {};
-		const { site, pages } = loaderData;
+	head: () => {
+		const { site, pages } = config;
+
 		return seo({
 			title: pages.home.title,
 			description: pages.home.description,

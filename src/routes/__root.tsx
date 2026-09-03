@@ -8,27 +8,22 @@ import { domAnimation, LazyMotion } from "motion/react";
 import { Footer } from "#/components/layout/footer";
 import { Navbar } from "#/components/layout/navbar";
 import { NotFound } from "#/components/not-found";
-import { ConfigProvider } from "#/hooks/config";
 import { ThemeProvider } from "#/hooks/theme";
-import { absoluteUrl } from "#/lib/config";
+import config, { absoluteUrl } from "#/lib/config";
 import { seo } from "#/lib/seo";
-import { getConfig } from "#/server/config";
 import globalsStyles from "../globals.css?url";
 
 export const Route = createRootRoute({
-	loader: () => getConfig(),
-	head: ({ loaderData }) => {
-		const tags = loaderData
-			? seo({
-					title: `${loaderData.profile.name} - ${loaderData.site.displayName}`,
-					description: loaderData.pages.home.description,
-					keywords: loaderData.site.keywords,
-					image: loaderData.site.ogImage
-						? absoluteUrl(loaderData.site.url, loaderData.site.ogImage)
-						: undefined,
-					twitter: loaderData.site.twitter,
-				})
-			: { meta: [], links: [], scripts: [] };
+	head: () => {
+		const tags = seo({
+			title: `${config.profile.name} - ${config.site.displayName}`,
+			description: config.pages.home.description,
+			keywords: config.site.keywords,
+			image: config.site.ogImage
+				? absoluteUrl(config.site.url, config.site.ogImage)
+				: undefined,
+			twitter: config.site.twitter,
+		});
 
 		return {
 			meta: [
@@ -71,14 +66,12 @@ export const Route = createRootRoute({
 });
 
 function RootLayout() {
-	const config = Route.useLoaderData();
-
 	return (
-		<ConfigProvider config={config}>
+		<>
 			<Navbar />
 			<Outlet />
 			<Footer />
-		</ConfigProvider>
+		</>
 	);
 }
 

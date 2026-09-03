@@ -4,15 +4,13 @@ import { m } from "motion/react";
 import { ProjectsHero } from "#/components/projects-hero";
 import { ProjectItem } from "#/components/ui/project-item";
 import { useConfig } from "#/hooks/config";
-import { absoluteUrl } from "#/lib/config";
+import config, { absoluteUrl } from "#/lib/config";
 import { seo } from "#/lib/seo";
-import { getConfig } from "#/server/config";
 
 export const Route = createFileRoute("/projects")({
-	loader: () => getConfig(),
-	head: ({ loaderData }) => {
-		if (!loaderData) return {};
-		const { site, pages } = loaderData;
+	head: () => {
+		const { site, pages } = config;
+
 		return seo({
 			title: pages.projects.title,
 			description: pages.projects.description,

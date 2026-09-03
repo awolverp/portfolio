@@ -1,4 +1,5 @@
 import { z } from "zod";
+import projectConfig from "../../project.config";
 
 export const journeys = ["full-stack", "rust"] as const;
 export type Journey = (typeof journeys)[number];
@@ -140,10 +141,6 @@ export type SkillItem = z.infer<typeof skillItemSchema>;
 export type Social = Config["socials"][number];
 export type Project = Config["projects"][number];
 
-export function parseConfig(raw: unknown): Config {
-	return configSchema.parse(raw);
-}
-
 export function absoluteUrl(base: string, path = "/"): string {
 	const origin = base.replace(/\/$/, "");
 	if (!path || path === "/") return origin;
@@ -169,3 +166,9 @@ export function selectSkillsForJourney(
 	}
 	return cached[journey];
 }
+
+function parseConfig(raw: unknown): Config {
+	return configSchema.parse(raw);
+}
+
+export default parseConfig(projectConfig);
