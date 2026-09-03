@@ -43,7 +43,7 @@ export default {
   "pages": {
     "home": {
       "title": "Ali Pooralijan | A.Wolver.P",
-      "description": "Portfolio of Ali Pooralijan (A.Wolver.P), a software engineer focused on performance, scalable systems, and modern web applications."
+      "description": "Portfolio of Ali Pooralijan (A.Wolver.P), a full-stack developer & rust developer focused on performance, scalable systems, and modern web applications."
     },
     "projects": {
       "title": "Projects | A.Wolver.P",

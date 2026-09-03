@@ -16,6 +16,9 @@ const config = defineConfig({
 					crawlLinks: true,
 				},
 			},
+			prerender: {
+				filter: ({ path }) => !path.endsWith("resume.pdf"),
+			},
 		}),
 		viteReact(),
 	],
