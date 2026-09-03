@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Personal portfolio for Ali Pooralijan (A.Wolver.P). Three routes: `/` (hero + full-stack or Rust journey), `/projects`, `/resume`. Dark-only. Theme (`full-stack` | `rust`) is a journey accent stored in `localStorage`, not light/dark.
+Personal portfolio for Ali Pooralijan (A.Wolver.P). Three routes: `/` (hero + full-stack or Rust journey), `/projects`, `/resume`. Dark-only. Theme (`full-stack` | `rust`) is a journey accent stored in `localStorage`, not light/dark. Apache License 2.0. GitHub Pages deploys `dist/client` from the `deploy` branch (`base` `/portfolio/`).
 
 ## Stack
 
@@ -35,4 +35,4 @@ There is **no test suite**. After meaningful changes, run `pnpm check`. Run `pnp
 - Generated: `src/routeTree.gen.ts`, `dist/`, `.tanstack/`
 - Secrets / env: `.env`, `*.local`
 - Lockfile unless the task is a dependency change
-- Scaffold leftovers in `README.md` unless asked to update docs
+- `README.md` unless asked to update docs

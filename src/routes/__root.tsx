@@ -7,6 +7,7 @@ import {
 import { domAnimation, LazyMotion } from "motion/react";
 import { Footer } from "#/components/layout/footer";
 import { Navbar } from "#/components/layout/navbar";
+import { NotFound } from "#/components/not-found";
 import { ConfigProvider } from "#/hooks/config";
 import { ThemeProvider } from "#/hooks/theme";
 import { absoluteUrl } from "#/lib/config";
@@ -44,26 +45,27 @@ export const Route = createRootRoute({
 				{
 					rel: "apple-touch-icon",
 					sizes: "180x180",
-					href: "/apple-touch-icon.png",
+					href: "/portfolio/apple-touch-icon.png",
 				},
 				{
 					rel: "icon",
 					type: "image/png",
 					sizes: "32x32",
-					href: "/favicon-32x32.png",
+					href: "/portfolio/favicon-32x32.png",
 				},
 				{
 					rel: "icon",
 					type: "image/png",
 					sizes: "16x16",
-					href: "/favicon-16x16.png",
+					href: "/portfolio/favicon-16x16.png",
 				},
-				{ rel: "icon", href: "/favicon.ico" },
+				{ rel: "icon", href: "/portfolio/favicon.ico" },
 				...tags.links,
 			],
 			scripts: tags.scripts,
 		};
 	},
+	notFoundComponent: NotFound,
 	shellComponent: RootDocument,
 	component: RootLayout,
 });

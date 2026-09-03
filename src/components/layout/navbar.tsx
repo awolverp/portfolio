@@ -23,7 +23,7 @@ export function Navbar() {
 	return (
 		<nav className={navbarStyle}>
 			<Link to="/" className="flex items-center gap-2 text-foreground">
-				<img src="/favicon.svg" alt="" className="size-6" />
+				<img src="/portfolio/favicon.svg" alt="" className="size-6" />
 				<span className="hidden md:inline text-xl font-bold">
 					{displayName}
 				</span>

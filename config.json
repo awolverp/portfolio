@@ -1,6 +1,6 @@
 {
   "site": {
-    "url": "https://awolverp.dev",
+    "url": "https://awolverp.github.io/portfolio",
     "displayName": "A.Wolver.P",
     "keywords": "Ali Pooralijan, A.Wolver.P, software engineer, full-stack, Rust, Python, FastAPI, PyO3, cachebox, HeroAI",
     "twitter": "@awolverp"
@@ -19,25 +19,25 @@
       "name": "X",
       "handle": "@awolverp",
       "href": "https://x.com/awolverp",
-      "iconSrc": "/icons/x.svg"
+      "iconSrc": "/portfolio/icons/x.svg"
     },
     {
       "name": "Telegram",
       "handle": "@awolverp",
       "href": "https://t.me/awolverp",
-      "iconSrc": "/icons/telegram.svg"
+      "iconSrc": "/portfolio/icons/telegram.svg"
     },
     {
       "name": "Github",
       "handle": "github.com/awolverp",
       "href": "https://github.com/awolverp",
-      "iconSrc": "/icons/github.svg"
+      "iconSrc": "/portfolio/icons/github.svg"
     },
     {
       "name": "LinkedIn",
       "handle": "linkedin.com/in/ali-pooralijan-awolverp",
       "href": "https://www.linkedin.com/in/ali-pooralijan-awolverp",
-      "iconSrc": "/icons/linkedin.svg"
+      "iconSrc": "/portfolio/icons/linkedin.svg"
     }
   ],
   "pages": {
@@ -85,7 +85,7 @@
         { "name": "S3" }
       ],
       "image": {
-        "src": "/images/heroai-showcase.jpg",
+        "src": "/portfolio/images/heroai-showcase.jpg",
         "alt": "HeroAI API Reference"
       },
       "link": {
@@ -118,7 +118,7 @@
         { "name": "GitHub Actions", "iconSrc": "https://cdn.simpleicons.org/githubactions/2088FF" }
       ],
       "image": {
-        "src": "/images/cachebox-showcase.png",
+        "src": "/portfolio/images/cachebox-showcase.png",
         "alt": "cachebox Example"
       },
       "link": {
@@ -128,7 +128,7 @@
     }
   ],
   "resume": {
-    "pdfUrl": "/resume.pdf",
+    "pdfUrl": "/portfolio/resume.pdf",
     "experience": [
       {
         "startDate": "2023-08",
@@ -207,13 +207,13 @@
       }
     ],
     "tools": [
-      { "name": "Zed", "caption": "Code Editor", "src": "/images/zed.png" },
-      { "name": "Github", "caption": "Code Hosting Platform", "src": "/images/github.png" },
-      { "name": "Figma", "caption": "Collaborative Design Platform", "src": "/images/figma.png" },
-      { "name": "VS Code", "caption": "Code Editor", "src": "/images/vscode.png" },
-      { "name": "Yaak", "caption": "API Testing Tool", "src": "/images/yaak.png" },
-      { "name": "APIDog", "caption": "API Design Tool", "src": "/images/apidog.png" },
-      { "name": "Grok Build", "caption": "Coding Agent", "src": "/images/grok.png" }
+      { "name": "Zed", "caption": "Code Editor", "src": "/portfolio/images/zed.png" },
+      { "name": "Github", "caption": "Code Hosting Platform", "src": "/portfolio/images/github.png" },
+      { "name": "Figma", "caption": "Collaborative Design Platform", "src": "/portfolio/images/figma.png" },
+      { "name": "VS Code", "caption": "Code Editor", "src": "/portfolio/images/vscode.png" },
+      { "name": "Yaak", "caption": "API Testing Tool", "src": "/portfolio/images/yaak.png" },
+      { "name": "APIDog", "caption": "API Design Tool", "src": "/portfolio/images/apidog.png" },
+      { "name": "Grok Build", "caption": "Coding Agent", "src": "/portfolio/images/grok.png" }
     ],
     "education": [
       {

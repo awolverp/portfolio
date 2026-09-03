@@ -15,7 +15,7 @@ export function Footer() {
 		<footer className="border-t-2 border-border w-full py-8 flex flex-col gap-6">
 			<div className="container flex gap-4 flex-col justify-center items-center md:flex-row md:items-center md:justify-between">
 				<Link to="/" className="flex items-center gap-2">
-					<img src="/favicon.svg" alt="" className="size-6" />
+					<img src="/portfolio/favicon.svg" alt="" className="size-6" />
 					<span className="text-xl font-bold">{displayName}</span>
 				</Link>
 

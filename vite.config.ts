@@ -5,14 +5,16 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 const config = defineConfig({
+	base: "/portfolio/",
 	resolve: { tsconfigPaths: true },
 	plugins: [
 		tailwindcss(),
 		tanstackStart({
-			prerender: {
+			spa: {
 				enabled: true,
-				autoStaticPathsDiscovery: true,
-				crawlLinks: true,
+				prerender: {
+					crawlLinks: true,
+				},
 			},
 		}),
 		viteReact(),

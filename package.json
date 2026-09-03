@@ -1,6 +1,13 @@
 {
   "name": "portfolio-website",
   "private": true,
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.3.0",
+  "homepage": "https://awolverp.github.io/portfolio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awolverp/portfolio.git"
+  },
   "type": "module",
   "imports": {
     "#/*": "./src/*"
