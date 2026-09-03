@@ -158,6 +158,42 @@ const config = parseConfig({
         href: "https://github.com/awolverp/cachebox",
       },
     },
+    {
+      id: "portfolio",
+      name: "Portfolio",
+      headline: "My Personal Portfolio Website",
+      tagline: "You're here, looking at it.",
+      description:
+        "A simple and customizable personal portfolio website, using Tanstack Start SSG.",
+      highlights: [],
+      type: "personal",
+      role: "Frontend Developer",
+      startDate: "2026-08",
+      endDate: "2026-09",
+      metrics: [],
+      stack: [
+        {
+          name: "TypeScript",
+          iconSrc: "https://cdn.simpleicons.org/typescript/3178C6",
+        },
+        {
+          name: "Tanstack Start",
+          iconSrc: "https://cdn.simpleicons.org/tanstack/EAB308",
+        },
+        {
+          name: "GitHub Actions",
+          iconSrc: "https://cdn.simpleicons.org/githubactions/2088FF",
+        },
+      ],
+      image: {
+        src: "/portfolio/images/portfolio-showcase.png",
+        alt: "Screenshot",
+      },
+      link: {
+        label: "GitHub",
+        href: "https://github.com/awolverp/portfolio",
+      },
+    },
   ],
   resume: {
     pdfUrl: "/portfolio/resume.pdf",
@@ -249,10 +285,12 @@ const config = parseConfig({
           {
             name: "Docker",
             iconSrc: "https://cdn.simpleicons.org/docker/2496ED",
+            journeys: ["full-stack"],
           },
           {
             name: "Nginx",
             iconSrc: "https://cdn.simpleicons.org/nginx/009639",
+            journeys: ["full-stack"],
           },
           {
             name: "Github Actions",
@@ -269,6 +307,7 @@ const config = parseConfig({
           {
             name: "PostgreSQL",
             iconSrc: "https://cdn.simpleicons.org/postgresql/4169E1",
+            journeys: ["full-stack"],
           },
           {
             name: "Redis",
@@ -284,7 +323,7 @@ const config = parseConfig({
       {
         category: "Libraries",
         items: [
-          { name: "PyO3" },
+          { name: "PyO3", journeys: ["rust"] },
           {
             name: "Tokio",
             iconSrc: "https://cdn.simpleicons.org/tokio/fff",
