@@ -4,7 +4,7 @@ import { Chip } from "#/components/ui/chip";
 import { Marquee } from "#/components/ui/marquee";
 import { ScrollHint } from "#/components/ui/scroll-hint";
 import { useConfig } from "#/hooks/config";
-import { skillIconSrc, skillsForJourney } from "#/lib/config";
+import { selectSkillsForJourney } from "#/lib/config";
 import { easeOutExpo, viewportOnceMotion } from "#/lib/motion";
 
 export function IntroduceStage() {
@@ -36,7 +36,7 @@ export function IntroduceStage() {
 }
 
 function StackMarquee() {
-	const skills = useConfig((config) => skillsForJourney(config, "rust"));
+	const skills = useConfig((config) => selectSkillsForJourney(config, "rust"));
 
 	if (skills.length < 1) return null;
 
@@ -46,13 +46,12 @@ function StackMarquee() {
 			className="max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"
 		>
 			{skills.map((item) => {
-				const iconSrc = skillIconSrc(item);
 				return (
 					<Marquee.Item key={item.name}>
 						<Chip>
-							{iconSrc && (
+							{item.iconSrc && (
 								<img
-									src={iconSrc}
+									src={item.iconSrc}
 									alt={`${item.name} icon`}
 									className="size-4"
 								/>

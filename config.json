@@ -2,7 +2,7 @@
   "site": {
     "url": "https://awolverp.dev",
     "displayName": "A.Wolver.P",
-    "keywords": "Ali Pooralijan, A.Wolver.P, software engineer, full-stack, Rust, Python, FastAPI",
+    "keywords": "Ali Pooralijan, A.Wolver.P, software engineer, full-stack, Rust, Python, FastAPI, PyO3, cachebox, HeroAI",
     "twitter": "@awolverp"
   },
   "profile": {
@@ -47,8 +47,7 @@
     },
     "projects": {
       "title": "Projects | A.Wolver.P",
-      "description": "Selected software projects by Ali Pooralijan (A.Wolver.P): high-performance backends, full-stack systems, and production APIs.",
-      "heading": "Selected Projects"
+      "description": "Selected software projects by Ali Pooralijan (A.Wolver.P): HeroAI, cachebox, high-performance backends, and production APIs."
     },
     "resume": {
       "title": "Resume | A.Wolver.P",
@@ -60,30 +59,30 @@
       "id": "heroai",
       "name": "HeroAI",
       "headline": "Unified AI Gateway API",
-      "tagline": "One OpenAI-compatible API for every model you need to ship.",
-      "description": "A production-grade gateway that unifies OpenAI, Anthropic, Gemini, DeepSeek, and xAI behind one URL, one auth scheme, and one SDK. Swap models with a single name change.",
+      "tagline": "A production AI gateway over 170+ models behind OpenAI- and Gemini-compatible REST APIs.",
+      "description": "Built the HeroAI backend in FastAPI and SQLAlchemy: a production AI gateway over 170+ models (OpenAI, Gemini, Claude, DeepSeek, xAI).",
       "highlights": [
-        "One URL, one auth scheme, one SDK across OpenAI, Anthropic, Gemini, DeepSeek, and xAI",
-        "Chat, media, embeddings, batch, and Gemini-native endpoints in production",
-        "Iran-accessible mirror for clients who cannot hit upstream APIs"
+        "Shipped OpenAI- and Gemini-compatible REST APIs so existing SDKs and apps integrate with little or no code changes.",
+        "Implemented API key management, reseller APIs, org/team admin, enterprise data policies, and credit-based billing.",
+        "Supported 20K+ users and 1M+ monthly API requests; used by WordPress plugins and third-party integrations."
       ],
       "type": "contract",
       "role": "Backend Developer",
-      "startDate": "2023-08",
+      "startDate": "2024-12",
       "endDate": null,
       "metrics": [
-        { "value": "+1k", "label": "Request/Min" },
-        { "value": "+100k", "label": "Users" },
-        { "value": "+158", "label": "AI Models" }
+        { "value": "170+", "label": "AI Models" },
+        { "value": "20K+", "label": "Users" },
+        { "value": "1M+", "label": "Monthly Requests" }
       ],
       "stack": [
         { "name": "Python", "iconSrc": "https://cdn.simpleicons.org/python/3776AB" },
         { "name": "FastAPI", "iconSrc": "https://cdn.simpleicons.org/fastapi/009688" },
-        { "name": "Redis", "iconSrc": "https://cdn.simpleicons.org/redis/FF4438" },
+        { "name": "SQLAlchemy", "iconSrc": "https://cdn.simpleicons.org/sqlalchemy/D71F00" },
         { "name": "PostgreSQL", "iconSrc": "https://cdn.simpleicons.org/postgresql/4169E1" },
-        { "name": "MongoDB", "iconSrc": "https://cdn.simpleicons.org/mongodb/47A248" },
-        { "name": "Amazon S3", "iconSrc": "https://cdn.simpleicons.org/amazons3/569A31" },
-        { "name": "Sentry", "iconSrc": "https://cdn.simpleicons.org/sentry/fff" }
+        { "name": "Redis", "iconSrc": "https://cdn.simpleicons.org/redis/FF4438" },
+        { "name": "Docker", "iconSrc": "https://cdn.simpleicons.org/docker/2496ED" },
+        { "name": "S3" }
       ],
       "image": {
         "src": "/images/heroai_image.png",
@@ -93,17 +92,47 @@
         "label": "Live",
         "href": "https://api.heroai.ir/docs"
       }
+    },
+    {
+      "id": "cachebox",
+      "name": "cachebox",
+      "headline": "High-performance Python cache (Rust / PyO3)",
+      "tagline": "A thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
+      "description": "Designed and maintain cachebox, a thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
+      "highlights": [
+        "Reached 400+ GitHub stars and 13M+ PyPI downloads per month; ship CPython and PyPy wheels through Maturin and GitHub Actions.",
+        "Implemented FIFO, LRU, TTL, and other eviction policies with a low memory footprint; public benchmarks show 10-50x vs common Python caches."
+      ],
+      "type": "open-source",
+      "role": "Open Source Developer",
+      "startDate": "2024-01",
+      "endDate": null,
+      "metrics": [
+        { "value": "400+", "label": "GitHub Stars" },
+        { "value": "13M+", "label": "PyPI Downloads / Mo" },
+        { "value": "10-50x", "label": "vs Common Caches" }
+      ],
+      "stack": [
+        { "name": "Python", "iconSrc": "https://cdn.simpleicons.org/python/3776AB" },
+        { "name": "Rust", "iconSrc": "https://cdn.simpleicons.org/rust/fff" },
+        { "name": "GitHub Actions", "iconSrc": "https://cdn.simpleicons.org/githubactions/2088FF" }
+      ],
+      "link": {
+        "label": "GitHub",
+        "href": "https://github.com/awolverp/cachebox"
+      }
     }
   ],
   "resume": {
+    "pdfUrl": "/resume.pdf",
     "experience": [
       {
         "startDate": "2023-08",
         "endDate": null,
         "role": "Backend Developer",
         "type": "Contract",
-        "company": "Private Company",
-        "description": "Contract backend engineer for a private company group (parent + subsidiaries; names under NDA). Not a full-time employee. I design and ship production APIs and data services"
+        "company": "Private Company (NDA)",
+        "description": "Design and ship production REST APIs in FastAPI used by commercial products. Model and evolve complex relational schemas so they stay maintainable as requirements grow. Build S3 / object-storage pipelines and work across multiple product codebases in the same group."
       },
       {
         "startDate": "2025-08",
@@ -111,66 +140,65 @@
         "role": "Full-Stack Engineer",
         "type": "Freelance",
         "company": null,
-        "description": "Independent full-stack work on freelance builds."
+        "description": "Deliver independent freelance products: FastAPI and Actix Web backends plus working web UIs. Ship interfaces with TanStack Start or Next.js when the product needs more than an API. Take selected builds from idea to a usable web app: API, data model, and frontend."
       },
       {
         "startDate": "2023-08",
         "endDate": null,
-        "role": "Open Source Maintainer",
-        "type": "Self-Employed",
+        "role": "Open Source Developer",
+        "type": "Self-employed",
         "company": null,
-        "description": "Side work. Author of Rust-backed Python libraries on PyPI (PyO3)."
+        "description": "Author and maintain Rust-backed Python libraries on PyPI using PyO3 and Maturin. Also maintain markupever (HTML/XML parser, 35+ stars, 360K+ downloads) and rapidquery (SQL query builder on SeaQuery)."
       }
     ],
     "skills": [
       {
         "category": "Languages",
         "items": [
-          { "name": "Python", "slug": "python", "hex": "3776AB", "journeys": ["full-stack"] },
-          { "name": "Rust", "slug": "rust", "hex": "fff", "journeys": ["rust"] },
-          { "name": "TypeScript", "slug": "typescript", "hex": "3178C6", "journeys": ["full-stack"] },
-          { "name": "Golang", "slug": "go", "hex": "00ADD8", "journeys": ["full-stack"] },
-          { "name": "SQL", "slug": "sql", "hex": "fff" }
+          { "name": "Python", "iconSrc": "https://cdn.simpleicons.org/python/3776AB", "journeys": ["full-stack"] },
+          { "name": "Rust", "iconSrc": "https://cdn.simpleicons.org/rust/fff", "journeys": ["rust"] },
+          { "name": "TypeScript", "iconSrc": "https://cdn.simpleicons.org/typescript/3178C6", "journeys": ["full-stack"] },
+          { "name": "SQL", "journeys": ["rust", "full-stack"] }
         ]
       },
       {
         "category": "Frameworks",
         "items": [
-          { "name": "FastAPI", "slug": "fastapi", "hex": "009688", "journeys": ["full-stack"] },
-          { "name": "SQLAlchemy", "slug": "sqlalchemy", "hex": "D71F00" },
-          { "name": "Actix Web", "slug": "actix", "hex": "fff", "journeys": ["rust"] },
-          { "name": "Axum", "slug": "axum", "hex": "fff" },
-          { "name": "React", "slug": "react", "hex": "61DAFB" },
-          { "name": "Next.js", "slug": "nextdotjs", "hex": "fff", "journeys": ["full-stack"] },
-          { "name": "Tanstack Start", "slug": "tanstack", "hex": "EAB308", "journeys": ["full-stack"] },
-          { "name": "Go Fiber", "slug": "fiber", "hex": "00ACD7" },
-          { "name": "Go Bun", "slug": "bun", "hex": "fff" }
+          { "name": "FastAPI", "iconSrc": "https://cdn.simpleicons.org/fastapi/009688", "journeys": ["full-stack"] },
+          { "name": "Actix Web", "iconSrc": "https://cdn.simpleicons.org/actix/fff", "journeys": ["rust"] },
+          { "name": "Axum" },
+          { "name": "Tanstack Start", "iconSrc": "https://cdn.simpleicons.org/tanstack/EAB308", "journeys": ["full-stack"] },
+          { "name": "Next.js", "iconSrc": "https://cdn.simpleicons.org/nextdotjs/fff", "journeys": ["full-stack"] },
+          { "name": "React", "iconSrc": "https://cdn.simpleicons.org/react/61DAFB" }
         ]
       },
       {
         "category": "Developer Tools",
         "items": [
-          { "name": "Git", "slug": "git", "hex": "F05032" },
-          { "name": "Github Actions", "slug": "githubactions", "hex": "2088FF", "journeys": ["full-stack"] },
-          { "name": "Docker", "slug": "docker", "hex": "2496ED" },
-          { "name": "Nginx", "slug": "nginx", "hex": "009639" },
-          { "name": "Orval", "slug": "orval", "hex": "fff" }
+          { "name": "Git", "iconSrc": "https://cdn.simpleicons.org/git/F05032" },
+          { "name": "Docker", "iconSrc": "https://cdn.simpleicons.org/docker/2496ED" },
+          { "name": "Nginx", "iconSrc": "https://cdn.simpleicons.org/nginx/009639" },
+          { "name": "Github Actions", "iconSrc": "https://cdn.simpleicons.org/githubactions/2088FF", "journeys": ["full-stack"] },
+          { "name": "Orval" },
+          { "name": "S3" }
         ]
       },
       {
         "category": "Databases",
         "items": [
-          { "name": "PostgreSQL", "slug": "postgresql", "hex": "4169E1" },
-          { "name": "Redis", "slug": "redis", "hex": "FF4438" },
-          { "name": "MongoDB", "slug": "mongodb", "hex": "47A248" }
+          { "name": "PostgreSQL", "iconSrc": "https://cdn.simpleicons.org/postgresql/4169E1" },
+          { "name": "Redis", "iconSrc": "https://cdn.simpleicons.org/redis/FF4438" },
+          { "name": "Dragonfly" },
+          { "name": "MongoDB", "iconSrc": "https://cdn.simpleicons.org/mongodb/47A248" }
         ]
       },
       {
         "category": "Libraries",
         "items": [
-          { "name": "PyO3", "slug": "pyo3", "hex": "fff" },
-          { "name": "Tokio", "slug": "tokio", "hex": "fff", "journeys": ["rust"] },
-          { "name": "html5ever", "slug": "html5ever", "hex": "fff" }
+          { "name": "PyO3" },
+          { "name": "Tokio", "iconSrc": "https://cdn.simpleicons.org/tokio/fff", "journeys": ["rust"] },
+          { "name": "html5ever" },
+          { "name": "SQLAlchemy" }
         ]
       }
     ],
@@ -185,7 +213,7 @@
     ],
     "education": [
       {
-        "startDate": "2023-11",
+        "startDate": "2023-09",
         "endDate": "2028-01",
         "school": "Payame Noor University",
         "degree": "Engineer",

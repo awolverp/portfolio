@@ -21,11 +21,6 @@ const socialSchema = z.object({
 
 export const skillItemSchema = z.object({
 	name: z.string().min(1),
-	slug: z.string().min(1).optional(),
-	hex: z
-		.string()
-		.regex(/^[0-9A-Fa-f]{3,8}$/, { error: "Expected a hex color without #" })
-		.optional(),
 	iconSrc: z.string().min(1).optional(),
 	journeys: z.array(z.enum(journeys)).optional(),
 });
@@ -89,7 +84,7 @@ const projectSchema = z.object({
 		.array(
 			z.object({
 				name: z.string().min(1),
-				iconSrc: z.string().min(1),
+				iconSrc: z.string().min(1).optional(),
 			}),
 		)
 		.default([]),
@@ -149,14 +144,6 @@ export function parseConfig(raw: unknown): Config {
 	return configSchema.parse(raw);
 }
 
-export function skillIconSrc(item: SkillItem): string | undefined {
-	if (item.iconSrc) return item.iconSrc;
-	if (item.slug && item.hex) {
-		return `https://cdn.simpleicons.org/${item.slug}/${item.hex}`;
-	}
-	return undefined;
-}
-
 export function absoluteUrl(base: string, path = "/"): string {
 	const origin = base.replace(/\/$/, "");
 	if (!path || path === "/") return origin;
@@ -165,7 +152,7 @@ export function absoluteUrl(base: string, path = "/"): string {
 
 const journeySkillsCache = new WeakMap<Config, Record<Journey, SkillItem[]>>();
 
-export function skillsForJourney(
+export function selectSkillsForJourney(
 	config: Config,
 	journey: Journey,
 ): SkillItem[] {

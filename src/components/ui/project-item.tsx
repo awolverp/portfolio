@@ -62,7 +62,9 @@ function ProjectStackList({ stack }: { stack: ProjectItemStack[] }) {
 			{stack.map((item) => (
 				<li key={item.name}>
 					<Chip>
-						<img src={item.iconSrc} alt="" className="size-4" />
+						{item.iconSrc && (
+							<img src={item.iconSrc} alt="" className="size-4" />
+						)}
 						{item.name}
 					</Chip>
 				</li>
