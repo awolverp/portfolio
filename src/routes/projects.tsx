@@ -4,44 +4,45 @@ import { m } from "motion/react";
 import { ProjectsHero } from "#/components/projects-hero";
 import { ProjectItem } from "#/components/ui/project-item";
 import { useConfig } from "#/hooks/config";
-import config, { absoluteUrl } from "#/lib/config";
+import { absoluteUrl } from "#/lib/config";
 import { seo } from "#/lib/seo";
+import config from "../../project.config";
 
 export const Route = createFileRoute("/projects")({
-	head: () => {
-		const { site, pages } = config;
+  head: () => {
+    const { site, pages } = config;
 
-		return seo({
-			title: pages.projects.title,
-			description: pages.projects.description,
-			keywords: site.keywords,
-			image: site.ogImage ? absoluteUrl(site.url, site.ogImage) : undefined,
-			url: absoluteUrl(site.url, "/projects"),
-			twitter: site.twitter,
-		});
-	},
-	component: Projects,
+    return seo({
+      title: pages.projects.title,
+      description: pages.projects.description,
+      keywords: site.keywords,
+      image: site.ogImage ? absoluteUrl(site.url, site.ogImage) : undefined,
+      url: absoluteUrl(site.url, "/projects"),
+      twitter: site.twitter,
+    });
+  },
+  component: Projects,
 });
 
 function Projects() {
-	const projects = useConfig((config) => config.projects);
+  const projects = useConfig((config) => config.projects);
 
-	return (
-		<>
-			<ProjectsHero />
+  return (
+    <>
+      <ProjectsHero />
 
-			<section className="container space-y-40 mb-40">
-				{projects.map((project) => (
-					<m.div
-						key={project.id}
-						initial={{ opacity: 0.3, y: "1rem" }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ amount: 0.4 }}
-					>
-						<ProjectItem {...project} />
-					</m.div>
-				))}
-			</section>
-		</>
-	);
+      <section className="container space-y-40 mb-40">
+        {projects.map((project) => (
+          <m.div
+            key={project.id}
+            initial={{ opacity: 0.3, y: "1rem" }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ amount: 0.4 }}
+          >
+            <ProjectItem {...project} />
+          </m.div>
+        ))}
+      </section>
+    </>
+  );
 }
