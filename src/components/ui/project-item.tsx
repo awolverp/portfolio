@@ -51,7 +51,7 @@ function ProjectMetricList({ metrics }: { metrics: ProjectItemMetric[] }) {
 
 export interface ProjectItemStack {
 	name: string;
-	iconSrc: string;
+	iconSrc?: string;
 }
 
 function ProjectStackList({ stack }: { stack: ProjectItemStack[] }) {
