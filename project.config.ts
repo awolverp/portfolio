@@ -33,13 +33,13 @@ const config = parseConfig({
     },
     {
       name: "Github",
-      handle: "github.com/awolverp",
+      handle: "@awolverp",
       href: "https://github.com/awolverp",
       iconSrc: "/portfolio/icons/github.svg",
     },
     {
       name: "LinkedIn",
-      handle: "linkedin.com/in/ali-pooralijan-awolverp",
+      handle: "in/ali-pooralijan-awolverp",
       href: "https://www.linkedin.com/in/ali-pooralijan-awolverp",
       iconSrc: "/portfolio/icons/linkedin.svg",
     },
@@ -80,9 +80,9 @@ const config = parseConfig({
       startDate: "2024-12",
       endDate: null,
       metrics: [
-        { value: "170+", label: "AI Models" },
-        { value: "20K+", label: "Users" },
-        { value: "1M+", label: "Monthly Requests" },
+        { value: "162+", label: "AI Models" },
+        { value: "12K+", label: "Users" },
+        { value: "48M+", label: "Monthly Requests" },
       ],
       stack: [
         {
@@ -135,8 +135,7 @@ const config = parseConfig({
       endDate: null,
       metrics: [
         { value: "400+", label: "GitHub Stars" },
-        { value: "13M+", label: "PyPI Downloads / Mo" },
-        { value: "10-50x", label: "vs Common Caches" },
+        { value: "13M+", label: "Downloads / Mo" },
       ],
       stack: [
         {
@@ -245,7 +244,8 @@ const config = parseConfig({
             iconSrc: "https://cdn.simpleicons.org/typescript/3178C6",
             journeys: ["full-stack"],
           },
-          { name: "SQL", journeys: ["rust", "full-stack"] },
+          { name: "TypeSpec" },
+          { name: "SQL" },
         ],
       },
       {
@@ -355,11 +355,6 @@ const config = parseConfig({
         name: "Yaak",
         caption: "API Testing Tool",
         src: "/portfolio/images/yaak.png",
-      },
-      {
-        name: "APIDog",
-        caption: "API Design Tool",
-        src: "/portfolio/images/apidog.png",
       },
       {
         name: "Grok Build",
