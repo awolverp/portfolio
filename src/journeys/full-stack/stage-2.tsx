@@ -74,7 +74,7 @@ export function DesignDatabaseStage() {
             table={table}
             gridColumn={2 * index + 2}
             from="bottom"
-            delay={0.08 * index}
+            delay={0.3 * (index+1)}
             className={index === 0 ? undefined : "hidden lg:block"}
           />
         ))}
@@ -119,7 +119,7 @@ function SchemaCard({
       initial={{ opacity: 0, y: offset }}
       whileInView={{ opacity: 0.7, y: 0 }}
       viewport={viewportOnceMotion}
-      transition={{ delay, duration: 0.55, ease: easeOutExpo }}
+      transition={{ delay, duration: 1, ease: easeOutExpo }}
     >
       <header className="mb-2 flex items-center gap-2 border-b border-border pb-2 text-sm font-medium col-start-1">
         <Table2Icon className="size-4 shrink-0" />

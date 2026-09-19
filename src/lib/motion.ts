@@ -1,7 +1,7 @@
 import type { Variants } from "motion/react";
 
 /** Expo-style ease-out: fast start, long decelerating finish. */
-export const easeOutExpo = [0.22, 1, 0.36, 1] as const;
+export const easeOutExpo = [0.5, 1, 0.36, 1] as const;
 
 /**
  * Viewport trigger for `whileInView`.
@@ -48,7 +48,7 @@ export const lineRevealMotion = {
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.7, ease: easeOutExpo },
+    transition: { duration: 1.1, ease: easeOutExpo },
   },
 };
 
@@ -61,6 +61,6 @@ export const lineRevealDelayedMotion = {
   hidden: lineRevealMotion.hidden,
   visible: {
     ...lineRevealMotion.visible,
-    transition: { duration: 0.7, ease: easeOutExpo, delay: 0.12 },
+    transition: { duration: 1.0, ease: easeOutExpo, delay: 0.12 },
   },
 };

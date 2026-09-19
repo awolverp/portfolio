@@ -67,13 +67,13 @@ const config = parseConfig({
       name: "HeroAI",
       headline: "Unified AI Gateway API",
       tagline:
-        "A production AI gateway over 170+ models behind OpenAI- and Gemini-compatible REST APIs.",
+        "A production AI gateway over 162+ models behind OpenAI- and Gemini-compatible REST APIs.",
       description:
-        "Built the HeroAI backend in FastAPI and SQLAlchemy: a production AI gateway over 170+ models (OpenAI, Gemini, Claude, DeepSeek, xAI).",
+        "Built the HeroAI backend in FastAPI and SQLAlchemy: a production AI gateway over 162+ models (OpenAI, Gemini, Claude, DeepSeek, xAI).",
       highlights: [
         "Shipped OpenAI- and Gemini-compatible REST APIs so existing SDKs and apps integrate with little or no code changes.",
         "Implemented API key management, reseller APIs, org/team admin, enterprise data policies, and credit-based billing.",
-        "Supported 20K+ users and 1M+ monthly API requests; used by WordPress plugins and third-party integrations.",
+        "Supported 14K+ users and 48M+ monthly API requests; used by WordPress plugins and third-party integrations.",
       ],
       type: "contract",
       role: "Backend Developer",
@@ -81,7 +81,7 @@ const config = parseConfig({
       endDate: null,
       metrics: [
         { value: "162+", label: "AI Models" },
-        { value: "12K+", label: "Users" },
+        { value: "14K+", label: "Users" },
         { value: "48M+", label: "Monthly Requests" },
       ],
       stack: [
