@@ -108,7 +108,7 @@ export function Hero() {
         className={heroPaneStyle}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45, duration: 0.6, ease: easeOutExpo }}
+        transition={{ delay: 0.45, duration: 0.9, ease: easeOutExpo }}
       >
         <JourneyPath />
 

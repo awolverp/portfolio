@@ -49,9 +49,9 @@ export function BuildBackendFrontendStage() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnceMotion}
-          transition={{ duration: 0.45, ease: easeOutExpo }}
+          transition={{ duration: 0.75, ease: easeOutExpo }}
         >
-          <Chip font="mono">
+          <Chip font="mono" className="border-yellow-400/20">
             <ZapIcon className="size-4 text-yellow-400 animate-pulse" />
             Building in parallel
           </Chip>
@@ -148,13 +148,13 @@ function FlowArrow({ line, head, delay }: { line: string; head: string; delay: n
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={viewportOnceMotion}
-        transition={{ delay, duration: 0.35, ease: easeOutExpo }}
+        transition={{ delay, duration: 0.65, ease: easeOutExpo }}
       />
       <m.span
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={viewportOnceMotion}
-        transition={{ delay: delay + 0.2, duration: 0.25 }}
+        transition={{ delay: delay + 0.2, duration: 0.55 }}
       >
         <ChevronRightIcon className={cn("size-5 shrink-0", head)} strokeWidth={2} />
       </m.span>

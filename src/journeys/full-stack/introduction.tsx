@@ -22,7 +22,7 @@ export function IntroduceStage() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnceMotion}
-          transition={{ delay: 0.2, duration: 0.55, ease: easeOutExpo }}
+          transition={{ delay: 0.2, duration: 1.1, ease: easeOutExpo }}
         >
           <StackMarquee />
           <ScrollHint>Scroll down to explore</ScrollHint>

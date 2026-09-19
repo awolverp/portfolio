@@ -49,7 +49,7 @@ export function EnforceInvariantsStage() {
   return (
     <Stage.Root>
       <Stage.Layer position="top" className="flex items-end justify-center">
-        <Chip font="mono">
+        <Chip font="mono" className="border-orange-400/20">
           <RocketIcon className="size-5 text-orange-400" />
           Optimizing System
         </Chip>
@@ -91,7 +91,7 @@ function TaskList() {
       });
 
     const loop = async () => {
-      await wait(1200);
+      await wait(800);
       while (!cancelled) {
         const top = stateRef.current.pending[0];
         if (!top) return;
@@ -103,7 +103,7 @@ function TaskList() {
         const last = stateRef.current.pending.length <= 1;
         setState(completeTop);
         if (last) return;
-        await wait(2500);
+        await wait(1500);
       }
     };
 
@@ -119,10 +119,10 @@ function TaskList() {
     <m.div
       ref={ref}
       className={listStyle}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 100 }}
+      whileInView={{ y: 0 }}
       viewport={viewportOnceMotion}
-      transition={{ duration: 0.5, ease: easeOutExpo }}
+      transition={{ duration: 0.8, ease: easeOutExpo }}
     >
       <LayoutGroup>
         {state.pending.map((item) => (
@@ -160,7 +160,7 @@ function TaskRow({ item, done, checked }: { item: TaskItem; done: boolean; check
       layout={true}
       layoutId={item.key}
       className={cn(rowStyle, done && "opacity-40")}
-      transition={{ layout: { duration: 0.55, ease: easeOutExpo } }}
+      transition={{ layout: { duration: 0.85, ease: easeOutExpo } }}
     >
       <Checkbox checked={checked} />
       <span className={done ? "text-muted-foreground" : undefined}>{catalog[item.id]}</span>
@@ -174,7 +174,7 @@ function Checkbox({ checked }: { checked: boolean }) {
       <m.span
         initial={false}
         animate={{ scale: checked ? 1 : 0, opacity: checked ? 1 : 0 }}
-        transition={{ duration: 0.2, ease: easeOutExpo }}
+        transition={{ duration: 0.5, ease: easeOutExpo }}
         className="flex"
       >
         <CheckIcon className="size-3.5 text-accent-500" strokeWidth={3} />

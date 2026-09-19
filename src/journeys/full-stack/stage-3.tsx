@@ -32,9 +32,9 @@ export function DesignApiContractStage() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnceMotion}
-          transition={{ duration: 0.45, ease: easeOutExpo }}
+          transition={{ duration: 0.9, ease: easeOutExpo }}
         >
-          <Chip font="mono">
+          <Chip font="mono" className="border-emerald-500/20">
             <span className="size-2 rounded-full bg-emerald-500 animate-ping" />
             /api/v1
           </Chip>
@@ -73,10 +73,10 @@ function EndpointList() {
   return (
     <m.div
       className={panelStyle}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ y: 100 }}
+      whileInView={{ y: 0 }}
       viewport={viewportOnceMotion}
-      transition={{ duration: 0.5, ease: easeOutExpo }}
+      transition={{ duration: 0.8, ease: easeOutExpo }}
     >
       {endpoints.map((endpoint) => (
         <EndpointRow key={`${endpoint.method}-${endpoint.path}`} endpoint={endpoint} />

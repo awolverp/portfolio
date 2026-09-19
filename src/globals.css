@@ -138,7 +138,7 @@
 	--color-accent-900: var(--accent-900);
 	--color-accent-950: var(--accent-950);
 
-	--default-transition-duration: 500ms;
+	--default-transition-duration: 300ms;
 
 	--animate-hero-float-a: hero-float-a 22s ease-in-out infinite;
 	--animate-hero-float-b: hero-float-b 28s ease-in-out infinite;

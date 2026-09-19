@@ -98,14 +98,14 @@ function TopicChip({
       initial={{ left: "50%", top: "50%", scale: 0.6, opacity: 0 }}
       animate={
         inView
-          ? { left: pos.left, top: pos.top, scale: 1, opacity: 0.8 }
+          ? { left: pos.left, top: pos.top, scale: 1, opacity: 0.6 }
           : { left: "50%", top: "50%", scale: 0.6, opacity: 0 }
       }
       transition={{
         type: "spring",
         stiffness: 80,
         damping: 16,
-        delay: 0.08 * index,
+        delay: 0.1 * index,
       }}
     >
       <m.span
