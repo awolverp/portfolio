@@ -5,13 +5,13 @@ const config = parseConfig({
     url: "https://awolverp.github.io/portfolio",
     displayName: "A.Wolver.P",
     keywords:
-      "Ali Pooralijan, A.Wolver.P, backend engineer, systems engineer, Rust developer, Python developer, full-stack developer, PyO3, FastAPI, high-performance APIs, cachebox, HeroAI",
+      "Ali Pooralijan, A.Wolver.P, Rust engineer, PyO3, cachebox, markupever, performance libraries, backend engineer, Python, systems engineer",
     twitter: "@awolverp",
   },
   profile: {
     name: "Ali Pooralijan",
     email: "awolverp@gmail.com",
-    jobTitle: "Backend & Systems Engineer / Full-Stack Developer",
+    jobTitle: "Rust & Backend Systems Engineer",
   },
   hero: {
     headline: "Backend Systems Engineer",
@@ -46,22 +46,97 @@ const config = parseConfig({
   ],
   pages: {
     home: {
-      title: "Ali Pooralijan | Backend & Systems Engineer",
+      title: "Ali Pooralijan | Rust & Backend Systems Engineer",
       description:
-        "Portfolio of Ali Pooralijan (A.Wolver.P), a backend and systems engineer working in Python and Rust, focused on high-performance APIs, caching systems, and production infrastructure.",
+        "Portfolio of Ali Pooralijan (A.Wolver.P), a Rust engineer building performance-sensitive libraries with PyO3, including cachebox and markupever, plus production backends.",
     },
     projects: {
       title: "Projects | A.Wolver.P",
       description:
-        "Selected software projects by Ali Pooralijan (A.Wolver.P): HeroAI, cachebox, high-performance backends, and production APIs.",
+        "Selected work by Ali Pooralijan (A.Wolver.P): cachebox, markupever, and production backends such as HeroAI.",
     },
     resume: {
       title: "Resume | A.Wolver.P",
       description:
-        "Resume of Ali Pooralijan (A.Wolver.P), backend and systems engineer specializing in Python and Rust, with production experience in high-performance APIs and infrastructure.",
+        "Resume of Ali Pooralijan (A.Wolver.P), a Rust and backend systems engineer. Maintainer of cachebox and markupever, with production API experience.",
     },
   },
   projects: [
+    {
+      id: "cachebox",
+      name: "cachebox",
+      headline: "High-performance Python cache",
+      tagline:
+        "A thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
+      description:
+        "Designed and maintain cachebox, a thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
+      highlights: [
+        "Reached 428 GitHub stars and 13M+ PyPI downloads per month; ship CPython and PyPy wheels through Maturin and GitHub Actions.",
+        "Implemented FIFO, LRU, TTL, and other eviction policies with a low memory footprint. Public results in cachebox-benchmark show 10-50x vs common Python caches.",
+      ],
+      type: "open-source",
+      role: "Open Source Developer",
+      startDate: "2024-01",
+      endDate: null,
+      metrics: [
+        { value: "428", label: "GitHub Stars" },
+        { value: "13M+", label: "Downloads / Mo" },
+      ],
+      stack: [
+        {
+          name: "Python",
+          iconSrc: "https://cdn.simpleicons.org/python/3776AB",
+        },
+        { name: "Rust", iconSrc: "https://cdn.simpleicons.org/rust/fff" },
+        { name: "PyO3" },
+        { name: "Maturin" },
+        {
+          name: "GitHub Actions",
+          iconSrc: "https://cdn.simpleicons.org/githubactions/2088FF",
+        },
+      ],
+      image: {
+        src: "/portfolio/images/cachebox-showcase.png",
+        alt: "cachebox Example",
+      },
+      link: {
+        label: "GitHub",
+        href: "https://github.com/awolverp/cachebox",
+      },
+    },
+    {
+      id: "markupever",
+      name: "markupever",
+      headline: "HTML and XML parser",
+      tagline: "An HTML and XML parsing library for Python, written in Rust on html5ever.",
+      description:
+        "Designed and maintain markupever, an HTML and XML parser for Python. The Rust core uses html5ever, and the Python API is exposed through PyO3.",
+      highlights: [
+        "37 GitHub stars and 360K+ downloads on PyPI.",
+        "Parsing and selectors for HTML and XML, packaged for Python through PyO3.",
+      ],
+      type: "open-source",
+      role: "Open Source Developer",
+      startDate: "2024-12",
+      endDate: null,
+      metrics: [
+        { value: "37", label: "GitHub Stars" },
+        { value: "360K+", label: "Downloads" },
+      ],
+      stack: [
+        { name: "Rust", iconSrc: "https://cdn.simpleicons.org/rust/fff" },
+        { name: "PyO3" },
+        { name: "html5ever" },
+      ],
+      image: {
+        src: "/portfolio/images/markupever-showcase.png",
+        alt: "markupever Example",
+      },
+      link: {
+        label: "GitHub",
+        href: "https://github.com/awolverp/markupever",
+      },
+    },
     {
       id: "heroai",
       name: "HeroAI",
@@ -117,86 +192,19 @@ const config = parseConfig({
         href: "https://api.heroai.ir/docs",
       },
     },
-    {
-      id: "cachebox",
-      name: "cachebox",
-      headline: "High-performance Python cache (Rust / PyO3)",
-      tagline:
-        "A thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
-      description:
-        "Designed and maintain cachebox, a thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
-      highlights: [
-        "Reached 400+ GitHub stars and 13M+ PyPI downloads per month; ship CPython and PyPy wheels through Maturin and GitHub Actions.",
-        "Implemented FIFO, LRU, TTL, and other eviction policies with a low memory footprint; public benchmarks show 10-50x vs common Python caches.",
-      ],
-      type: "open-source",
-      role: "Open Source Developer",
-      startDate: "2024-01",
-      endDate: null,
-      metrics: [
-        { value: "400+", label: "GitHub Stars" },
-        { value: "13M+", label: "Downloads / Mo" },
-      ],
-      stack: [
-        {
-          name: "Python",
-          iconSrc: "https://cdn.simpleicons.org/python/3776AB",
-        },
-        { name: "Rust", iconSrc: "https://cdn.simpleicons.org/rust/fff" },
-        {
-          name: "GitHub Actions",
-          iconSrc: "https://cdn.simpleicons.org/githubactions/2088FF",
-        },
-      ],
-      image: {
-        src: "/portfolio/images/cachebox-showcase.png",
-        alt: "cachebox Example",
-      },
-      link: {
-        label: "GitHub",
-        href: "https://github.com/awolverp/cachebox",
-      },
-    },
-    {
-      id: "portfolio",
-      name: "Portfolio",
-      headline: "My Personal Portfolio Website",
-      tagline: "You're here, looking at it.",
-      description:
-        "A simple and customizable personal portfolio website, using Tanstack Start SSG.",
-      highlights: [],
-      type: "personal",
-      role: "Frontend Developer",
-      startDate: "2026-08",
-      endDate: "2026-09",
-      metrics: [],
-      stack: [
-        {
-          name: "TypeScript",
-          iconSrc: "https://cdn.simpleicons.org/typescript/3178C6",
-        },
-        {
-          name: "Tanstack Start",
-          iconSrc: "https://cdn.simpleicons.org/tanstack/EAB308",
-        },
-        {
-          name: "GitHub Actions",
-          iconSrc: "https://cdn.simpleicons.org/githubactions/2088FF",
-        },
-      ],
-      image: {
-        src: "/portfolio/images/portfolio-showcase.png",
-        alt: "Screenshot",
-      },
-      link: {
-        label: "GitHub",
-        href: "https://github.com/awolverp/portfolio",
-      },
-    },
   ],
   resume: {
     pdfUrl: "/portfolio/resume.pdf",
     experience: [
+      {
+        startDate: "2023-08",
+        endDate: null,
+        role: "Open Source Developer",
+        type: "Self-employed",
+        company: null,
+        description:
+          "Author and maintain Rust libraries on PyPI through PyO3 and Maturin. cachebox is a thread-safe in-memory cache (428 GitHub stars, 13M+ monthly downloads). markupever is an HTML and XML parser on html5ever (37 stars, 360K+ downloads). rapidquery is a SQL query builder on SeaQuery.",
+      },
       {
         startDate: "2023-08",
         endDate: null,
@@ -209,20 +217,11 @@ const config = parseConfig({
       {
         startDate: "2025-08",
         endDate: null,
-        role: "Full-Stack Engineer",
+        role: "Backend Engineer",
         type: "Freelance",
         company: null,
         description:
-          "Deliver independent freelance products: FastAPI and Actix Web backends plus working web UIs. Ship interfaces with TanStack Start or Next.js when the product needs more than an API. Take selected builds from idea to a usable web app: API, data model, and frontend.",
-      },
-      {
-        startDate: "2023-08",
-        endDate: null,
-        role: "Open Source Developer",
-        type: "Self-employed",
-        company: null,
-        description:
-          "Author and maintain Rust-backed Python libraries on PyPI using PyO3 and Maturin. Also maintain markupever (HTML/XML parser, 35+ stars, 360K+ downloads) and rapidquery (SQL query builder on SeaQuery).",
+          "Deliver independent freelance products: FastAPI and Actix Web backends. Ship a TanStack Start or Next.js interface when the product needs more than an API.",
       },
     ],
     skills: [
@@ -230,14 +229,14 @@ const config = parseConfig({
         category: "Languages",
         items: [
           {
-            name: "Python",
-            iconSrc: "https://cdn.simpleicons.org/python/3776AB",
-            journeys: ["full-stack"],
-          },
-          {
             name: "Rust",
             iconSrc: "https://cdn.simpleicons.org/rust/fff",
             journeys: ["rust"],
+          },
+          {
+            name: "Python",
+            iconSrc: "https://cdn.simpleicons.org/python/3776AB",
+            journeys: ["full-stack"],
           },
           {
             name: "TypeScript",
@@ -252,16 +251,16 @@ const config = parseConfig({
         category: "Frameworks",
         items: [
           {
-            name: "FastAPI",
-            iconSrc: "https://cdn.simpleicons.org/fastapi/009688",
-            journeys: ["full-stack"],
-          },
-          {
             name: "Actix Web",
             iconSrc: "https://cdn.simpleicons.org/actix/fff",
             journeys: ["rust"],
           },
           { name: "Axum" },
+          {
+            name: "FastAPI",
+            iconSrc: "https://cdn.simpleicons.org/fastapi/009688",
+            journeys: ["full-stack"],
+          },
           {
             name: "Tanstack Start",
             iconSrc: "https://cdn.simpleicons.org/tanstack/EAB308",
@@ -297,6 +296,7 @@ const config = parseConfig({
             iconSrc: "https://cdn.simpleicons.org/githubactions/2088FF",
             journeys: ["full-stack"],
           },
+          { name: "Maturin", journeys: ["rust"] },
           { name: "Orval" },
           { name: "S3" },
         ],
@@ -329,7 +329,7 @@ const config = parseConfig({
             iconSrc: "https://cdn.simpleicons.org/tokio/fff",
             journeys: ["rust"],
           },
-          { name: "html5ever" },
+          { name: "html5ever", journeys: ["rust"] },
           { name: "SQLAlchemy" },
         ],
       },

@@ -74,7 +74,7 @@ export function DesignDatabaseStage() {
             table={table}
             gridColumn={2 * index + 2}
             from="bottom"
-            delay={0.3 * (index+1)}
+            delay={0.3 * (index + 1)}
             className={index === 0 ? undefined : "hidden lg:block"}
           />
         ))}

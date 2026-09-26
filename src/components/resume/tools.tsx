@@ -9,8 +9,8 @@ export function ResumeTools() {
   return (
     <ResumeSection title="Tools">
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
-        {tools.map((tool, index) => (
-          <li key={tool.name} className={cn(index < 3 ? "lg:col-span-4" : "lg:col-span-3")}>
+        {tools.map((tool) => (
+          <li key={tool.name} className="lg:col-span-3">
             <ToolCard {...tool} />
           </li>
         ))}
@@ -42,13 +42,13 @@ function StackedLogo({ src, alt }: { src: string; alt: string }) {
         aria-hidden
         className={cn(
           stackedLogoStyle,
-          "top-1/2 -left-1 size-16 -rotate-12 opacity-40 group-hover/tool-card:-left-3 group-hover/tool-card:-rotate-18",
+          "top-1/2 -left-1 size-16 -rotate-12 opacity-40 group-hover/tool-card:-left-3 group-hover/tool-card:-rotate-18 group-hover/tool-card:shadow-lg shadow-accent-800/40",
         )}
       >
         <img src={src} alt="" className="size-full rounded-lg object-cover" />
       </div>
 
-      <div className={cn(stackedLogoStyle, "top-1/2 left-1/2 z-10 size-18 -translate-x-1/2")}>
+      <div className={cn(stackedLogoStyle, "top-1/2 left-1/2 z-10 size-18 -translate-x-1/2 group-hover/tool-card:shadow-lg shadow-accent-800/40")}>
         <img src={src} alt={alt} className="size-full rounded-lg object-cover" />
       </div>
 
@@ -56,7 +56,7 @@ function StackedLogo({ src, alt }: { src: string; alt: string }) {
         aria-hidden
         className={cn(
           stackedLogoStyle,
-          "top-1/2 -right-1 size-16 rotate-12 opacity-40 group-hover/tool-card:-right-3 group-hover/tool-card:rotate-18",
+          "top-1/2 -right-1 size-16 rotate-12 opacity-40 group-hover/tool-card:-right-3 group-hover/tool-card:rotate-18 group-hover/tool-card:shadow-lg shadow-accent-800/40",
         )}
       >
         <img src={src} alt="" className="size-full rounded-lg object-cover" />

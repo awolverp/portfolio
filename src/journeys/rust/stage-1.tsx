@@ -44,28 +44,6 @@ export function SpikeTheCoreStage() {
   );
 }
 
-export function InspectRequirementsStage() {
-  return (
-    <Stage.Root>
-      {topics.map((topic, index) => (
-        <TopicChip
-          key={topic.name}
-          index={index}
-          count={topics.length}
-          name={topic.name}
-          Icon={topic.Icon}
-        />
-      ))}
-
-      <Stage.Content
-        label={1}
-        title="Inspect Requirements"
-        description="Analyze project goals, user stories, and constraints. Clarify details with stakeholders and turn business needs into clear technical requirements that keep scope focused."
-      />
-    </Stage.Root>
-  );
-}
-
 function chipPosition(index: number, count: number) {
   const start = (150 * Math.PI) / 180;
   const angle = start + (index * 2 * Math.PI) / count;

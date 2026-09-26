@@ -4,6 +4,7 @@ import { Footer } from "#/components/layout/footer";
 import { Navbar } from "#/components/layout/navbar";
 import { NotFound } from "#/components/not-found";
 import { ThemeProvider } from "#/hooks/theme";
+import { absoluteUrl } from "#/lib/config";
 import { seo } from "#/lib/seo";
 import config from "../../project.config";
 import globalsStyles from "../globals.css?url";
@@ -72,7 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      data-theme="full-stack"
+      data-theme="rust"
       data-scroll-behavior="smooth"
       className="scroll-smooth h-full bg-background text-foreground antialiased"
     >
