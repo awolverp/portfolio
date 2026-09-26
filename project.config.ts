@@ -5,18 +5,18 @@ const config = parseConfig({
     url: "https://awolverp.github.io/portfolio",
     displayName: "A.Wolver.P",
     keywords:
-      "Ali Pooralijan, A.Wolver.P, software engineer, full-stack, Rust, Python, FastAPI, PyO3, cachebox, HeroAI",
+      "Ali Pooralijan, A.Wolver.P, backend engineer, systems engineer, Rust developer, Python developer, full-stack developer, PyO3, FastAPI, high-performance APIs, cachebox, HeroAI",
     twitter: "@awolverp",
   },
   profile: {
     name: "Ali Pooralijan",
     email: "awolverp@gmail.com",
-    jobTitle: "Full-Stack Web & Rust Developer",
+    jobTitle: "Backend & Systems Engineer / Full-Stack Developer",
   },
   hero: {
-    headline: "Your Next Developer",
+    headline: "Backend Systems Engineer",
     tagline:
-      "I build high-performance backends and full-stack systems that scale. From PyO3 to production AI APIs.",
+      "I build products end-to-end, with the center of gravity on backend systems in Python and Rust: PyO3-powered libraries and production AI infrastructure serving millions of requests a month.",
   },
   socials: [
     {
@@ -46,9 +46,9 @@ const config = parseConfig({
   ],
   pages: {
     home: {
-      title: "Ali Pooralijan | A.Wolver.P",
+      title: "Ali Pooralijan | Backend & Systems Engineer",
       description:
-        "Portfolio of Ali Pooralijan (A.Wolver.P), a full-stack developer & rust developer focused on performance, scalable systems, and modern web applications.",
+        "Portfolio of Ali Pooralijan (A.Wolver.P), a backend and systems engineer working in Python and Rust, focused on high-performance APIs, caching systems, and production infrastructure.",
     },
     projects: {
       title: "Projects | A.Wolver.P",
@@ -58,7 +58,7 @@ const config = parseConfig({
     resume: {
       title: "Resume | A.Wolver.P",
       description:
-        "Resume of Ali Pooralijan (A.Wolver.P), software engineer focused on performance, scalable systems, and modern web applications.",
+        "Resume of Ali Pooralijan (A.Wolver.P), backend and systems engineer specializing in Python and Rust, with production experience in high-performance APIs and infrastructure.",
     },
   },
   projects: [

@@ -4,7 +4,7 @@ import { createContext, useContext, useLayoutEffect, useMemo, useState } from "r
 export type Theme = "full-stack" | "rust";
 
 const STORAGE_KEY = "theme";
-const DEFAULT_THEME: Theme = "full-stack";
+const DEFAULT_THEME: Theme = "rust";
 
 interface ThemeContextValue {
   theme: Theme;

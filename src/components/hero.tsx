@@ -140,19 +140,19 @@ function JourneyPath() {
 
       <div className="flex justify-center gap-4">
         <JourneyCard
-          active={theme === "full-stack"}
-          onClick={() => setTheme("full-stack")}
-          className="bg-radial from-primary-800 to-background data-active:opacity-100 data-active:border-primary-800"
-        >
-          Web / Full-Stack
-        </JourneyCard>
-
-        <JourneyCard
           active={theme === "rust"}
           onClick={() => setTheme("rust")}
           className="bg-radial from-secondary-800 to-background data-active:opacity-100 data-active:border-secondary-800"
         >
           Systems / Rust
+        </JourneyCard>
+
+        <JourneyCard
+          active={theme === "full-stack"}
+          onClick={() => setTheme("full-stack")}
+          className="bg-radial from-primary-800 to-background data-active:opacity-100 data-active:border-primary-800"
+        >
+          Web / Full-Stack
         </JourneyCard>
       </div>
     </>
