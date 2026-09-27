@@ -20,11 +20,11 @@ export function BenchmarkAndShipStage() {
         <ClientOnly>
           <MountainChart
             colors={{
-              stroke: "--color-red-400",
-              fillTop: "--color-red-600",
-              fillMid: "--color-red-800",
-              light: "--color-red-200",
-              glow: "--color-red-300",
+              stroke: "--color-orange-400",
+              fillTop: "--color-orange-600",
+              fillMid: "--color-orange-800",
+              light: "--color-orange-200",
+              glow: "--color-orange-300",
             }}
           />
         </ClientOnly>

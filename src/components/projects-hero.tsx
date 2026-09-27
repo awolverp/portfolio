@@ -14,8 +14,7 @@ export function ProjectsHero() {
       </h1>
 
       <p className="max-w-xl lg:text-lg starting:opacity-0 starting:translate-y-4 transition-[opacity,translate]">
-        I've worked on tons of little projects over the years but these are the ones that I'm most
-        proud of.
+        Rust libraries I maintain, and the production backend work that sits beside them.
       </p>
     </header>
   );
