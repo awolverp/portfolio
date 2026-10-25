@@ -72,6 +72,7 @@ const config = parseConfig({
         "Designed and maintain cachebox, a thread-safe in-memory cache and memoization library for Python, implemented in Rust with PyO3.",
       highlights: [
         "Reached 428 GitHub stars and 13M+ PyPI downloads per month; ship CPython and PyPy wheels through Maturin and GitHub Actions.",
+        "Adopted in projects from Google and AWS (per Github's \"Used by\"), and a core dependency of DeepDiff.",
         "Implemented FIFO, LRU, TTL, and other eviction policies with a low memory footprint. Public results in cachebox-benchmark show 10-50x vs common Python caches.",
       ],
       type: "open-source",
@@ -144,7 +145,7 @@ const config = parseConfig({
       tagline:
         "A production AI gateway over 162+ models behind OpenAI- and Gemini-compatible REST APIs.",
       description:
-        "Built the HeroAI backend in FastAPI and SQLAlchemy: a production AI gateway over 162+ models (OpenAI, Gemini, Claude, DeepSeek, xAI).",
+        "Built the HeroAI backend for Zhaket in FastAPI and SQLAlchemy: a production AI gateway over 162+ models (OpenAI, Gemini, Claude, DeepSeek, xAI).",
       highlights: [
         "Shipped OpenAI- and Gemini-compatible REST APIs so existing SDKs and apps integrate with little or no code changes.",
         "Implemented API key management, reseller APIs, org/team admin, enterprise data policies, and credit-based billing.",
@@ -210,7 +211,7 @@ const config = parseConfig({
         endDate: null,
         role: "Backend Developer",
         type: "Contract",
-        company: "Private Company (NDA)",
+        company: "Zhaket",
         description:
           "Design and ship production REST APIs in FastAPI used by commercial products. Model and evolve complex relational schemas so they stay maintainable as requirements grow. Build S3 / object-storage pipelines and work across multiple product codebases in the same group.",
       },
