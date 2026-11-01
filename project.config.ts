@@ -11,7 +11,7 @@ const config = parseConfig({
   profile: {
     name: "Ali Pooralijan",
     email: "awolverp@gmail.com",
-    jobTitle: "Rust & Backend Systems Engineer",
+    jobTitle: "Backend Systems Engineer",
   },
   hero: {
     headline: "Backend Systems Engineer",
@@ -80,7 +80,7 @@ const config = parseConfig({
       startDate: "2024-01",
       endDate: null,
       metrics: [
-        { value: "428", label: "GitHub Stars" },
+        { value: "428+", label: "GitHub Stars" },
         { value: "13M+", label: "Downloads / Mo" },
       ],
       stack: [
@@ -121,7 +121,7 @@ const config = parseConfig({
       startDate: "2024-12",
       endDate: null,
       metrics: [
-        { value: "37", label: "GitHub Stars" },
+        { value: "37+", label: "GitHub Stars" },
         { value: "360K+", label: "Downloads" },
       ],
       stack: [
@@ -200,29 +200,20 @@ const config = parseConfig({
       {
         startDate: "2023-08",
         endDate: null,
-        role: "Open Source Developer",
-        type: "Self-employed",
-        company: null,
-        description:
-          "Author and maintain Rust libraries on PyPI through PyO3 and Maturin. cachebox is a thread-safe in-memory cache (428 GitHub stars, 13M+ monthly downloads). markupever is an HTML and XML parser on html5ever (37 stars, 360K+ downloads). rapidquery is a SQL query builder on SeaQuery.",
-      },
-      {
-        startDate: "2023-08",
-        endDate: null,
-        role: "Backend Developer",
-        type: "Contract",
-        company: "Zhaket",
-        description:
-          "Design and ship production REST APIs in FastAPI used by commercial products. Model and evolve complex relational schemas so they stay maintainable as requirements grow. Build S3 / object-storage pipelines and work across multiple product codebases in the same group.",
-      },
-      {
-        startDate: "2025-08",
-        endDate: null,
         role: "Backend Engineer",
         type: "Freelance",
         company: null,
         description:
-          "Deliver independent freelance products: FastAPI and Actix Web backends. Ship a TanStack Start or Next.js interface when the product needs more than an API.",
+          "Build production backends in FastAPI and Actix Web. Shipped HeroAI, a unified AI gateway over 162+ models serving 14K+ users and 48M+ monthly requests, as contract work with Zhaket company. Backend is my specialty, with the frontend skills to ship full products in TanStack Start or Next.js.",
+      },
+      {
+        startDate: "2023-08",
+        endDate: null,
+        role: "Open Source Developer",
+        type: "Self-employed",
+        company: null,
+        description:
+          "Author and maintain Rust libraries on PyPI through PyO3. I am creator of cachebox (428 stars, 13M+ monthly downloads), markupever (37 stars, 360K+ downloads), and rapidquery.",
       },
     ],
     skills: [
